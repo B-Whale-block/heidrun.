@@ -1,0 +1,202 @@
+/* General Reset */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #0e0e10;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: #1a1a1d;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-image {
+    height: 60px;
+}
+
+.navbar {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 600;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar a:hover {
+    color: #ffd700;
+}
+
+.cta-button {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+}
+
+.cta-button, .btn, .btn-secondary {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.cta-button:hover, .btn:hover, .btn-secondary:hover {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Hamburger Menu (Mobile) */
+.hamburger-menu {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    background: url('images/valhalla4.jpg') no-repeat center/cover;
+    background-attachment: fixed; /* Makes the background fixed */
+    padding: 0 5%;
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Subtle overlay */
+    z-index: 1;
+}
+
+.hero-content, .hero-image {
+    position: relative; /* Ensure content appears above the overlay */
+    z-index: 2;
+}
+
+.hero-content {
+    max-width: 50%;
+    z-index: 2;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero-content .highlight {
+    color: #ffd700;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #d1d1d1;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.btn {
+    text-decoration: none;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out, transform 0.2s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: #ff8c00; /* Vibrant orange for secondary actions */
+    color: #000;
+}
+
+.btn-secondary:hover {
+    background-color: #ff7000;
+}
+
+.hero-image {
+    max-width: 40%;
+    z-index: 2;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-content {
+        max-width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .hero-image {
+        max-width: 80%;
+    }
+
+    .navbar {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        background-color: #1a1a1d;
+        position: absolute;
+        top: 100%;
+        right: 5%;
+        left: 5%;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .navbar.active {
+        display: flex;
+    }
+
+    .hamburger-menu {
+        display: block;
+    }
+}
