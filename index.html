@@ -7,36 +7,57 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="particles-config.js"></script>
 </head>
 <body>
-    <!-- Header -->
+
     <header class="header">
         <div class="logo">
-            <img src="images/valhalla-goat.png" alt="Heidrun Logo" class="logo-image">
+            <video autoplay loop muted playsinline class="logo-video">
+                <source src="images/logo.webm" type="video/webm">
+                Your browser does not support the video tag.
+            </video>
         </div>
         <nav class="navbar">
+            <a href="#game">Game</a>
+            <a href="#staking">Staking</a>
+            <a href="#chart">Chart</a>
             <a href="#about">About</a>
-            <a href="#features">Features</a>
             <a href="#roadmap">Roadmap</a>
-            <a href="#community">Community</a>
             <button class="cta-button">Buy $HEIDRUN</button>
         </nav>
         <button class="hamburger-menu" id="menuToggle">☰</button>
-    </header>
+    </header>    
 
-    <!-- Hero Section -->
     <section class="hero">
+        <div id="particles-js"></div>
         <div class="hero-content">
             <h1>Welcome to <span class="highlight">$HEIDRUN</span></h1>
             <p>Your Gateway to Valhalla on the Blockchain</p>
             <div class="hero-buttons">
-                <a href="#features" class="btn">Explore Staking</a>
-                <a href="#community" class="btn btn-secondary">Join the Community</a>
+                <div class="btn-group">
+                    <a href="#game" class="btn btn-game">Play the Game</a>
+                    <div class="btn-tagline">Alpha Game Coming Soon</div>
+                </div>
+                <a href="https://t.me/heidrunportal" class="btn btn-secondary" target="_blank">
+                    <img src="images/telegram.png" alt="Telegram Icon" class="btn-icon"> Join the Community
+                </a>
             </div>
+                                     
         </div>
         <div class="hero-image">
             <img src="images/valhalla-goat.png" alt="Heidrun Viking Goat" class="mascot">
         </div>
     </section>
+
+    <footer>
+        <p>&copy; 2024 Heidrun. All Rights Reserved.</p>
+        <p>
+            <a href="https://www.flaticon.com/free-icons/telegram" title="telegram icons" target="_blank" style="color: #007bff; text-decoration: none;">
+                Telegram icons created by Freepik - Flaticon
+            </a>
+        </p>
+    </footer>
 </body>
 </html>
