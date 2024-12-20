@@ -20,6 +20,11 @@ html::before {
     z-index: -1; 
 }
 
+html, body {
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-y: visible; /* Allow vertical scrolling */
+}
+
 .header {
     display: flex;
     justify-content: space-between;
