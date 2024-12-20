@@ -249,6 +249,18 @@ footer a:hover {
     .hamburger-menu {
         display: block;
     }
+
+    .chart-container {
+        width: 100%; 
+    }
+
+    #chart h1 {
+        font-size: 2rem;
+    }
+
+    #chart-summary {
+        font-size: 1rem;
+    }
 }
 
 .logo-video {
@@ -272,7 +284,6 @@ footer a:hover {
     align-items: center;
     justify-content: center;
     position: relative;
-    backdrop-filter: blur(5px); /* Blurs the background slightly */
 }
 
 
@@ -311,4 +322,86 @@ footer a:hover {
     margin-top: 20px;
     display: inline-block;
     text-align: center;
+}
+
+#chart {
+    background: linear-gradient(135deg, rgba(26, 26, 29, 0.8), rgba(46, 46, 51, 0.8));
+    background-size: 400% 400%; 
+    animation: gradientMove 15s ease infinite; 
+    text-align: center;
+    padding: 50px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    position: relative;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+#chart h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+.chart-container {
+    width: 80%;
+    max-width: 600px;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px; 
+}
+
+#chartCanvas {
+    width: 100%;
+    height: 100%;
+}
+
+#chart-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+#fallback-message {
+    font-size: 1rem;
+    font-style: italic;
+    color: #ffd700;
+    margin: 10px 0;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    display: none; 
+}
+
+#fallback-button {
+    margin-top: 10px;
+    text-decoration: none;
+    font-size: 1rem;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    display: none; 
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#fallback-button:hover {
+    background: linear-gradient(135deg, #0056b3, #003f7f);
+    transform: scale(1.05);
 }

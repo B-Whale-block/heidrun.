@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Link External JavaScript -->
+    <script src="chart.js"></script>
 </head>
 <body>
     <header class="header">
@@ -76,8 +78,36 @@
             </p>
         </div>
         <a href="https://stake.smithii.io/heidrun" class="btn btn-game" target="_blank">Stake Now on Smithii.io</a>
-    </section>    
-
+    </section>
+    
+    <section id="chart" class="section">
+        <h1>Live $HEIDRUN Chart</h1>
+        <div class="chart-container">
+            <!-- Chart Canvas -->
+            <canvas id="chartCanvas" width="600" height="400"></canvas>
+    
+            <!-- Fallback Video -->
+            <video id="chart-video" autoplay loop muted playsinline style="display: none;">
+                <source src="videos/heidrun-lambo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    
+        <!-- Fallback Message -->
+        <p id="fallback-message" style="display: none;">
+            "Oops! The chart hasn’t loaded. Heidrun went to check what happened!"
+        </p>
+    
+        <!-- Fallback Button -->
+        <a href="https://dexscreener.com/solana/fuwuqtctdsgtpw4ypxmsvnhw5txno65rohxztak5xkf4" 
+           id="fallback-button" 
+           class="btn btn-secondary" 
+           target="_blank" 
+           style="display: none;">
+            View the Chart on Dexscreener
+        </a>
+    </section>
+    
     <footer>
         <p>&copy; 2024 Heidrun. All Rights Reserved.</p>
     </footer> 
