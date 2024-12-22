@@ -538,7 +538,7 @@ footer a:hover {
         flex-direction: column;
         max-height: 0; 
         overflow: hidden; 
-        transition: max-height 0.3s ease; 
+        transition: max-height 1s ease; 
     }
 
     .navbar.active {
