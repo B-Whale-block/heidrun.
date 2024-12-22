@@ -530,27 +530,42 @@ footer a:hover {
     }
 
     .navbar {
-        display: none; 
+        display: flex;
         flex-direction: column;
-        gap: 10px;
-        background-color: #1a1a1d;
-        position: absolute;
-        top: 100%;
-        right: 5%;
-        left: 5%;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        max-height: 0; /* Collapse by default */
+        overflow: hidden; /* Hide overflowing content */
+        transition: max-height 0.3s ease; /* Smooth slide effect */
     }
 
     .navbar.active {
-        display: flex; 
+        max-height: 500px; /* Expand to show all links */
     }
 
+    /* Navbar links */
+    .navbar a {
+        padding: 10px 15px; /* Add padding for touch-friendly links */
+        color: #ffffff; /* White text for visibility */
+        text-decoration: none; /* Remove underline */
+        text-align: center; /* Center-align the links */
+        font-size: 1.2rem; /* Slightly larger font for mobile */
+        transition: background 0.3s ease;
+    }
+
+    .navbar a:hover {
+        background: rgba(255, 255, 255, 0.2); /* Add hover effect */
+        border-radius: 5px; /* Optional: rounded background */
+    }
+
+    /* Hamburger menu button */
     .hamburger-menu {
-        display: block; 
+        display: block; /* Show hamburger button on small screens */
+        font-size: 24px; /* Larger icon for better visibility */
+        color: #ffffff; /* White color */
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 1100; /* Ensure it's above other elements */
     }
-
     .chart-container {
         width: 100%; 
     }
