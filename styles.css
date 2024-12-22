@@ -471,30 +471,26 @@ footer a:hover {
     transform: scale(1.05);
 }
 
-.pay-options {
-    display: flex; 
-    justify-content: center; 
-    gap: 30px; 
-    margin-top: 20px;
+/* Payment Option - Desktop and Mobile Styling */
+.pay-option {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    margin: 10px; /* Spacing between icons */
 }
 
 .payment-icon {
-    width: 140px; 
-    height: 80px; 
-    cursor: pointer;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    width: 140px;
+    height: 80px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.payment-icon:hover {
-    transform: scale(1.1); 
-    opacity: 0.9; 
+.pay-option:hover .payment-icon {
+    transform: scale(1.1);
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
 }
 
-.pay-option {
-    position: relative;
-}
-
+/* Tooltip styling for hover (desktop) */
 .pay-option:hover::after {
     content: attr(title);
     position: absolute;
@@ -509,13 +505,23 @@ footer a:hover {
     white-space: nowrap;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     z-index: 10;
-    opacity: 0; 
-    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.pay-option:hover::after {
-    opacity: 1;
-    transform: translateX(-50%) translateY(-5px);
+/* Tooltip for mobile */
+.pay-option.clicked::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    z-index: 10;
 }
 
 @media (max-width: 768px) {
@@ -620,6 +626,10 @@ footer a:hover {
 
     .pay-options {
         gap: 20px; 
+    }
+
+    .pay-option:hover::after {
+        display: none; /* Disable hover tooltip for mobile */
     }
 }
 

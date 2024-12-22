@@ -41,33 +41,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Tooltip for pay options
-    if (payOptions && payOptions.length > 0) {
-        payOptions.forEach(option => {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+    payOptions.forEach(option => {
+        if (isMobile) {
+            let clickedOnce = false;
+
             option.addEventListener('click', (e) => {
-                
-                const tooltip = option.querySelector('.tooltip');
-                if (tooltip) {
-                    // If visible, allow the link to proceed
-                    return;
+                if (!clickedOnce) {
+                    e.preventDefault(); // Prevent navigation
+                    option.classList.add('clicked'); // Show tooltip
+                    clickedOnce = true;
+
+                    // Remove tooltip after 2 seconds if not clicked again
+                    setTimeout(() => {
+                        option.classList.remove('clicked');
+                        clickedOnce = false;
+                    }, 2000);
+                } else {
+                    // Navigate to the link on the second click
+                    window.location.href = option.getAttribute('href');
                 }
-    
-                // Prevent immediate link action
-                e.preventDefault();
-    
-                // Create tooltip dynamically
-                const tooltipText = option.getAttribute('title');
-                const tooltipElement = document.createElement('div'); // Fixed variable naming
-                tooltipElement.className = 'tooltip';
-                tooltipElement.textContent = tooltipText;
-                option.appendChild(tooltipElement);
-    
-                // Remove tooltip after 2 seconds
-                setTimeout(() => {
-                    tooltipElement.remove();
-                }, 2000);
             });
-        });
-    }
+        } else {
+            // Desktop: Tooltip appears on hover (handled via CSS)
+            option.addEventListener('mouseenter', () => {
+                option.classList.add('hovered');
+            });
+            option.addEventListener('mouseleave', () => {
+                option.classList.remove('hovered');
+            });
+        }
+    });
 
     // Open the modal
     if (buyButton && modal) {
