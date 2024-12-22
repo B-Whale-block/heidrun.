@@ -13,13 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Navbar toggle
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active'); // Toggle the menu visibility
+            navMenu.classList.toggle('active'); 
 
             // Change the icon between ☰ and X
             if (navMenu.classList.contains('active')) {
-                menuToggle.textContent = 'X'; // Set to X when menu is open
+                menuToggle.textContent = 'X'; 
             } else {
-                menuToggle.textContent = '☰'; // Set back to ☰ when menu is closed
+                menuToggle.textContent = '☰'; 
             }
         });
 
@@ -27,15 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('click', (e) => {
             if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
                 navMenu.classList.remove('active');
-                menuToggle.textContent = '☰'; // Reset to ☰ when menu is closed
+                menuToggle.textContent = '☰'; 
             }
         });
 
         // Close the menu when a link is clicked (for mobile)
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
-                navMenu.classList.remove('active'); // Close the menu
-                menuToggle.textContent = '☰'; // Reset to ☰
+                navMenu.classList.remove('active'); 
+                menuToggle.textContent = '☰'; 
             });
         });
     }
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (payOptions && payOptions.length > 0) {
         payOptions.forEach(option => {
             option.addEventListener('click', (e) => {
-                // Check if tooltip is already visible
+                
                 const tooltip = option.querySelector('.tooltip');
                 if (tooltip) {
                     // If visible, allow the link to proceed
@@ -72,14 +72,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Open the modal
     if (buyButton && modal) {
         buyButton.addEventListener('click', () => {
-            modal.style.display = 'flex'; // Show the modal
+            modal.style.display = 'flex'; 
         });
     }
 
     // Close the modal
     if (closeModal && modal) {
         closeModal.addEventListener('click', () => {
-            modal.style.display = 'none'; // Hide the modal
+            modal.style.display = 'none'; 
         });
     }
 
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modal) {
         window.addEventListener('click', (e) => {
             if (e.target === modal) {
-                modal.style.display = 'none'; // Hide the modal
+                modal.style.display = 'none'; 
             }
         });
     }

@@ -536,47 +536,45 @@ footer a:hover {
     .navbar {
         display: flex;
         flex-direction: column;
-        max-height: 0; /* Collapse by default */
-        overflow: hidden; /* Hide overflowing content */
-        transition: max-height 0.3s ease; /* Smooth slide effect */
+        max-height: 0; 
+        overflow: hidden; 
+        transition: max-height 0.3s ease; 
     }
 
     .navbar.active {
-        max-height: 500px; /* Expand to show all links */
+        max-height: 500px; 
     }
 
-    /* Navbar links */
     .navbar a {
-        padding: 10px 15px; /* Add padding for touch-friendly links */
-        color: #ffffff; /* White text for visibility */
-        text-decoration: none; /* Remove underline */
-        text-align: center; /* Center-align the links */
-        font-size: 1.2rem; /* Slightly larger font for mobile */
+        padding: 10px 15px; 
+        color: #ffffff; 
+        text-decoration: none; 
+        text-align: center; 
+        font-size: 1.2rem; 
         transition: background 0.3s ease;
     }
 
     .navbar a:hover {
-        background: rgba(255, 255, 255, 0.2); /* Add hover effect */
-        border-radius: 5px; /* Optional: rounded background */
+        background: rgba(255, 255, 255, 0.2); 
+        border-radius: 5px; 
     }
 
-    /* Hamburger menu button */
     .hamburger-menu {
-        display: block; /* Show hamburger button on small screens */
-        font-size: 24px; /* Larger icon for better visibility */
-        color: #ffffff; /* White color */
+        display: block; 
+        font-size: 24px; 
+        color: #ffffff; 
         background: none;
         border: none;
         cursor: pointer;
         transition: transform 0.3s ease, color 0.3s ease;
-        z-index: 1100; /* Ensure it's above other elements */
+        z-index: 1100; 
     }
 
     .navbar.active + .hamburger-menu,
     .hamburger-menu.x {
-    color: #ffd700; /* Change color when menu is open */
-    font-size: 28px; /* Slightly larger size for emphasis */
-    transform: rotate(90deg); /* Add a rotation effect */
+    color: #ffd700; 
+    font-size: 28px; 
+    transform: rotate(90deg); 
     }
 
     .chart-container {
