@@ -25,6 +25,10 @@ html, body {
     overflow-y: visible; 
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -564,8 +568,17 @@ footer a:hover {
         background: none;
         border: none;
         cursor: pointer;
+        transition: transform 0.3s ease, color 0.3s ease;
         z-index: 1100; /* Ensure it's above other elements */
     }
+
+    .navbar.active + .hamburger-menu,
+    .hamburger-menu.x {
+    color: #ffd700; /* Change color when menu is open */
+    font-size: 28px; /* Slightly larger size for emphasis */
+    transform: rotate(90deg); /* Add a rotation effect */
+    }
+
     .chart-container {
         width: 100%; 
     }

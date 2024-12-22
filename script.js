@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mobile Nav
     const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.querySelector('.navbar');
+    const navLinks = document.querySelectorAll('.navbar a');
     
     // Modal for buy heidrun
     const buyButton = document.querySelector('.cta-button'); // Select Buy $HEIDRUN button
@@ -12,14 +13,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Navbar toggle
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
+            navMenu.classList.toggle('active'); // Toggle the menu visibility
+
+            // Change the icon between ☰ and X
+            if (navMenu.classList.contains('active')) {
+                menuToggle.textContent = 'X'; // Set to X when menu is open
+            } else {
+                menuToggle.textContent = '☰'; // Set back to ☰ when menu is closed
+            }
         });
 
         // Close nav menu if clicked outside
         document.addEventListener('click', (e) => {
             if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
                 navMenu.classList.remove('active');
+                menuToggle.textContent = '☰'; // Reset to ☰ when menu is closed
             }
+        });
+
+        // Close the menu when a link is clicked (for mobile)
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active'); // Close the menu
+                menuToggle.textContent = '☰'; // Reset to ☰
+            });
         });
     }
 
