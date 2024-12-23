@@ -9,6 +9,12 @@ body {
     height: 100vh;
 }
 
+a:focus, .btn-game:focus, .cta-button:focus {
+    outline: 2px solid #ffd700;
+    outline-offset: 2px;
+}
+
+
 html::before {
     content: "";
     position: fixed; 
@@ -27,6 +33,10 @@ html, body {
 
 html {
     scroll-behavior: smooth;
+}
+
+section {
+    transition: background 0.5s ease, transform 0.5s ease;
 }
 
 .header {
@@ -234,51 +244,67 @@ footer a:hover {
 
 #staking {
     text-align: center;
-    padding: 50px 20px;
+    padding: 60px 20px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background: linear-gradient(135deg, rgba(20, 20, 30, 0.8), rgba(40, 40, 50, 0.9)); /* Dark base */
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
     position: relative;
 }
 
-
-#staking h1, #staking h2 {
+#staking h1 {
+    color: #ffd700; 
     font-size: 2.5rem;
     margin-bottom: 20px;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
 }
 
 #staking p {
     font-size: 1.2rem;
+    line-height: 1.8;
     margin-bottom: 30px;
+    color: #dcdcdc;
     max-width: 800px;
-    line-height: 1.6;
 }
 
 .staking-benefits ul {
     list-style: none;
     padding: 0;
+    margin: 30px 0;
 }
 
 .staking-benefits ul li {
-    margin: 10px 0;
-    padding-left: 20px;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #ffd700;
+    padding-left: 30px;
     position: relative;
 }
 
 .staking-benefits ul li::before {
-    content: "✔";
-    color: #ffd700;
+    content: '✔';
     position: absolute;
     left: 0;
+    font-size: 1.5rem;
+    color: #ffd700;
 }
 
 #staking .btn-game {
-    margin-top: 20px;
-    display: inline-block;
-    text-align: center;
+    background: linear-gradient(135deg, #ffd700, #d4af37);
+    color: #000;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#staking .btn-game:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
 }
 
 #chart {
@@ -288,15 +314,16 @@ footer a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: center; 
     color: #ffffff;
     position: relative;
+    background: rgba(10, 30, 10, 0.8); 
 }
 
 #chart h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    font-size: 2.5rem; 
+    color: #32cd32;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
 }
 
 .chart-container {
@@ -307,103 +334,104 @@ footer a:hover {
     overflow: hidden;
     position: relative;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    margin-bottom: 20px; 
+    margin: 0 auto; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
 }
 
-#chartCanvas {
+canvas#chartCanvas {
     width: 100%;
-    height: 100%;
+    max-width: 100%; 
+    height: auto;
 }
 
 #chart-video {
+    width: 100%;
+    max-width: 800px; 
+    height: auto;
+    margin-top: 20px;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+#chart-summary {
+    font-size: 1.1rem;
+    margin-top: 15px;
+    color: #ffd700;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+#fallback-message {
+    font-size: 1rem;
+    margin-top: 10px;
+    color: #32cd32;
+    text-align: center;
+}
+
+
+#fallback-button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background: linear-gradient(135deg, #006400, #32cd32);
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+#fallback-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(50, 205, 50, 0.8);
+}
+
+#about {
+    text-align: center;
+    padding: 60px 20px;
+    min-height: 100vh;
+    position: relative;
+    border-radius: 15px;
+}
+
+#about::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    display: none;
-}
-
-#fallback-message {
-    font-size: 1rem;
-    font-style: italic;
-    color: #ffd700;
-    margin: 10px 0;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
-    display: none; 
-}
-
-#fallback-button {
-    margin-top: 10px;
-    text-decoration: none;
-    font-size: 1rem;
-    background: linear-gradient(135deg, #007bff, #0056b3);
-    color: #ffffff;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    display: none; 
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-
-#fallback-button:hover {
-    background: linear-gradient(135deg, #0056b3, #003f7f);
-    transform: scale(1.05);
-}
-
-#about {
-    color: #ffffff;
-    text-align: center;
-    padding: 50px 20px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+    background: rgba(0, 0, 0, 0.7); 
+    z-index: -1;
 }
 
 #about h1 {
     font-size: 2.5rem;
+    color: #ffd700;
     margin-bottom: 20px;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
-}
-
-.about-content {
-    max-width: 800px;
-    line-height: 1.8;
-    font-size: 1.2rem;
-    margin-bottom: 30px;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
 }
 
 .about-content p {
     margin-bottom: 20px;
-}
-
-.features h2 {
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #dcdcdc;
 }
 
 .features ul {
-    list-style: none;
+    list-style: disc; 
     padding: 0;
-    text-align: left;
     margin: 0 auto;
     max-width: 600px;
+    text-align: left; 
+    list-style-position: inside; 
 }
 
 .features li {
     margin-bottom: 10px;
     font-size: 1.1rem;
     line-height: 1.5;
-}
-
-.features li strong {
-    color: #ffd700;
 }
 
 .cta {
@@ -518,36 +546,38 @@ footer a:hover {
 }
 
 .tokenomics {
-    margin-top: 30px; 
-    padding: 20px; 
-    background: rgba(34, 34, 51, 0.8); 
-    border-radius: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
-    text-align: left; 
+    margin: 30px auto; 
+    padding: 20px;
+    background: rgba(34, 34, 51, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    text-align: center; 
+    max-width: 500px; 
+    color: #ffffff; 
 }
 
 .tokenomics h2 {
     font-size: 1.8rem;
     margin-bottom: 15px;
-    color: #ffd700; 
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6); 
+    color: #ffd700;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
 }
 
 .tokenomics ul {
-    list-style: none; 
+    list-style: none;
     padding: 0;
-    margin: 0; 
+    margin: 0;
 }
 
 .tokenomics li {
-    font-size: 1.2rem; 
-    margin-bottom: 10px; 
+    font-size: 1.2rem;
+    margin-bottom: 10px;
     line-height: 1.5;
-    color: #ffffff; 
+    color: #ffffff;
 }
 
 .tokenomics li strong {
-    color: #ffd700; 
+    color: #ffd700;
 }
 
 #roadmap {
@@ -797,16 +827,41 @@ footer a:hover {
         transform: rotate(90deg); 
     }
 
+     #chart {
+        padding: 30px 10px; 
+    }
+
     .chart-container {
-        width: 100%; 
+        width: 90%; 
+        max-width: 100%; 
+        margin: 0 auto; 
     }
 
     #chart h1 {
-        font-size: 2rem;
+        font-size: 2rem; 
+    }
+
+    .chart-container,
+    #chart-video {
+        max-width: 95%; 
+    }
+
+    canvas#chartCanvas {
+        max-width: 100%;
+        height: auto;
     }
 
     #chart-summary {
-        font-size: 1rem;
+        font-size: 0.9rem;
+    }
+
+    #fallback-message {
+        font-size: 0.9rem;
+    }
+
+    #fallback-button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 
     #about {

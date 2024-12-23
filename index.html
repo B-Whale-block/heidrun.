@@ -6,10 +6,14 @@
     <title>Heidrun - Gateway to Valhalla</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <script defer src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <!-- Link External JavaScript -->
     <script src="chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
+
 </head>
 <body>
     <header class="header">
@@ -94,6 +98,11 @@
             </video>
         </div>
     
+        <!-- Chart Summary -->
+        <p id="chart-summary" style="margin-top: 20px; font-size: 1rem; color: #ffd700; text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);">
+            Loading chart data...
+        </p>
+    
         <!-- Fallback Message -->
         <p id="fallback-message" style="display: none;">
             "Oops! The chart hasn’t loaded. Heidrun went to check what happened!"
@@ -107,7 +116,7 @@
            style="display: none;">
             View the Chart on Dexscreener
         </a>
-    </section>
+    </section>    
 
     <section id="about" class="section">
         <h1>About Heidrun</h1>

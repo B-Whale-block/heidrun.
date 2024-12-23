@@ -1,52 +1,100 @@
+// Fetch chart data and handle fallback
 async function fetchChartData() {
     try {
-        const response = await fetch('https://api.dexscreener.com/latest/dex/tokens/fuwuqtctdsgtpw4ypxmsvnhw5txno65rohxztak5xkf4');
-        const data = await response.json();
+        // Attempt to fetch candlestick chart data
+        const candlestickResponse = await fetch('https://api.dexscreener.com/latest/dex/pairs/fuwuqtctdsgtpw4ypxmsvnhw5txno65rohxztak5xkf4');
+        if (!candlestickResponse.ok) throw new Error('Failed to fetch candlestick data');
+        const candlestickData = await candlestickResponse.json();
 
-        if (data && data.pairs && data.pairs.length > 0) {
-            const tokenInfo = data.pairs[0];
-
-            // Update chart summary
-            const summaryElement = document.getElementById('chart-summary');
-            summaryElement.innerHTML = `
-                <strong>Price:</strong> ${tokenInfo.priceUsd} USD <br>
-                <strong>24h Change:</strong> ${tokenInfo.priceChange.h24}% <br>
-                <strong>Liquidity:</strong> ${tokenInfo.liquidity.usd} USD <br>
-                <strong>Volume:</strong> ${tokenInfo.volume.h24} USD
-            `;
-
-            // Draw the chart
-            drawChart(tokenInfo.priceUsd);
+        // If candlestick data exists, render the chart
+        if (candlestickData && candlestickData.pairs && candlestickData.pairs.length > 0) {
+            const tokenInfo = candlestickData.pairs[0];
+            renderCandlestickChart(tokenInfo);
         } else {
-            showFallback();
+            // Fallback to summary data if no candlestick data
+            console.error('Candlestick data unavailable. Fetching fallback data...');
+            await fetchFallbackSummary();
         }
     } catch (error) {
-        console.error("Error fetching chart data:", error);
-        showFallback();
+        console.error('Error fetching candlestick chart:', error);
+        await fetchFallbackSummary();
     }
 }
 
-function drawChart(price) {
+// Fallback to summary data
+async function fetchFallbackSummary() {
+    try {
+        const response = await fetch('https://api.dexscreener.com/latest/dex/tokens/DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM');
+        if (!response.ok) throw new Error('Failed to fetch fallback summary data');
+        const summaryData = await response.json();
+
+        if (summaryData && summaryData.pairs && summaryData.pairs.length > 0) {
+            const tokenInfo = summaryData.pairs[0];
+            renderSummary(tokenInfo);
+        } else {
+            console.error('No trading pairs found for fallback data.');
+            showFallbackUI();
+        }
+    } catch (error) {
+        console.error('Error fetching fallback summary data:', error);
+        showFallbackUI();
+    }
+}
+
+// Render candlestick chart
+function renderCandlestickChart(tokenInfo) {
     const ctx = document.getElementById('chartCanvas').getContext('2d');
-    ctx.clearRect(0, 0, 600, 400);
-    ctx.fillStyle = '#FFD700';
-    ctx.fillRect(50, 200 - price * 10, 50, price * 10); // Placeholder chart
+    const config = {
+        type: 'line',
+        data: {
+            labels: tokenInfo.candlestick.map(item => new Date(item.time).toLocaleTimeString()),
+            datasets: [
+                {
+                    label: 'Price (USD)',
+                    data: tokenInfo.candlestick.map(item => item.price),
+                    borderColor: 'rgba(50, 205, 50, 1)',
+                    backgroundColor: 'rgba(50, 205, 50, 0.5)',
+                    fill: false,
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: { type: 'time', time: { unit: 'minute' } },
+                y: { beginAtZero: true },
+            },
+        },
+    };
+    new Chart(ctx, config);
 }
 
-// Fallback logic
-function showFallback() {
-    // Hide the canvas
-    const chartCanvas = document.getElementById('chartCanvas');
-    chartCanvas.style.display = 'none';
+// Render summary data
+function renderSummary(tokenInfo) {
+    const summaryElement = document.getElementById('chart-summary');
+    summaryElement.innerHTML = `
+        <strong>Price:</strong> ${parseFloat(tokenInfo.priceUsd).toFixed(8)} USD<br>
+        <strong>24h Change:</strong> ${tokenInfo.priceChange.h24}%<br>
+        <strong>Liquidity:</strong> $${tokenInfo.liquidity.usd.toLocaleString()}<br>
+        <strong>24h Volume:</strong> $${tokenInfo.volume.h24.toLocaleString()}
+    `;
 
-    // Show the video, message, and button
-    const fallbackVideo = document.getElementById('chart-video');
-    const fallbackMessage = document.getElementById('fallback-message');
-    const fallbackButton = document.getElementById('fallback-button');
-    fallbackVideo.style.display = 'block';
-    fallbackMessage.style.display = 'block';
-    fallbackButton.style.display = 'inline-block';
+    // Hide candlestick chart and show fallback elements
+    document.getElementById('chartCanvas').style.display = 'none';
+    document.getElementById('chart-video').style.display = 'block';
+    document.getElementById('fallback-message').textContent = 'Oops! The chart hasn’t loaded. Heidrun went to check what happened!';
+    document.getElementById('fallback-message').style.display = 'block';
+    document.getElementById('fallback-button').style.display = 'inline-block';
 }
 
-// Initialize on page load
+// Show fallback UI if everything fails
+function showFallbackUI() {
+    document.getElementById('chartCanvas').style.display = 'none';
+    document.getElementById('chart-video').style.display = 'block';
+    document.getElementById('fallback-message').textContent = 'Oops! The chart hasn’t loaded. Heidrun went to check what happened!';
+    document.getElementById('fallback-message').style.display = 'block';
+    document.getElementById('fallback-button').style.display = 'inline-block';
+}
+
+// Initialize on DOM load
 document.addEventListener('DOMContentLoaded', fetchChartData);
