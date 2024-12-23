@@ -583,10 +583,11 @@ canvas#chartCanvas {
 #roadmap {
     overflow: hidden;
     min-height: auto;
-    padding-bottom: 50px;
+    padding: 50px 20px;
     position: relative;
     z-index: 1;
-    padding-top: 50px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
 }
 
 .roadmap-title {
@@ -612,16 +613,19 @@ canvas#chartCanvas {
     padding: 40px 0;
     max-width: 1200px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px; /* Add spacing between roadmap phases */
 }
 
 .roadmap-timeline::before {
     content: '';
     position: absolute;
-    top: var(--line-top, 0px); 
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 4px;
-    height: var(--line-height, 100%); 
+    height: 100%;
     background: #ffd700;
     z-index: 1;
 }
@@ -634,7 +638,6 @@ canvas#chartCanvas {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     color: #ffffff;
-    margin-bottom: 60px;
     z-index: 2;
 }
 
@@ -662,10 +665,8 @@ canvas#chartCanvas {
 }
 
 .roadmap-phase.left {
-    float: left;
+    align-self: flex-start;
     text-align: right;
-    margin-right: 55%;
-    clear: both;
 }
 
 .roadmap-phase.left::after {
@@ -676,13 +677,12 @@ canvas#chartCanvas {
     width: 50px;
     height: 4px;
     background: #ffd700;
+    transform: translateY(-50%);
 }
 
 .roadmap-phase.right {
-    float: right;
+    align-self: flex-end;
     text-align: left;
-    margin-left: 55%;
-    clear: both;
 }
 
 .roadmap-phase.right::after {
@@ -693,6 +693,7 @@ canvas#chartCanvas {
     width: 50px;
     height: 4px;
     background: #ffd700;
+    transform: translateY(-50%);
 }
 
 .socials-section {
@@ -914,7 +915,9 @@ canvas#chartCanvas {
     }
 
     .roadmap-timeline::before {
-        left: 20px; 
+        left: 50%; 
+        transform: translateX(-50%);
+        height: auto; 
     }
 }
 
