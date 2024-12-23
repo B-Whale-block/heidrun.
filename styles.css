@@ -233,8 +233,6 @@ footer a:hover {
 }
 
 #staking {
-    background: linear-gradient(135deg, rgba(26, 26, 29, 0.8), rgba(46, 46, 51, 0.8));
-    color: #ffffff;
     text-align: center;
     padding: 50px 20px;
     min-height: 100vh;
@@ -284,9 +282,6 @@ footer a:hover {
 }
 
 #chart {
-    background: linear-gradient(135deg, rgba(20, 40, 60, 0.8), rgba(10, 20, 40, 0.8));
-    background-size: 400% 400%; 
-    animation: gradientMove 15s ease infinite; 
     text-align: center;
     padding: 50px 20px;
     min-height: 100vh;
@@ -359,7 +354,6 @@ footer a:hover {
 }
 
 #about {
-    background: linear-gradient(135deg, rgba(26, 26, 29, 0.8), rgba(46, 46, 51, 0.8));
     color: #ffffff;
     text-align: center;
     padding: 50px 20px;
@@ -471,12 +465,11 @@ footer a:hover {
     transform: scale(1.05);
 }
 
-/* Payment Option - Desktop and Mobile Styling */
 .pay-option {
     position: relative;
     display: inline-block;
     cursor: pointer;
-    margin: 10px; /* Spacing between icons */
+    margin: 10px; 
 }
 
 .payment-icon {
@@ -522,6 +515,227 @@ footer a:hover {
     white-space: nowrap;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     z-index: 10;
+}
+
+.tokenomics {
+    margin-top: 30px; 
+    padding: 20px; 
+    background: rgba(34, 34, 51, 0.8); 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+    text-align: left; 
+}
+
+.tokenomics h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #ffd700; 
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6); 
+}
+
+.tokenomics ul {
+    list-style: none; 
+    padding: 0;
+    margin: 0; 
+}
+
+.tokenomics li {
+    font-size: 1.2rem; 
+    margin-bottom: 10px; 
+    line-height: 1.5;
+    color: #ffffff; 
+}
+
+.tokenomics li strong {
+    color: #ffd700; 
+}
+
+#roadmap {
+    overflow: hidden;
+    min-height: auto;
+    padding-bottom: 50px;
+    position: relative;
+    z-index: 1;
+    padding-top: 50px;
+}
+
+.roadmap-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #ffd700;
+    margin-bottom: 40px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+    position: relative;
+}
+
+.roadmap-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: #ffd700;
+    margin: 10px auto;
+}
+
+.roadmap-timeline {
+    position: relative;
+    padding: 40px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.roadmap-timeline::before {
+    content: '';
+    position: absolute;
+    top: var(--line-top, 0px); 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: var(--line-height, 100%); 
+    background: #ffd700;
+    z-index: 1;
+}
+
+.roadmap-phase {
+    position: relative;
+    width: 45%;
+    padding: 20px;
+    background: rgba(34, 34, 51, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    margin-bottom: 60px;
+    z-index: 2;
+}
+
+.roadmap-phase h2 {
+    font-size: 1.5rem;
+    color: #ffd700;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.roadmap-phase ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.roadmap-phase li {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.roadmap-phase li strong {
+    color: #ffd700;
+}
+
+.roadmap-phase.left {
+    float: left;
+    text-align: right;
+    margin-right: 55%;
+    clear: both;
+}
+
+.roadmap-phase.left::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -30px;
+    width: 50px;
+    height: 4px;
+    background: #ffd700;
+}
+
+.roadmap-phase.right {
+    float: right;
+    text-align: left;
+    margin-left: 55%;
+    clear: both;
+}
+
+.roadmap-phase.right::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -30px;
+    width: 50px;
+    height: 4px;
+    background: #ffd700;
+}
+
+.socials-section {
+    padding: 50px 20px;
+    text-align: center;
+    background: rgba(26, 26, 29, 0.8);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.socials-section h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+    color: #ffd700; 
+}
+
+.socials-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px; 
+    margin-top: 20px;
+}
+
+.socials-links {
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-items: center;
+    gap: 30px; 
+}
+
+.social-icon {
+    width: 80px; 
+    height: 80px; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.social-icon:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); 
+}
+
+.socials-links .social-icon.x-icon {
+    width: 160px; 
+    height: 100px; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.socials-links .social-icon.x-icon:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); 
+}
+
+.socials-video {
+    max-width: 200px; 
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.promo-video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
 }
 
 @media (max-width: 768px) {
@@ -578,9 +792,9 @@ footer a:hover {
 
     .navbar.active + .hamburger-menu,
     .hamburger-menu.x {
-    color: #ffd700; 
-    font-size: 28px; 
-    transform: rotate(90deg); 
+        color: #ffd700; 
+        font-size: 28px; 
+        transform: rotate(90deg); 
     }
 
     .chart-container {
@@ -629,7 +843,23 @@ footer a:hover {
     }
 
     .pay-option:hover::after {
-        display: none; /* Disable hover tooltip for mobile */
+        display: none; 
+    }
+
+    .roadmap-phase {
+        width: 90%;
+        float: none;
+        text-align: center;
+        margin: 0 auto 40px;
+    }
+
+    .roadmap-phase.left::after,
+    .roadmap-phase.right::after {
+        display: none; 
+    }
+
+    .roadmap-timeline::before {
+        left: 20px; 
     }
 }
 
