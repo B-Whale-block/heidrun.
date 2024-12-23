@@ -14,6 +14,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeline = document.querySelector('.roadmap-timeline');
     const phases = document.querySelectorAll('.roadmap-phase');
 
+    // Copy Contract Address
+    const copyButton = document.querySelector('.copy-btn');
+    const contractAddress = document.getElementById('contract-address');
+    const copyFeedback = document.querySelector('.copy-feedback');
+
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(contractAddress.textContent)
+            .then(() => {
+                // Show feedback
+                copyFeedback.classList.add('active');
+
+                // Hide feedback after 2 seconds
+                setTimeout(() => {
+                    copyFeedback.classList.remove('active');
+                }, 2000);
+            })
+            .catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+    };
+
+    // Add click functionality to the copy button
+    if (copyButton) {
+        copyButton.addEventListener('click', copyToClipboard);
+    }
+
+    // Make the contract address itself clickable
+    if (contractAddress) {
+        contractAddress.addEventListener('click', copyToClipboard);
+        contractAddress.style.cursor = 'pointer'; // Visual cue
+    }
+
     // Navbar toggle
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', () => {

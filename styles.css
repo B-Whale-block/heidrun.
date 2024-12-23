@@ -551,33 +551,98 @@ canvas#chartCanvas {
     background: rgba(34, 34, 51, 0.8);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    text-align: center; 
+    text-align: center;
     max-width: 500px; 
-    color: #ffffff; 
+    width: 90%; 
+    color: #ffffff;
 }
 
 .tokenomics h2 {
     font-size: 1.8rem;
     margin-bottom: 15px;
-    color: #ffd700;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+    color: #ffd700; 
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6); 
 }
 
 .tokenomics ul {
-    list-style: none;
+    list-style: none; 
     padding: 0;
-    margin: 0;
+    margin: 0 auto 20px; 
+    text-align: left;
+    max-width: 400px;
 }
 
 .tokenomics li {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+    font-size: 1.2rem; 
+    margin-bottom: 10px; 
     line-height: 1.5;
-    color: #ffffff;
+    color: #ffffff; 
 }
 
 .tokenomics li strong {
+    color: #ffd700; 
+}
+
+.contract-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: rgba(34, 34, 51, 0.8);
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#contract-address {
+    font-size: 1rem;
     color: #ffd700;
+    font-family: 'Courier New', Courier, monospace;
+    user-select: none;
+}
+
+.copy-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s ease, color 0.3s ease;
+    color: #ffffff;
+}
+
+.copy-btn:hover .copy-icon {
+    color: #ffd700;
+}
+
+.copy-feedback {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    color: #32cd32;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.copy-feedback.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.copy-icon {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.copy-btn:active .copy-icon {
+    transform: scale(0.9);
 }
 
 #roadmap {
