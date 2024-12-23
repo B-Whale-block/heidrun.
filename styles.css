@@ -593,8 +593,10 @@ canvas#chartCanvas {
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     max-width: 500px;
+    width: 90%; 
     margin: 0 auto;
-    position: relative;
+    word-wrap: break-word; 
+    text-align: center; 
 }
 
 #contract-address {
@@ -602,6 +604,7 @@ canvas#chartCanvas {
     color: #ffd700;
     font-family: 'Courier New', Courier, monospace;
     user-select: none;
+    word-break: break-word; 
 }
 
 .copy-btn {
@@ -948,6 +951,14 @@ canvas#chartCanvas {
 
     .features li {
         font-size: 1rem;
+    }
+
+    #contract-address {
+        font-size: 0.9rem; 
+    }
+
+    .contract-container {
+        padding: 10px; 
     }
 
     .cta {
