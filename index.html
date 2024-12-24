@@ -26,9 +26,9 @@
         <nav class="navbar">
             <a href="#hero" class="home-link">Home</a>
             <a href="https://mondayrebel.itch.io/heidrun-rush?secret=zZOIWfzuZTX8a6eyT4FvA3PYc" target="_blank">Game</a>
-            <a href="#staking">Staking</a>
-            <a href="#chart">Chart</a>
             <a href="#about">About</a>
+            <a href="#chart">Chart</a>
+            <a href="#staking">Staking</a>
             <a href="#roadmap">Roadmap</a>
             <button class="cta-button">Buy $HEIDRUN</button>
         </nav>
@@ -55,68 +55,9 @@
                                      
         </div>
         <div class="hero-image">
-            <img src="images/valhalla-goat.png" alt="Heidrun Viking Goat" class="mascot">
+            <img src="images/valhalla-goat-christmas.png" alt="Heidrun Viking Goat" class="mascot">
         </div>
     </section>
-
-    <section id="staking" class="section">
-        <h1>Staking</h1>
-        <p>
-            Staking allows you to earn rewards by holding and locking your $HEIDRUN tokens. 
-            It’s a simple and secure way to grow your wealth while supporting the network.
-        </p>
-        <div class="staking-benefits">
-            <h2>Benefits of Staking</h2>
-            <ul>
-                <li>Earn passive income through staking rewards.</li>
-                <li>Support the $HEIDRUN ecosystem and its stability.</li>
-                <li>Access exclusive perks for long-term stakers.</li>
-            </ul>
-        </div>
-        <div class="staking-how">
-            <h2>How Staking Works</h2>
-            <p>
-                1. Acquire $HEIDRUN tokens and connect your wallet.<br>
-                2. Use our trusted staking partner <strong>Smithii.io</strong> to stake your tokens.<br>
-                3. Select your preferred staking duration and lock your tokens.<br>
-                4. Start earning rewards instantly!
-            </p>
-        </div>
-        <a href="https://stake.smithii.io/heidrun" class="btn btn-game" target="_blank">Stake Now on Smithii.io</a>
-    </section>
-    
-    <section id="chart" class="section">
-        <h1>Live $HEIDRUN Chart</h1>
-        <div class="chart-container">
-            <!-- Chart Canvas -->
-            <canvas id="chartCanvas" width="600" height="400"></canvas>
-    
-            <!-- Fallback Video -->
-            <video id="chart-video" autoplay loop muted playsinline style="display: none;">
-                <source src="videos/heidrun-lambo.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-    
-        <!-- Chart Summary -->
-        <p id="chart-summary" style="margin-top: 20px; font-size: 1rem; color: #ffd700; text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);">
-            Loading chart data...
-        </p>
-    
-        <!-- Fallback Message -->
-        <p id="fallback-message" style="display: none;">
-            "Oops! The chart hasn’t loaded. Heidrun went to check what happened!"
-        </p>
-    
-        <!-- Fallback Button -->
-        <a href="https://dexscreener.com/solana/fuwuqtctdsgtpw4ypxmsvnhw5txno65rohxztak5xkf4" 
-           id="fallback-button" 
-           class="btn btn-secondary" 
-           target="_blank" 
-           style="display: none;">
-            View the Chart on Dexscreener
-        </a>
-    </section>    
 
     <section id="about" class="section">
         <h1>About Heidrun</h1>
@@ -166,7 +107,66 @@
                 The Heidrun journey has just begun. Stake your claim and join us in reshaping the crypto gaming frontier!
             </p>
         </div>
+    </section> 
+    
+    <section id="chart" class="section">
+        <h1>Live $HEIDRUN Chart</h1>
+        <div class="chart-container">
+            <!-- Chart Canvas -->
+            <canvas id="chartCanvas" width="600" height="400"></canvas>
+    
+            <!-- Fallback Video -->
+            <video id="chart-video" autoplay loop muted playsinline style="display: none;">
+                <source src="videos/heidrun-lambo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    
+        <!-- Chart Summary -->
+        <p id="chart-summary" style="margin-top: 20px; font-size: 1rem; color: #ffd700; text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);">
+            Loading chart data...
+        </p>
+    
+        <!-- Fallback Message -->
+        <p id="fallback-message" style="display: none;">
+            "Oops! The chart hasn’t loaded. Heidrun went to check what happened!"
+        </p>
+    
+        <!-- Fallback Button -->
+        <a href="https://dexscreener.com/solana/fuwuqtctdsgtpw4ypxmsvnhw5txno65rohxztak5xkf4" 
+           id="fallback-button" 
+           class="btn btn-secondary" 
+           target="_blank" 
+           style="display: none;">
+            View the Chart on Dexscreener
+        </a>
     </section>    
+
+    <section id="staking" class="section">
+        <h1>Staking</h1>
+        <p>
+            Staking allows you to earn rewards by holding and locking your $HEIDRUN tokens. 
+            It’s a simple and secure way to grow your wealth while supporting the network.
+        </p>
+        <div class="staking-benefits">
+            <h2>Benefits of Staking</h2>
+            <ul>
+                <li>Earn passive income through staking rewards.</li>
+                <li>Support the $HEIDRUN ecosystem and its stability.</li>
+                <li>Access exclusive perks for long-term stakers.</li>
+            </ul>
+        </div>
+        <div class="staking-how">
+            <h2>How Staking Works</h2>
+            <p>
+                1. Acquire $HEIDRUN tokens and connect your wallet.<br>
+                2. Use our trusted staking partner <strong>Smithii.io</strong> to stake your tokens.<br>
+                3. Select your preferred staking duration and lock your tokens.<br>
+                4. Start earning rewards instantly!
+            </p>
+        </div>
+        <a href="https://stake.smithii.io/heidrun" class="btn btn-game" target="_blank">Stake Now on Smithii.io</a>
+    </section>
 
     <section id="roadmap" class="section">
         <h1 class="roadmap-title">Roadmap</h1>
