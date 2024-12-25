@@ -68,33 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    //Snowfall
-    const numFlakes = 20; // Reduce number of snowflakes
-    const snowflakeContainer = document.createDocumentFragment();
-    const snowflakeChars = ['❄', '❅', '❆'];
-
-    for (let i = 0; i < numFlakes; i++) {
-        const snowflake = document.createElement('div');
-        snowflake.classList.add('snowflake');
-        snowflake.textContent = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
-
-        // Randomize position, speed, and size
-        snowflake.style.left = Math.random() * 100 + 'vw';
-        snowflake.style.animationDuration = (10 + Math.random() * 10) + 's'; // Slower fall duration
-        snowflake.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem'; // Smaller snowflakes
-        snowflake.style.animationDelay = Math.random() * 5 + 's'; // Staggered start times
-
-        snowflakeContainer.appendChild(snowflake);
-    }
-
-    document.body.appendChild(snowflakeContainer);
-
-        const message = document.getElementById('christmas-message');
-        setTimeout(() => {
-            message.remove();
-        }, 3000); // Remove message after animation (6 seconds)
-     
-
     // Tooltip for pay options
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
     payOptions.forEach(option => {
