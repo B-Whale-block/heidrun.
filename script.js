@@ -10,6 +10,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = document.querySelector('.close-modal');
     const payOptions = document.querySelectorAll('.pay-option');
 
+    // Modal for "The Valhalla Goat"
+    const fomoButton = document.getElementById('fomoButton');
+    const fomoModal = document.getElementById('fomoModal');
+    const closeFomoModal = fomoModal.querySelector('.close-fomo-modal');
+    
+    // Open the FOMO modal
+    fomoButton.addEventListener('click', () => {
+        fomoModal.style.display = 'flex';
+    });
+
+    // Close the modal when clicking the close button
+    closeFomoModal.addEventListener('click', () => {
+        fomoModal.style.display = 'none';
+    });
+
+    // Close the modal when clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target === fomoModal) {
+            fomoModal.style.display = 'none';
+        }
+    });
+
+    // Open Buy Modal from FOMO Modal
+    const fomoBuyButton = document.getElementById('fomoBuyButton');
+    if (fomoBuyButton && modal) {
+        fomoBuyButton.addEventListener('click', () => {
+            fomoModal.style.display = 'none'; // Close the FOMO modal
+            modal.style.display = 'flex';    // Open the existing Buy modal
+        });
+    }
+
     // Roadmap
     const timeline = document.querySelector('.roadmap-timeline');
     const phases = document.querySelectorAll('.roadmap-phase');
@@ -112,6 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         timeline.style.setProperty('--line-top', `${startTop}px`);
         timeline.style.setProperty('--line-height', `${endBottom - startTop}px`);
     }
+
 
     console.log('Website loaded and interactive!');
 });

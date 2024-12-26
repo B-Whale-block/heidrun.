@@ -45,19 +45,12 @@
             <h1>Welcome to <span class="highlight">$HEIDRUN</span></h1>
             <p>Your Gateway to Valhalla on the Blockchain</p>
             <div class="hero-buttons">
-                <div class="btn-group">
-                    <a href="https://mondayrebel.itch.io/heidrun-rush?secret=zZOIWfzuZTX8a6eyT4FvA3PYc" 
-                        class="btn btn-game" 
-                        target="_blank">
-                        Play the Game
-                    </a>
-                    <div class="btn-tagline">Alpha Game Coming Soon</div>
-                </div>
+                <!-- Button styled as you like -->
+                <button class="cta-button" id="fomoButton">The Valhalla Goat</button>
                 <a href="https://t.me/heidrunportal" class="btn btn-secondary" target="_blank">
                     <img src="images/telegram.png" alt="Telegram Icon" class="btn-icon"> Join the Community
                 </a>
-            </div>
-                                     
+            </div>                    
         </div>
         <div class="hero-image">
             <img src="images/valhalla-goat.png" alt="Heidrun Viking Goat" class="mascot">
@@ -65,27 +58,19 @@
     </section>
 
     <section id="games" class="games-section">
-        <h1>Embark on the Next Chapter of Heidrun</h1>
+        <h1>Embark on the Heidrun Adventure</h1>
+        <h2>Play Heidrun Rush</h2>
         <div class="games-container">
-            <!-- Alpha Game -->
-            <div class="game-item alpha-game">
-                <h2>Alpha Game</h2>
+            <div class="game-item">
                 <div class="game-placeholder">
-                    <p>Coming Soon!</p>
-                </div>
-            </div>
-            <!-- Heidrun Rush Game -->
-            <div class="game-item existing-game">
-                <h2>Play Heidrun Rush</h2>
-                <div class="game-placeholder">
-                    <p>Loading... If not loaded, press 
-                        <a href="https://mondayrebel.itch.io/heidrun-rush" target="_blank" class="game-link">here</a> 
+                    <p>Loading... If the game doesn't load, click 
+                        <a href="https://mondayrebel.itch.io/heidrun-rush?secret=zZOIWfzuZTX8a6eyT4FvA3PYc" target="_blank" class="game-link">here</a> 
                         to play on Itch.io.
                     </p>
                 </div>
             </div>
         </div>
-    </section>              
+    </section>             
 
     <section id="about" class="section">
         <h1>About Heidrun</h1>
@@ -282,6 +267,16 @@
                 </a>
             </div>
             <button class="close-modal">Close</button>
+        </div>
+    </div> 
+    
+    <!--FOMO modal-->
+    <div id="fomoModal" class="modal valhalla-modal">
+        <div class="valhalla-modal-content">
+            <span class="close-fomo-modal">&times;</span>
+            <video src="videos/The-Valhalla-Goat.mov" autoplay loop muted class="valhalla-video"></video>
+            <p class="valhalla-text">The Valhalla Goat is charging ahead! Don’t miss the bull run – buy $HEIDRUN and join the adventure today!</p>
+            <button class="cta-button" id="fomoBuyButton">Buy $HEIDRUN</button>
         </div>
     </div>
 
