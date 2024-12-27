@@ -69,6 +69,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let walletConnected = false; // Tracks wallet state
 
+    function openBuyModal() {
+        modal.style.display = 'flex';
+        console.log('Opening Buy Modal');
+    }
+    
+    function openWalletInfoModal() {
+        walletInfoModal.style.display = 'flex';
+        console.log('Opening Wallet Info Modal');
+    }
+
     function updateWalletInfoVisibility() {
         const isSmallScreen = window.innerWidth <= 768;
         if (walletConnected && isSmallScreen) {
@@ -91,14 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
                 walletConnected = true;
     
-                // Update button text and event
+                // Update button text and functionality
                 buyButton.textContent = 'Wallet Info';
-                buyButton.removeEventListener('click', openBuyModal); // Remove Buy modal logic
                 buyButton.addEventListener('click', openWalletInfoModal); // Add Wallet Info logic
     
                 updateWalletInfoVisibility();
-    
-                // Fetch and display balances
                 await fetchBalances(walletAddress);
             } else {
                 alert('Phantom Wallet not installed. Please install it from https://phantom.app');
@@ -138,12 +145,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function disconnectWallet() {
         walletConnected = false;
     
-        // Reset button text and event
+        // Reset button text and functionality
         buyButton.textContent = 'Buy $HEIDRUN';
         buyButton.removeEventListener('click', openWalletInfoModal); // Remove Wallet Info logic
         buyButton.addEventListener('click', openBuyModal); // Restore Buy modal logic
     
-        // Hide Wallet Info modal and balances
+        // Reset UI
         walletInfoModal.style.display = 'none';
         updateWalletInfoVisibility();
     
