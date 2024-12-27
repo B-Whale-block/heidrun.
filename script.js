@@ -38,21 +38,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const buyButton = document.querySelector('.cta-button');
     const modal = document.getElementById('buyModal');
     const closeModal = document.querySelector('.close-modal');
+    const buyOptions = document.querySelectorAll('.pay-option'); // Select all buy options
 
     if (buyButton && modal) {
         // Open the Buy modal
         buyButton.addEventListener('click', () => {
             modal.style.display = 'flex';
         });
-
+    
         // Close the modal
         closeModal?.addEventListener('click', () => {
             modal.style.display = 'none';
         });
-
+    
         // Close modal when clicking outside
         window.addEventListener('click', (e) => {
             if (e.target === modal) modal.style.display = 'none';
+        });
+    
+        // Add event listeners to all buy options
+        buyOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                modal.style.display = 'none'; // Close the modal when an option is clicked
+            });
         });
     }
 
