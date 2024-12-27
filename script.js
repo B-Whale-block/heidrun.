@@ -98,9 +98,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Connected wallet:', walletAddress);
 
                 walletConnected = true;
+
+                // Update Buy Button to Wallet Info
                 buyButton.textContent = 'Wallet Info';
-                updateWalletInfoVisibility();
+
+                // Fetch and update wallet balances
                 await fetchBalances(walletAddress);
+
+                // Ensure the sticky button is updated
+                updateWalletInfoVisibility();
             } else {
                 alert('Phantom Wallet not installed. Please install it from https://phantom.app');
             }
@@ -127,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             heidrunBalanceElement.textContent = heidrunBalance.toFixed(4);
             solBalanceElement.textContent = solFormatted;
+
             console.log(`SOL Balance: ${solFormatted}, HEIDRUN Balance: ${heidrunBalance}`);
         } catch (error) {
             console.error('Error fetching balances:', error);
@@ -135,6 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function disconnectWallet() {
         walletConnected = false;
+
+        // Reset UI
         buyButton.textContent = 'Buy $HEIDRUN';
         closeAllModals();
         updateWalletInfoVisibility();
@@ -152,10 +161,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    window.addEventListener('resize', updateWalletInfoVisibility);
-
+    // Event Listeners
     connectWalletButton?.addEventListener('click', connectWallet);
     disconnectWalletButton?.addEventListener('click', disconnectWallet);
+    walletInfoButton?.addEventListener('click', () => {
+        walletInfoModal.style.display = 'flex';
+    });
+
+    // Ensure visibility is updated on resize
+    window.addEventListener('resize', updateWalletInfoVisibility);
+
+    // Call visibility update on load
+    updateWalletInfoVisibility();
+
 
     // ========================
     // 4. Play Alpha Button
