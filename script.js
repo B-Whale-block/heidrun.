@@ -9,13 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.navbar a');
 
     if (menuToggle && navMenu) {
-        // Toggle the navigation menu
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             menuToggle.textContent = navMenu.classList.contains('active') ? 'X' : '☰';
         });
 
-        // Close the menu when clicking outside or on a link
         document.addEventListener('click', (e) => {
             if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
                 navMenu.classList.remove('active');
@@ -41,36 +39,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const walletCloseModal = document.querySelector('.wallet-modal .close-modal'); // Close button for Wallet Info Modal
     const buyOptions = document.querySelectorAll('.pay-option'); // All Buy options
 
-    // Function to close all modals
     function closeAllModals() {
         modal.style.display = 'none';
         walletInfoModal.style.display = 'none';
     }
 
-    // Buy Modal Controls
     if (buyButton && modal) {
         buyButton.addEventListener('click', () => {
             if (buyButton.textContent === 'Wallet Info') {
-                // Open Wallet Info Modal if wallet is connected
                 walletInfoModal.style.display = 'flex';
             } else {
-                // Open Buy Modal if wallet is not connected
                 closeAllModals();
                 modal.style.display = 'flex';
             }
         });
 
-        // Close Buy Modal
         closeModal?.addEventListener('click', () => {
             modal.style.display = 'none';
         });
 
-        // Close Buy Modal on outside click
         window.addEventListener('click', (e) => {
             if (e.target === modal) modal.style.display = 'none';
         });
 
-        // Close Buy Modal when any option is clicked
         buyOptions.forEach(option => {
             option.addEventListener('click', () => {
                 modal.style.display = 'none';
@@ -78,7 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Wallet Info Modal Controls
     if (walletInfoModal) {
         walletCloseModal?.addEventListener('click', () => {
             walletInfoModal.style.display = 'none';
@@ -88,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target === walletInfoModal) walletInfoModal.style.display = 'none';
         });
     }
-
 
     // ========================
     // 3. Wallet Connection
@@ -109,11 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Connected wallet:', walletAddress);
 
                 walletConnected = true;
-
-                // Update Buy Button to Wallet Info
                 buyButton.textContent = 'Wallet Info';
-
-                // Fetch and update wallet balances
+                updateWalletInfoVisibility();
                 await fetchBalances(walletAddress);
             } else {
                 alert('Phantom Wallet not installed. Please install it from https://phantom.app');
@@ -141,7 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             heidrunBalanceElement.textContent = heidrunBalance.toFixed(4);
             solBalanceElement.textContent = solFormatted;
-
             console.log(`SOL Balance: ${solFormatted}, HEIDRUN Balance: ${heidrunBalance}`);
         } catch (error) {
             console.error('Error fetching balances:', error);
@@ -150,40 +135,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function disconnectWallet() {
         walletConnected = false;
-
-        // Reset UI
         buyButton.textContent = 'Buy $HEIDRUN';
         closeAllModals();
+        updateWalletInfoVisibility();
         console.log('Wallet disconnected.');
     }
 
     function updateWalletInfoVisibility() {
         const isSmallScreen = window.innerWidth <= 768;
         if (walletConnected && isSmallScreen) {
-        walletInfoButton.classList.add('visible');
-        walletInfoButton.classList.remove('hidden');
+            walletInfoButton.classList.add('visible');
+            walletInfoButton.classList.remove('hidden');
         } else {
-        walletInfoButton.classList.add('hidden');
-        walletInfoButton.classList.remove('visible');
+            walletInfoButton.classList.add('hidden');
+            walletInfoButton.classList.remove('visible');
         }
     }
 
     window.addEventListener('resize', updateWalletInfoVisibility);
 
-    async function connectWallet() {
-        walletConnected = true;
-        updateWalletInfoVisibility();
-    }
-
-    function disconnectWallet() {
-        walletConnected = false;
-        updateWalletInfoVisibility();
-    }
-
-    // Event Listeners
     connectWalletButton?.addEventListener('click', connectWallet);
     disconnectWalletButton?.addEventListener('click', disconnectWallet);
-
 
     // ========================
     // 4. Play Alpha Button
@@ -206,7 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function copyToClipboard() {
         navigator.clipboard.writeText(contractAddress.textContent)
             .then(() => {
-                // Show feedback
                 copyFeedback.classList.add('active');
                 setTimeout(() => {
                     copyFeedback.classList.remove('active');
@@ -218,10 +189,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (copyButton && contractAddress) {
-        // Add click functionality to copy button and address
         copyButton.addEventListener('click', copyToClipboard);
         contractAddress.addEventListener('click', copyToClipboard);
-        contractAddress.style.cursor = 'pointer'; // Visual cue
+        contractAddress.style.cursor = 'pointer';
     }
 
     // ========================
