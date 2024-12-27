@@ -1154,10 +1154,6 @@ footer a:hover {
         gap: 20px; 
     }
 
-    .pay-option:hover::after {
-        display: none; 
-    }
-
     .roadmap-phase {
         width: 90%;
         float: none;
