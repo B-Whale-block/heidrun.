@@ -153,27 +153,8 @@ section {
     align-items: center;
 }
 
-.btn-game {
-    background: linear-gradient(135deg, #e6b800, #d48806);
-    color: #000;
-    padding: 7px 14px;
-    font-size: 0.9rem;
-    border-radius: 20px;
-    font-weight: bold;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: background-color 0.3s ease-in-out, transform 0.2s;
-}
-
-.btn-game:hover {
-    background: linear-gradient(135deg, #cc9900, #b37400);
-    transform: scale(1.05);
-}
-
 .btn-secondary {
-    background-color: #007bff;
+    background-color: #007bff; 
     color: #ffffff;
     padding: 7px 14px; 
     font-size: 0.9rem; 
@@ -183,12 +164,13 @@ section {
     justify-content: center;
     text-decoration: none;
     font-weight: bold;
-    transition: background-color 0.3s ease-in-out, transform 0.2s;
+    transition: box-shadow 0.3s ease, transform 0.2s;
 }
 
 .btn-secondary:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; 
     transform: scale(1.05);
+    box-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700; 
 }
 
 .btn-icon {
@@ -217,105 +199,60 @@ section {
 }
 
 .games-section {
-    position: relative;
-    width: 100%;
     padding: 60px 20px;
-    background: linear-gradient(135deg, rgba(0, 73, 77, 0.8), rgba(28, 124, 84, 0.8), rgba(106, 13, 173, 0.8));
-    color: #00FFFF; 
+    background: linear-gradient(135deg, rgba(20, 30, 50, 0.9), rgba(40, 60, 80, 0.9));
+    color: #ffffff;
     text-align: center;
-    border-top: 2px solid rgba(50, 205, 50, 0.8); 
-    border-bottom: 2px solid rgba(50, 205, 50, 0.8); 
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
 }
 
 .games-section h1 {
-    font-size: 3rem; 
-    color: #00FFFF; 
+    font-size: 3rem;
+    color: #FFD700;
+    margin-bottom: 20px;
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
-    margin-bottom: 20px; 
-    font-family: 'Cinzel', serif; 
 }
 
 .games-section h2 {
     font-size: 2rem;
+    color: #32CD32;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.game-info p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    line-height: 1.8;
+    color: #D3D3D3;
+    text-align: left;
+    max-width: 800px;
+    margin: 0 auto 20px;
+}
+
+.game-info strong {
     color: #FFD700;
-    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.8);
-    margin-bottom: 30px; 
-    font-family: 'Cinzel', serif; 
 }
 
-.games-container {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: stretch; 
-    gap: 30px;
-    flex-wrap: wrap; 
+.game-actions {
+    margin-top: 30px;
 }
 
-.game-item {
-    flex: 1 1 calc(50% - 30px);
-    max-width: 600px;
-    height: 500px; 
-    background: rgba(0, 0, 0, 0.5); 
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
-    border: 2px solid rgba(50, 205, 50, 0.8);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.game-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 255, 255, 0.8); 
-    transition: transform 0.3s ease, box-shadow 0.3s ease; 
-}
-
-.game-placeholder {
-    flex: 1; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #00FFFF; 
-    font-size: 1.5rem;
-    border-radius: 10px;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
-    border: 2px dashed rgba(50, 205, 50, 0.8);
-}
-
-.game-item:hover .game-placeholder {
-    color: #00FFFF; 
-    text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF; 
-}
-
-.game-link {
-    color: #00FFFF;
-    text-decoration: none;
+.cta-button {
+    background: linear-gradient(135deg, #e6b800, #d48806); 
+    color: #000;
+    padding: 7px 14px; 
+    font-size: 0.9rem; 
+    border-radius: 20px; 
     font-weight: bold;
-    transition: color 0.3s ease, transform 0.3s;
+    text-decoration: none;
+    transition: box-shadow 0.3s ease, transform 0.2s;
 }
 
-.game-link:hover {
-    color: #FFFFFF;
-    transform: scale(1.05);
-}
-
-.game-iframe {
-    width: 100%;
-    max-width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 10px; 
-    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.8); 
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.game-item:hover .game-iframe {
-    transform: scale(1.05); 
-    box-shadow: 0 8px 20px rgba(0, 255, 255, 0.9); 
+.cta-button:hover {
+    box-shadow: 0 0 10px #00BFFF, 0 0 20px #1E90FF, 0 0 30px #4682B4;
+    transform: scale(1.03); 
 }
 
 #about {
@@ -610,66 +547,6 @@ canvas#chartCanvas {
     transform: scale(1.05);
 }
 
-.valhalla-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9); 
-    z-index: 9999;
-    justify-content: center;
-    align-items: center;
-    overflow-y: auto;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.valhalla-modal-content {
-    background: linear-gradient(135deg, #2c1b16, #6a0dad); 
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.9);
-    max-width: 500px;
-    width: 90%;
-    animation: fadeIn 0.3s ease-in-out;
-    box-sizing: border-box;
-    color: #ffd700; 
-}
-
-.valhalla-video {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.7);
-}
-
-.valhalla-text {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
-}
-
-.close-fomo-modal {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 1.5rem;
-    color: #FFD700; 
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    padding: 5px;
-    transition: transform 0.2s ease, color 0.3s ease;
-}
-
-.close-fomo-modal:hover {
-    transform: scale(1.2); 
-    color: #FF4500; 
-}
-
 .nav-cta {
     background: linear-gradient(135deg, #e6b800, #d48806);
     color: #000;
@@ -687,22 +564,107 @@ canvas#chartCanvas {
     transform: scale(1.05);
 }
 
+.pay-options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+    margin-top: 20px;
+}
+
 .pay-option {
-    position: relative;
-    display: inline-block;
+    display: flex;
+    align-items: center; 
+    gap: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #ffffff;
+    background: none;
+    border: none;
     cursor: pointer;
-    margin: 10px; 
+    transition: transform 0.3s, color 0.3s;
+    width: 100%;
+    text-align: left;
+    line-height: 1.5;
+    min-height: 80px; 
+    padding-top: 10px; 
+    padding-bottom: 10px; 
+}
+
+.connect-wallet {
+    font-size: 1.6rem; 
+    font-weight: bold;
+    color: #1e90ff; 
+    text-shadow: 0 0 10px rgba(30, 144, 255, 0.5), 
+                 0 0 15px rgba(0, 209, 255, 0.5), 
+                 0 0 20px rgba(64, 224, 208, 0.5); 
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.connect-wallet:hover {
+    color: #40e0d0; 
+    text-shadow: 0 0 15px rgba(64, 224, 208, 0.7), 
+                 0 0 20px rgba(0, 209, 255, 0.7), 
+                 0 0 30px rgba(30, 144, 255, 0.7); 
+}
+
+.connect-icon {
+    filter: drop-shadow(0 0 8px #00d1ff) drop-shadow(0 0 12px #1e90ff) drop-shadow(0 0 18px #40e0d0);
+    transition: filter 0.3s, transform 0.3s;
+}
+
+.connect-wallet:hover .connect-icon {
+    filter: drop-shadow(0 0 15px #40e0d0) drop-shadow(0 0 20px #00d1ff) drop-shadow(0 0 25px #1e90ff);
+    transform: scale(1.2);
+}
+
+.pay-option:hover {
+    transform: scale(1.03);
+    color: #ffd700;
+    text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
 }
 
 .payment-icon {
-    width: 140px;
+    flex-shrink: 0;
+    width: 100px; 
+    height: 80px; 
+    transition: transform 0.3s, filter 0.3s;
+}
+
+.raydium-icon {
+    width: 80px; 
+    height: 60px; 
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.card-icon {
+    width: 100px;
     height: 80px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .pay-option:hover .payment-icon {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 10px #ffd700);
+}
+
+.close-modal {
+    margin-top: 30px;
+    padding: 10px 20px;
+    background: #ff0000;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.close-modal:hover {
+    background-color: #cc0000;
     transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
 }
 
 /* Tooltip styling for hover (desktop) */
@@ -1100,6 +1062,37 @@ footer a:hover {
         transform: rotate(90deg); 
     }
 
+    .pay-options {
+        align-items: center; 
+        gap: 20px;
+    }
+
+    .pay-option {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        text-align: center;
+        width: 90%; 
+        gap: 15px; 
+    }
+
+    .payment-icon, .raydium-icon, .card-icon {
+        width: 50px; 
+        height: 50px;
+    }
+
+    .connect-wallet {
+        font-size: 1.4rem; 
+        text-align: left;
+    }
+
+    .close-modal {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1.2rem;
+    }
+
     .modal-content {
         max-width: 90%; 
     }
@@ -1115,30 +1108,6 @@ footer a:hover {
     .btn-buy {
         font-size: 1rem;
         padding: 8px 16px;
-    }
-
-    .games-container {
-        flex-direction: column; 
-        align-items: center; 
-        gap: 20px; 
-        padding: 0 15px; 
-        box-sizing: border-box; 
-    }
-
-    .game-item {
-        width: 100%; 
-        max-width: 90%; 
-        margin: 0 auto; 
-        height: auto; 
-        box-sizing: border-box; 
-    }
-
-    .game-placeholder {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%; 
-        text-align: center; 
     }
 
      #chart {

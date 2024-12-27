@@ -11,17 +11,11 @@
     <title>Heidrun - Gateway to Valhalla</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <!-- Favicon and App Icons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    <link rel="manifest" href="images/site.webmanifest">
-    <link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-config" content="images/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Favicon end -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/android-chrome-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
     <script defer src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <!-- Link External JavaScript -->
@@ -40,7 +34,7 @@
         </div>
         <nav class="navbar">
             <a href="#hero" class="home-link">Home</a>
-            <a href="#games">Games</a>
+            <a href="#game">Game</a>
             <a href="#about">About</a>
             <a href="#chart">Chart</a>
             <a href="#roadmap">Roadmap</a>
@@ -55,8 +49,7 @@
             <h1>Welcome to <span class="highlight">$HEIDRUN</span></h1>
             <p>Your Gateway to Valhalla on the Blockchain</p>
             <div class="hero-buttons">
-                <!-- Button styled as you like -->
-                <button class="cta-button" id="fomoButton">The Valhalla Goat</button>
+                <button class="cta-button" id="playAlphaButton">Play Alpha V1.1</button>
                 <a href="https://t.me/heidrunportal" class="btn btn-secondary" target="_blank">
                     <img src="images/telegram.png" alt="Telegram Icon" class="btn-icon"> Join the Community
                 </a>
@@ -65,22 +58,29 @@
         <div class="hero-image">
             <img src="images/valhalla-goat.png" alt="Heidrun Viking Goat" class="mascot">
         </div>
-    </section>
-
-    <section id="games" class="games-section">
-        <h1>Embark on the Heidrun Adventure</h1>
-        <h2>Play Heidrun Rush</h2>
-        <div class="games-container">
-            <div class="game-item">
-                <div class="game-placeholder">
-                    <p>Loading... If the game doesn't load, click 
-                        <a href="https://mondayrebel.itch.io/heidrun-rush?secret=zZOIWfzuZTX8a6eyT4FvA3PYc" target="_blank" class="game-link">here</a> 
-                        to play on Itch.io.
-                    </p>
-                </div>
-            </div>
+    </section> 
+    
+    <section id="game" class="games-section">
+        <h1>Alpha Heidrun Rush</h1>
+        <h2>🎮 V1.1 Now Live and Playable! 🎮</h2>
+        <div class="game-info">
+            <p>
+                <strong>About the Game:</strong> Alpha V1.0 of Heidrun Rush is a Candy Crush-style game where players can enjoy exciting gameplay while transacting directly in Solana. Purchases in-game go to the dev wallet, and we are exploring whether to <strong>burn Heidrun</strong> or use it for the <strong>staking rewards pool</strong>.
+            </p>
+            <p>
+                <strong>Future Plans:</strong> In Alpha V2.0, we aim to enable transactions directly in Heidrun and integrate feedback from players for an enhanced experience.
+            </p>
+            <p>
+                <strong>Game Hosting:</strong> The game is hosted directly on Heidrun’s servers and uses Solana’s approved Unity SDK for web3 connection. Please choose <strong>Mobile Wallet Adapter → Phantom/Solflare</strong> to connect.
+            </p>
         </div>
-    </section>             
+        <div class="game-actions">
+            <button class="cta-button" onclick="window.open('https://heidrun.xyz/heidrunrush/index.html', '_blank');">
+                Play Alpha V1.1
+            </button>
+        </div>
+    </section>
+    
 
     <section id="about" class="section">
         <h1>About Heidrun</h1>
@@ -263,36 +263,31 @@
             <h2>Buy $HEIDRUN</h2>
             <p>Choose your payment method:</p>
             <div class="pay-options">
-                <a href="https://flooz.xyz/trade/DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM/solana/heidrun/heidrun"
-                   class="pay-option"
-                   title="Pay with Debit/Credit Card"
-                   target="_blank">
-                    <img src="images/debit-card-icon.png" alt="Debit/Credit Card" class="payment-icon">
-                </a>
+                <!-- Connect Wallet -->
+                <button class="pay-option connect-wallet">
+                    <img src="images/solana-logo.png" alt="Solana Logo" class="payment-icon connect-icon">
+                    <span>Connect Wallet</span>
+                </button>
+    
+                <!-- Buy on Raydium -->
                 <a href="https://raydium.io/swap/?inputCurrency=SOL&outputCurrency=fuwuqtctdsgtpw4ypxmsvnhw5txno65rohxztak5xkf4&inputMint=sol&outputMint=DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM"
-                   class="pay-option"
-                   title="Pay with Solana"
+                   class="pay-option raydium-option"
                    target="_blank">
-                    <img src="images/solana-logo.png" alt="Pay with Solana" class="payment-icon">
+                    <img src="images/raydium-logo.png" alt="Raydium Logo" class="payment-icon raydium-icon">
+                    <span>Buy on Raydium</span>
+                </a>
+    
+                <!-- Buy with Bank Card -->
+                <a href="https://flooz.xyz/trade/DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM/solana/heidrun/heidrun"
+                   class="pay-option card-option"
+                   target="_blank">
+                    <img src="images/debit-card-icon.png" alt="Bank Card" class="payment-icon card-icon">
+                    <span>Buy with Bank Card</span>
                 </a>
             </div>
             <button class="close-modal">Close</button>
         </div>
-    </div> 
+    </div>          
     
-    <!--FOMO modal-->
-    <div id="fomoModal" class="modal valhalla-modal">
-        <div class="valhalla-modal-content">
-            <span class="close-fomo-modal">&times;</span>
-            <video src="videos/The-Valhalla-Goat.mov" autoplay loop muted class="valhalla-video"></video>
-            <p class="valhalla-text">
-                The Valhalla Goat is already ahead! <br>
-                Warriors are seizing their glory as the gates to Valhalla's fortune open wide. <br>
-                Don’t be left behind—buy $HEIDRUN today and secure your path to Valhalla!
-            </p>
-            <button class="cta-button" id="fomoBuyButton">Buy $HEIDRUN</button>
-        </div>
-    </div>
-
 </body>
 </html>
