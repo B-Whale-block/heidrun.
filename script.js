@@ -29,6 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    //Opens Game in different tab
+    const playAlphaButton = document.getElementById('playAlphaButton');
+
+    if (playAlphaButton) {
+        playAlphaButton.addEventListener('click', () => {
+            console.log('Play Alpha button clicked.');
+            window.open('https://heidrun.xyz/heidrunrush/index.html', '_blank');
+        });
+    }
+
     // ========================
     // 2. Modal Controls
     // ========================
