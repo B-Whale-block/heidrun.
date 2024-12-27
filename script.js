@@ -103,10 +103,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
                 // Update button text and functionality
                 buyButton.textContent = 'Wallet Info';
+                buyButton.removeEventListener('click', openBuyModal); // Remove Buy modal logic
                 buyButton.addEventListener('click', openWalletInfoModal); // Add Wallet Info logic
     
                 updateWalletInfoVisibility();
-                await fetchBalances(walletAddress);
+                await fetchBalances(walletAddress); // Fetch wallet balances
             } else {
                 alert('Phantom Wallet not installed. Please install it from https://phantom.app');
             }
