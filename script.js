@@ -12,18 +12,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //wallet connect
     const connectWalletButton = document.querySelector('.connect-wallet');
+    const walletAddressElement = document.getElementById('wallet-address');
+    const solBalanceElement = document.getElementById('sol-balance');
+    const heidrunBalanceElement = document.getElementById('heidrun-balance');
 
     async function connectWallet() {
         try {
             // Check for Phantom Wallet
             if (window.solana && window.solana.isPhantom) {
                 console.log('Phantom Wallet detected.');
-                
+            
                 // Request wallet connection
                 const response = await window.solana.connect();
                 const publicKey = response.publicKey.toString();
-                console.log('Connected wallet:', publicKey);
-                alert(`Wallet connected: ${publicKey}`);
+
+                // Update wallet address in the header
+                walletAddressElement.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+
+                // Fetch and display balances
+                await fetchBalances(publicKey);
+
             } else {
                 // Handle when Phantom Wallet is not found
                 console.error('Phantom Wallet not found.');
@@ -34,16 +42,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    connectWalletButton?.addEventListener('click', connectWallet);
+    async function fetchBalances(walletAddress) {
+        const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
 
-    // Add event listener for connect wallet button
-    connectWalletButton?.addEventListener('click', connectWallet);
+        try {
+            // Fetch SOL balance
+            const solBalance = await connection.getBalance(new solanaWeb3.PublicKey(walletAddress));
+            solBalanceElement.textContent = `${(solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4)} SOL`;
 
-    //Play button control
-    const playAlphaButton = document.getElementById('playAlphaButton');
-    playAlphaButton.addEventListener('click', () => {
-        window.open('https://heidrun.xyz/heidrunrush/index.html', '_blank');
-    });
+            // Fetch Heidrun token balance
+            const tokenAccounts = await connection.getTokenAccountsByOwner(
+                new solanaWeb3.PublicKey(walletAddress),
+                { mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') }
+            );
+
+            if (tokenAccounts.value.length > 0) {
+                const tokenBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount;
+                heidrunBalanceElement.textContent = `${tokenBalance} HEIDRUN`;
+            } else {
+                heidrunBalanceElement.textContent = '0 HEIDRUN';
+            }
+        } catch (error) {
+            console.error('Error fetching balances:', error);
+            solBalanceElement.textContent = 'Error';
+            heidrunBalanceElement.textContent = 'Error';
+        }
+    }
+
+// Add event listener for connect wallet button
+connectWalletButton?.addEventListener('click', connectWallet);
+
+// Play button control
+const playAlphaButton = document.getElementById('playAlphaButton');
+playAlphaButton.addEventListener('click', () => {
+    window.open('https://heidrun.xyz/heidrunrush/index.html', '_blank');
+});
 
     // Roadmap
     const timeline = document.querySelector('.roadmap-timeline');
