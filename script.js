@@ -35,18 +35,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================
     // 2. Modal Controls
     // ========================
-    const buyButton = document.querySelector('.cta-button');
-    const modal = document.getElementById('buyModal');
-    const closeModal = document.querySelector('.close-modal');
-    const buyOptions = document.querySelectorAll('.pay-option'); // Select all buy options
+    const buyButton = document.querySelector('.cta-button'); // Buy button
+    const modal = document.getElementById('buyModal'); // Buy Options Modal
+    const closeModal = document.querySelector('.close-modal'); // Close button for Buy Modal
+    const walletCloseModal = document.querySelector('.wallet-modal .close-modal'); // Close button for Wallet Info Modal
+    const buyOptions = document.querySelectorAll('.pay-option'); // All Buy options
+
+    // Ensure only one modal is visible at a time
+    function closeAllModals() {
+        modal.style.display = 'none';
+        walletInfoModal.style.display = 'none';
+    }
 
     if (buyButton && modal) {
         // Open the Buy modal
         buyButton.addEventListener('click', () => {
+            closeAllModals(); // Ensure other modals are closed
             modal.style.display = 'flex';
         });
     
-        // Close the modal
+        // Close the Buy modal
         closeModal?.addEventListener('click', () => {
             modal.style.display = 'none';
         });
@@ -56,11 +64,29 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target === modal) modal.style.display = 'none';
         });
     
-        // Add event listeners to all buy options
+        // Add event listeners to close the modal when an option is clicked
         buyOptions.forEach(option => {
             option.addEventListener('click', () => {
                 modal.style.display = 'none'; // Close the modal when an option is clicked
             });
+        });
+    }
+    
+    if (walletInfoButton && walletInfoModal) {
+        // Open the Wallet Info modal
+        walletInfoButton.addEventListener('click', () => {
+            closeAllModals(); // Ensure other modals are closed
+            walletInfoModal.style.display = 'flex';
+        });
+    
+        // Close the Wallet Info modal
+        walletCloseModal?.addEventListener('click', () => {
+            walletInfoModal.style.display = 'none';
+        });
+    
+        // Close Wallet Info modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === walletInfoModal) walletInfoModal.style.display = 'none';
         });
     }
 
