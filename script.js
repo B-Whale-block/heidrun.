@@ -59,17 +59,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Wallet Connection
     // ========================
     const connectWalletButton = document.querySelector('.connect-wallet');
+    const walletInfo = document.getElementById('wallet-info'); // Placeholder for wallet balances
+    const heidrunBalanceElement = document.getElementById('heidrun-balance');
 
     async function connectWallet() {
         try {
             if (window.solana && window.solana.isPhantom) {
                 console.log('Phantom Wallet detected.');
-                
+    
                 // Request wallet connection
                 const response = await window.solana.connect();
-                const publicKey = response.publicKey.toString();
-                console.log('Connected wallet:', publicKey);
-                alert(`Wallet connected: ${publicKey}`);
+                const walletAddress = response.publicKey.toString();
+                console.log('Connected wallet:', walletAddress);
+    
+                // Show wallet info and toggle button to Disconnect
+                walletInfo.style.display = 'flex';
+                buyButton.textContent = 'Disconnect';
+                buyButton.removeEventListener('click', openBuyModal); // Remove Buy modal functionality
+                buyButton.addEventListener('click', disconnectWallet); // Add disconnect functionality
+    
+                // Fetch and display balances
+                await fetchBalances(walletAddress);
             } else {
                 console.error('Phantom Wallet not found.');
                 alert('Phantom Wallet not installed. Please install it from https://phantom.app');
@@ -78,48 +88,44 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error connecting wallet:', error);
         }
     }
-
+    
+    async function fetchBalances(walletAddress) {
+        const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
+    
+        try {
+            // Fetch SOL balance
+            const solBalance = await connection.getBalance(new solanaWeb3.PublicKey(walletAddress));
+            const solBalanceFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
+    
+            // Fetch Heidrun balance
+            const tokenAccounts = await connection.getTokenAccountsByOwner(
+                new solanaWeb3.PublicKey(walletAddress),
+                { mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') }
+            );
+    
+            let heidrunBalance = 0;
+            if (tokenAccounts.value.length > 0) {
+                heidrunBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
+            }
+    
+            // Update UI
+            heidrunBalanceElement.textContent = `$HEIDRUN: ${heidrunBalance}`;
+            console.log(`SOL Balance: ${solBalanceFormatted} SOL`);
+        } catch (error) {
+            console.error('Error fetching balances:', error);
+        }
+    }
+    
+    function disconnectWallet() {
+        walletInfo.style.display = 'none';
+        buyButton.textContent = 'Buy $HEIDRUN';
+        buyButton.removeEventListener('click', disconnectWallet); // Remove disconnect functionality
+        buyButton.addEventListener('click', openBuyModal); // Restore Buy modal functionality
+        console.log('Wallet disconnected.');
+    }
+    
     if (connectWalletButton) {
         connectWalletButton.addEventListener('click', connectWallet);
-    }
-
-    // ========================
-    // 4. Play Alpha Button
-    // ========================
-    const playAlphaButton = document.getElementById('playAlphaButton');
-
-    if (playAlphaButton) {
-        playAlphaButton.addEventListener('click', () => {
-            window.open('https://heidrun.xyz/heidrunrush/index.html', '_blank');
-        });
-    }
-
-    // ========================
-    // 5. Copy Contract Address
-    // ========================
-    const copyButton = document.querySelector('.copy-btn');
-    const contractAddress = document.getElementById('contract-address');
-    const copyFeedback = document.querySelector('.copy-feedback');
-
-    function copyToClipboard() {
-        navigator.clipboard.writeText(contractAddress.textContent)
-            .then(() => {
-                // Show feedback
-                copyFeedback.classList.add('active');
-                setTimeout(() => {
-                    copyFeedback.classList.remove('active');
-                }, 2000);
-            })
-            .catch(err => {
-                console.error('Failed to copy text: ', err);
-            });
-    }
-
-    if (copyButton && contractAddress) {
-        // Add click functionality to copy button and address
-        copyButton.addEventListener('click', copyToClipboard);
-        contractAddress.addEventListener('click', copyToClipboard);
-        contractAddress.style.cursor = 'pointer'; // Visual cue
     }
 
     // ========================
