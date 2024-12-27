@@ -60,24 +60,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Wallet Connection
     // ========================
     const connectWalletButton = document.querySelector('.connect-wallet');
+    const walletInfoButton = document.getElementById('walletInfoButton'); // New button reference
     let walletConnected = false; // Tracks wallet state
+
+    function updateWalletInfoVisibility() {
+        const isSmallScreen = window.innerWidth <= 768;
+        if (walletConnected && isSmallScreen) {
+            walletInfoButton.classList.add('visible');
+            walletInfoButton.classList.remove('hidden');
+        } else {
+            walletInfoButton.classList.add('hidden');
+            walletInfoButton.classList.remove('visible');
+        }
+    }
+
+    window.addEventListener('resize', updateWalletInfoVisibility);
 
     async function connectWallet() {
         try {
             if (window.solana && window.solana.isPhantom) {
-                console.log('Phantom Wallet detected.');
-                
-                // Request wallet connection
                 const response = await window.solana.connect();
-                const publicKey = response.publicKey.toString();
-                console.log('Connected wallet:', publicKey);
-                alert(`Wallet connected: ${publicKey}`);
+                const walletAddress = response.publicKey.toString();
+                console.log('Connected wallet:', walletAddress);
 
-                walletConnected = true; // Update state
-                buyButton.textContent = 'Wallet Info'; // Update button text dynamically
+                walletConnected = true;
+                buyButton.textContent = 'Wallet Info'; // Update main button text
+                updateWalletInfoVisibility(); // Show sticky button on small screens
             } else {
-                console.error('Phantom Wallet not found.');
-                alert('Phantom Wallet not installed. Please install it from https://phantom.app. If you are unable to access this link from UK, try using a VPN.');
+                alert('Phantom Wallet not installed. Please install it from https://phantom.app');
             }
         } catch (error) {
             console.error('Error connecting wallet:', error);
@@ -86,6 +96,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (connectWalletButton) {
         connectWalletButton.addEventListener('click', connectWallet);
+    }
+
+    if (walletInfoButton) {
+        walletInfoButton.addEventListener('click', () => {
+            alert('Wallet Info Clicked!'); // Example: Replace with desired functionality
+        });
     }
 
     // ========================
