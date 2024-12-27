@@ -56,38 +56,6 @@ section {
     height: 50px;
 }
 
-/* Wallet styles when connected*/
-#wallet-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 1rem;
-    color: #ffffff;
-}
-
-#wallet-info span {
-    font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-#wallet-info #swap-button {
-    background-color: #1e90ff;
-    color: #ffffff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-#wallet-info #swap-button:hover {
-    background-color: #40e0d0;
-    transform: scale(1.05);
-}
-
 .navbar {
     display: flex;
     gap: 20px;
@@ -109,18 +77,17 @@ section {
 .cta-button {
     background: linear-gradient(135deg, #e6b800, #d48806); 
     color: #000;
-    padding: 7px 14px; 
-    font-size: 0.9rem;
+    padding: 6px 12px; 
+    font-size: 0.9rem; 
     border-radius: 20px; 
     font-weight: bold;
     text-decoration: none;
-    transition: background-color 0.3s ease-in-out, transform 0.2s;
+    transition: box-shadow 0.3s ease, transform 0.2s;
 }
 
 .cta-button:hover {
-    background: linear-gradient(135deg, #cc9900, #b37400);
-    transform: scale(1.05);
-    box-shadow: 0 0 15px #32CD32, 0 0 30px #32CD32;
+    box-shadow: 0 0 10px #00BFFF, 0 0 20px #1E90FF, 0 0 30px #4682B4;
+    transform: scale(1.03); 
 }
 
 .hamburger-menu {
@@ -185,30 +152,49 @@ section {
     align-items: center;
 }
 
-.btn-secondary {
-    background-color: #007bff; 
-    color: #ffffff;
-    padding: 7px 14px; 
+.playg-game-button {
+    background: linear-gradient(135deg, #e6b800, #d48806);
+    color: #000;
+    padding: 6px 12px; 
     font-size: 0.9rem; 
-    border-radius: 20px;
+    border-radius: 20px; 
+    font-weight: bold;
+    text-decoration: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    text-decoration: none;
+    transition: box-shadow 0.3s ease, transform 0.2s;
+}
+
+.playg-game-button:hover {
+    box-shadow: 0 0 10px #00BFFF, 0 0 20px #1E90FF, 0 0 30px #4682B4;
+    transform: scale(1.03); 
+}
+
+.btn-secondary {
+    background-color: #007bff; 
+    color: #ffffff;
+    padding: 7px 12px; 
+    font-size: 0.9rem; 
+    border-radius: 20px; 
     font-weight: bold;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     transition: box-shadow 0.3s ease, transform 0.2s;
 }
 
 .btn-secondary:hover {
     background-color: #0056b3; 
+    box-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700;
     transform: scale(1.05);
-    box-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700; 
 }
 
-.btn-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
+.playg-game-button-logo, .btn-icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px; 
 }
 
 .hero-image {
@@ -269,22 +255,6 @@ section {
 
 .game-actions {
     margin-top: 30px;
-}
-
-.cta-button {
-    background: linear-gradient(135deg, #e6b800, #d48806); 
-    color: #000;
-    padding: 7px 14px; 
-    font-size: 0.9rem; 
-    border-radius: 20px; 
-    font-weight: bold;
-    text-decoration: none;
-    transition: box-shadow 0.3s ease, transform 0.2s;
-}
-
-.cta-button:hover {
-    box-shadow: 0 0 10px #00BFFF, 0 0 20px #1E90FF, 0 0 30px #4682B4;
-    transform: scale(1.03); 
 }
 
 #about {
@@ -1058,6 +1028,35 @@ footer a:hover {
         color: #ffd700; 
         font-size: 28px; 
         transform: rotate(90deg); 
+    }
+
+    .playg-game-button {
+        background: linear-gradient(135deg, #e6b800, #d48806); 
+        padding: 8px 16px; 
+        font-size: 1rem; 
+        border-radius: 20px; 
+    }
+
+    .playg-game-button:hover {
+        box-shadow: 0 0 10px #00BFFF, 0 0 20px #1E90FF, 0 0 30px #4682B4; 
+    }
+
+    .btn-secondary {
+        background-color: #007bff; 
+        padding: 8px 16px; 
+        font-size: 0.9rem; 
+        border-radius: 20px; 
+    }
+
+    .btn-secondary:hover {
+        background-color: #0056b3; 
+        box-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700;
+    }
+
+    .playg-game-button-logo, .btn-icon {
+        width: 20px; 
+        height: 20px;
+        margin-right: 5px; 
     }
 
     .pay-options {

@@ -1,3 +1,4 @@
+// Wait for DOM to fully load
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Website loaded and interactive!');
 
@@ -9,11 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.navbar a');
 
     if (menuToggle && navMenu) {
+        // Toggle the navigation menu
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             menuToggle.textContent = navMenu.classList.contains('active') ? 'X' : '☰';
         });
 
+        // Close the menu when clicking outside or on a link
         document.addEventListener('click', (e) => {
             if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
                 navMenu.classList.remove('active');
@@ -29,16 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    //Opens Game in different tab
-    const playAlphaButton = document.getElementById('playAlphaButton');
-
-    if (playAlphaButton) {
-        playAlphaButton.addEventListener('click', () => {
-            console.log('Play Alpha button clicked.');
-            window.open('https://heidrun.xyz/heidrunrush/index.html', '_blank');
-        });
-    }
-
     // ========================
     // 2. Modal Controls
     // ========================
@@ -46,23 +39,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('buyModal');
     const closeModal = document.querySelector('.close-modal');
 
-    function openBuyModal() {
-        console.log('Opening Buy modal...');
-        modal.style.display = 'flex';
-    }
-
-    function closeBuyModal() {
-        console.log('Closing Buy modal...');
-        modal.style.display = 'none';
-    }
-
     if (buyButton && modal) {
-        buyButton.addEventListener('click', openBuyModal);
+        // Open the Buy modal
+        buyButton.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
 
-        closeModal?.addEventListener('click', closeBuyModal);
+        // Close the modal
+        closeModal?.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
 
+        // Close modal when clicking outside
         window.addEventListener('click', (e) => {
-            if (e.target === modal) closeBuyModal();
+            if (e.target === modal) modal.style.display = 'none';
         });
     }
 
@@ -70,20 +60,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Wallet Connection
     // ========================
     const connectWalletButton = document.querySelector('.connect-wallet');
-    const walletInfo = document.getElementById('wallet-info');
-    const heidrunBalanceElement = document.getElementById('heidrun-balance');
+    let walletConnected = false; // Tracks wallet state
 
     async function connectWallet() {
         try {
             if (window.solana && window.solana.isPhantom) {
+                console.log('Phantom Wallet detected.');
+                
+                // Request wallet connection
                 const response = await window.solana.connect();
-                const walletAddress = response.publicKey.toString();
-                console.log('Connected wallet:', walletAddress);
+                const publicKey = response.publicKey.toString();
+                console.log('Connected wallet:', publicKey);
+                alert(`Wallet connected: ${publicKey}`);
 
-                walletInfo.style.display = 'flex';
-                updateBuyButtonToDisconnect();
-                await fetchBalances(walletAddress);
+                walletConnected = true; // Update state
+                buyButton.textContent = 'Wallet Info'; // Update button text dynamically
             } else {
+                console.error('Phantom Wallet not found.');
                 alert('Phantom Wallet not installed. Please install it from https://phantom.app');
             }
         } catch (error) {
@@ -91,46 +84,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function updateBuyButtonToDisconnect() {
-        buyButton.textContent = 'Disconnect';
-        buyButton.removeEventListener('click', openBuyModal);
-        buyButton.addEventListener('click', disconnectWallet);
-    }
-
-    function disconnectWallet() {
-        console.log('Disconnecting wallet...');
-        walletInfo.style.display = 'none';
-        buyButton.textContent = 'Buy $HEIDRUN';
-        buyButton.removeEventListener('click', disconnectWallet);
-        buyButton.addEventListener('click', openBuyModal);
-    }
-
-    async function fetchBalances(walletAddress) {
-        const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
-
-        try {
-            const solBalance = await connection.getBalance(new solanaWeb3.PublicKey(walletAddress));
-            const solBalanceFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
-
-            const tokenAccounts = await connection.getTokenAccountsByOwner(
-                new solanaWeb3.PublicKey(walletAddress),
-                { mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') }
-            );
-
-            let heidrunBalance = 0;
-            if (tokenAccounts.value.length > 0) {
-                heidrunBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
-            }
-
-            heidrunBalanceElement.textContent = `$HEIDRUN: ${heidrunBalance}`;
-            console.log(`SOL Balance: ${solBalanceFormatted} SOL`);
-        } catch (error) {
-            console.error('Error fetching balances:', error);
-        }
-    }
-
     if (connectWalletButton) {
         connectWalletButton.addEventListener('click', connectWallet);
+    }
+
+    // ========================
+    // 4. Play Alpha Button
+    // ========================
+    const playAlphaButton = document.getElementById('playAlphaButton');
+
+    if (playAlphaButton) {
+        playAlphaButton.addEventListener('click', () => {
+            window.open('https://heidrun.xyz/heidrunrush/index.html', '_blank');
+        });
+    }
+
+    // ========================
+    // 5. Copy Contract Address
+    // ========================
+    const copyButton = document.querySelector('.copy-btn');
+    const contractAddress = document.getElementById('contract-address');
+    const copyFeedback = document.querySelector('.copy-feedback');
+
+    function copyToClipboard() {
+        navigator.clipboard.writeText(contractAddress.textContent)
+            .then(() => {
+                // Show feedback
+                copyFeedback.classList.add('active');
+                setTimeout(() => {
+                    copyFeedback.classList.remove('active');
+                }, 2000);
+            })
+            .catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+    }
+
+    if (copyButton && contractAddress) {
+        // Add click functionality to copy button and address
+        copyButton.addEventListener('click', copyToClipboard);
+        contractAddress.addEventListener('click', copyToClipboard);
+        contractAddress.style.cursor = 'pointer'; // Visual cue
     }
 
     // ========================
