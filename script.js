@@ -91,75 +91,98 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ========================
-// 3. Wallet Connection
-// ========================
-const connectWalletButton = document.querySelector('.connect-wallet'); // Wallet connect option
-const walletInfoButton = document.getElementById('walletInfoButton'); // Sticky Wallet Info button
-const disconnectWalletButton = document.getElementById('disconnectWalletButton'); // Disconnect button
-const heidrunBalanceElement = document.getElementById('heidrunBalance');
-const solBalanceElement = document.getElementById('solBalance');
+    // 3. Wallet Connection
+    // ========================
+    const connectWalletButton = document.querySelector('.connect-wallet'); // Wallet connect option
+    const walletInfoButton = document.getElementById('walletInfoButton'); // Sticky Wallet Info button
+    const disconnectWalletButton = document.getElementById('disconnectWalletButton'); // Disconnect button
+    const heidrunBalanceElement = document.getElementById('heidrunBalance');
+    const solBalanceElement = document.getElementById('solBalance');
 
-let walletConnected = false; // Tracks wallet state
+    let walletConnected = false; // Tracks wallet state
 
-async function connectWallet() {
-    try {
-        if (window.solana && window.solana.isPhantom) {
-            const response = await window.solana.connect();
-            const walletAddress = response.publicKey.toString();
-            console.log('Connected wallet:', walletAddress);
+    async function connectWallet() {
+        try {
+            if (window.solana && window.solana.isPhantom) {
+                const response = await window.solana.connect();
+                const walletAddress = response.publicKey.toString();
+                console.log('Connected wallet:', walletAddress);
 
-            walletConnected = true;
+                walletConnected = true;
 
-            // Update Buy Button to Wallet Info
-            buyButton.textContent = 'Wallet Info';
+                // Update Buy Button to Wallet Info
+                buyButton.textContent = 'Wallet Info';
 
-            // Fetch and update wallet balances
-            await fetchBalances(walletAddress);
+                // Fetch and update wallet balances
+                await fetchBalances(walletAddress);
+            } else {
+                alert('Phantom Wallet not installed. Please install it from https://phantom.app');
+            }
+        } catch (error) {
+            console.error('Error connecting wallet:', error);
+        }
+    }
+
+    async function fetchBalances(walletAddress) {
+        try {
+            const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
+            const solBalance = await connection.getBalance(new solanaWeb3.PublicKey(walletAddress));
+            const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
+
+            const tokenAccounts = await connection.getTokenAccountsByOwner(
+                new solanaWeb3.PublicKey(walletAddress),
+                { mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') }
+            );
+
+            let heidrunBalance = 0;
+            if (tokenAccounts.value.length > 0) {
+                heidrunBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
+            }
+
+            heidrunBalanceElement.textContent = heidrunBalance.toFixed(4);
+            solBalanceElement.textContent = solFormatted;
+
+            console.log(`SOL Balance: ${solFormatted}, HEIDRUN Balance: ${heidrunBalance}`);
+        } catch (error) {
+            console.error('Error fetching balances:', error);
+        }
+    }
+
+    function disconnectWallet() {
+        walletConnected = false;
+
+        // Reset UI
+        buyButton.textContent = 'Buy $HEIDRUN';
+        closeAllModals();
+        console.log('Wallet disconnected.');
+    }
+
+    function updateWalletInfoVisibility() {
+        const isSmallScreen = window.innerWidth <= 768;
+        if (walletConnected && isSmallScreen) {
+        walletInfoButton.classList.add('visible');
+        walletInfoButton.classList.remove('hidden');
         } else {
-            alert('Phantom Wallet not installed. Please install it from https://phantom.app');
+        walletInfoButton.classList.add('hidden');
+        walletInfoButton.classList.remove('visible');
         }
-    } catch (error) {
-        console.error('Error connecting wallet:', error);
     }
-}
 
-async function fetchBalances(walletAddress) {
-    try {
-        const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
-        const solBalance = await connection.getBalance(new solanaWeb3.PublicKey(walletAddress));
-        const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
+    window.addEventListener('resize', updateWalletInfoVisibility);
 
-        const tokenAccounts = await connection.getTokenAccountsByOwner(
-            new solanaWeb3.PublicKey(walletAddress),
-            { mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') }
-        );
-
-        let heidrunBalance = 0;
-        if (tokenAccounts.value.length > 0) {
-            heidrunBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
-        }
-
-        heidrunBalanceElement.textContent = heidrunBalance.toFixed(4);
-        solBalanceElement.textContent = solFormatted;
-
-        console.log(`SOL Balance: ${solFormatted}, HEIDRUN Balance: ${heidrunBalance}`);
-    } catch (error) {
-        console.error('Error fetching balances:', error);
+    async function connectWallet() {
+        walletConnected = true;
+        updateWalletInfoVisibility();
     }
-}
 
-function disconnectWallet() {
-    walletConnected = false;
+    function disconnectWallet() {
+        walletConnected = false;
+        updateWalletInfoVisibility();
+    }
 
-    // Reset UI
-    buyButton.textContent = 'Buy $HEIDRUN';
-    closeAllModals();
-    console.log('Wallet disconnected.');
-}
-
-// Event Listeners
-connectWalletButton?.addEventListener('click', connectWallet);
-disconnectWalletButton?.addEventListener('click', disconnectWallet);
+    // Event Listeners
+    connectWalletButton?.addEventListener('click', connectWallet);
+    disconnectWalletButton?.addEventListener('click', disconnectWallet);
 
 
     // ========================
