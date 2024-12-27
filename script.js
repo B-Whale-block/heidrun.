@@ -10,6 +10,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = document.querySelector('.close-modal');
     const payOptions = document.querySelectorAll('.pay-option');
 
+    //wallet connect
+    const connectWalletButton = document.querySelector('.connect-wallet');
+
+    async function connectWallet() {
+        try {
+            // Check for Phantom Wallet
+            if (window.solana && window.solana.isPhantom) {
+                console.log('Phantom Wallet detected.');
+                
+                // Request wallet connection
+                const response = await window.solana.connect();
+                const publicKey = response.publicKey.toString();
+                console.log('Connected wallet:', publicKey);
+                alert(`Wallet connected: ${publicKey}`);
+            } else {
+                // Handle when Phantom Wallet is not found
+                console.error('Phantom Wallet not found.');
+                alert('Phantom Wallet not installed. Please install it from https://phantom.app');
+            }
+        } catch (error) {
+            console.error('Error connecting wallet:', error);
+        }
+    }
+
+    connectWalletButton?.addEventListener('click', connectWallet);
+
+    // Add event listener for connect wallet button
+    connectWalletButton?.addEventListener('click', connectWallet);
+
     //Play button control
     const playAlphaButton = document.getElementById('playAlphaButton');
     playAlphaButton.addEventListener('click', () => {
