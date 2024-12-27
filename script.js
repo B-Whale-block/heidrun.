@@ -91,8 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
                 walletConnected = true;
     
-                // Update button and visibility
+                // Update button text and event
                 buyButton.textContent = 'Wallet Info';
+                buyButton.removeEventListener('click', openBuyModal); // Remove Buy modal logic
+                buyButton.addEventListener('click', openWalletInfoModal); // Add Wallet Info logic
+    
                 updateWalletInfoVisibility();
     
                 // Fetch and display balances
@@ -135,9 +138,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function disconnectWallet() {
         walletConnected = false;
     
-        // Reset UI
-        walletInfoModal.style.display = 'none';
+        // Reset button text and event
         buyButton.textContent = 'Buy $HEIDRUN';
+        buyButton.removeEventListener('click', openWalletInfoModal); // Remove Wallet Info logic
+        buyButton.addEventListener('click', openBuyModal); // Restore Buy modal logic
+    
+        // Hide Wallet Info modal and balances
+        walletInfoModal.style.display = 'none';
         updateWalletInfoVisibility();
     
         console.log('Wallet disconnected.');
