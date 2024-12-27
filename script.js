@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateWalletInfoVisibility() {
         const isSmallScreen = window.innerWidth <= 768;
+        console.log('Screen size:', window.innerWidth, 'Wallet Connected:', walletConnected);
         if (walletConnected && isSmallScreen) {
             walletInfoButton.classList.add('visible');
             walletInfoButton.classList.remove('hidden');

@@ -1003,7 +1003,7 @@ footer a:hover {
 
 @media (max-width: 768px) {
     .sticky-wallet-info {
-        display: none !important; /* Ensure it only appears on smaller screens */
+        display: block; /* Ensure button appears */
     }
 
     .hero {
