@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 buyButton.textContent = 'Wallet Info'; // Update button text dynamically
             } else {
                 console.error('Phantom Wallet not found.');
-                alert('Phantom Wallet not installed. Please install it from https://phantom.app');
+                alert('Phantom Wallet not installed. Please install it from https://phantom.app. If you are unable to access this link, try using a VPN or visit https://phantomwallet.com.');
             }
         } catch (error) {
             console.error('Error connecting wallet:', error);
