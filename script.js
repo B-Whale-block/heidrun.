@@ -101,9 +101,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     const response = await window.solana.connect();
                     const walletAddress = response.publicKey.toString();
                     console.log('Connected wallet:', walletAddress);
-
+        
                     walletConnected = true;
+        
+                    // Update Buy Button to Wallet Info
                     buyButton.textContent = 'Wallet Info';
+                    buyButton.removeEventListener('click', openBuyModal); // Remove Buy modal logic
+                    buyButton.addEventListener('click', openWalletInfoModal); // Add Wallet Info logic
+        
+                    // Fetch and update wallet balances
                     await fetchBalances(walletAddress);
                     updateWalletInfoVisibility();
                 } else {
@@ -141,11 +147,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function disconnectWallet() {
             walletConnected = false;
+        
+            // Reset Buy Button to original state
             buyButton.textContent = 'Buy $HEIDRUN';
+            buyButton.removeEventListener('click', openWalletInfoModal); // Remove Wallet Info logic
+            buyButton.addEventListener('click', openBuyModal); // Restore Buy modal logic
+
+            // Reset UI
             closeAllModals();
             updateWalletInfoVisibility();
             console.log('Wallet disconnected.');
-        }
+        }    
 
         function updateWalletInfoVisibility() {
             const isSmallScreen = window.innerWidth <= 768;
