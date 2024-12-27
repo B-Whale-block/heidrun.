@@ -293,7 +293,45 @@
             </div>
             <button class="close-modal">Close</button>
         </div>
-    </div>          
+    </div>
+    
+    <!-- Wallet Info Modal -->
+    <div id="walletInfoModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Wallet Information</h2>
+            <!-- Wallet Balances -->
+            <p><strong>$HEIDRUN Balance:</strong> <span id="heidrunBalance">0</span></p>
+            <p><strong>SOL Balance:</strong> <span id="solBalance">0</span></p>
+    
+            <!-- Divider -->
+            <hr>
+    
+            <!-- Swap Section -->
+            <h3>Swap $HEIDRUN ↔ SOL</h3>
+            <div class="swap-section">
+                <label for="swapDirection">Swap Direction:</label>
+                <select id="swapDirection">
+                    <option value="heidrun-to-sol">$HEIDRUN → SOL</option>
+                    <option value="sol-to-heidrun">SOL → $HEIDRUN</option>
+                </select>
+    
+                <label for="swapAmount">Amount:</label>
+                <input type="number" id="swapAmount" placeholder="Enter amount" />
+    
+                <label for="slippage">Slippage Tolerance (%):</label>
+                <input type="number" id="slippage" value="1" />
+            </div>
+    
+            <!-- Swap Button -->
+            <button id="confirmSwapButton" class="swap-button">Confirm Swap</button>
+    
+            <!-- Divider -->
+            <hr>
+    
+            <!-- Disconnect Button -->
+            <button id="disconnectWalletButton" class="disconnect-button">Disconnect</button>
+        </div>
+    </div>
     
 </body>
 </html>

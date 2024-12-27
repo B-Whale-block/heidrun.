@@ -1001,6 +1001,104 @@ footer a:hover {
     pointer-events: auto;
 }
 
+/* Wallet Info Modal */
+#walletInfoModal {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); 
+    z-index: 10000; 
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+#walletInfoModal .modal-content {
+    background: rgba(34, 34, 51, 0.9); 
+    color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    max-width: 400px;
+    width: 90%;
+}
+
+#walletInfoModal .modal-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #ffd700; 
+}
+
+#walletInfoModal .modal-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #dcdcdc;
+}
+
+#confirmSwapButton {
+    background: linear-gradient(135deg, #32cd32, #228b22);
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#confirmSwapButton:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #32cd32, 0 0 20px #228b22;
+}
+
+#disconnectWalletButton {
+    background: linear-gradient(135deg, #ff0000, #cc0000);
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#disconnectWalletButton:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #ff0000, 0 0 15px #cc0000;
+}
+
+/* Hidden Class */
+.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #walletInfoModal .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    #walletInfoModal .modal-content h2 {
+        font-size: 1.5rem;
+    }
+
+    #walletInfoModal .modal-content p {
+        font-size: 1rem;
+    }
+
+    #confirmSwapButton,
+    #disconnectWalletButton {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+}
+
 @media (max-width: 768px) {
     .sticky-wallet-info {
         display: block; /* Ensure button appears */

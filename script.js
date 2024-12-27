@@ -60,12 +60,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Wallet Connection
     // ========================
     const connectWalletButton = document.querySelector('.connect-wallet');
-    const walletInfoButton = document.getElementById('walletInfoButton'); // New button reference
+    const walletInfoButton = document.getElementById('walletInfoButton'); // Sticky Wallet Info button
+    const walletInfoModal = document.getElementById('walletInfoModal'); // Modal reference
+    const confirmSwapButton = document.getElementById('confirmSwapButton');
+    const disconnectWalletButton = document.getElementById('disconnectWalletButton');
+    const heidrunBalanceElement = document.getElementById('heidrunBalance');
+    const solBalanceElement = document.getElementById('solBalance');
+
     let walletConnected = false; // Tracks wallet state
 
     function updateWalletInfoVisibility() {
         const isSmallScreen = window.innerWidth <= 768;
-        console.log('Screen size:', window.innerWidth, 'Wallet Connected:', walletConnected);
         if (walletConnected && isSmallScreen) {
             walletInfoButton.classList.add('visible');
             walletInfoButton.classList.remove('hidden');
@@ -74,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             walletInfoButton.classList.remove('visible');
         }
     }
-
+    
     window.addEventListener('resize', updateWalletInfoVisibility);
 
     async function connectWallet() {
@@ -83,10 +88,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const response = await window.solana.connect();
                 const walletAddress = response.publicKey.toString();
                 console.log('Connected wallet:', walletAddress);
-
+    
                 walletConnected = true;
-                buyButton.textContent = 'Wallet Info'; // Update main button text
-                updateWalletInfoVisibility(); // Show sticky button on small screens
+    
+                // Update button and visibility
+                buyButton.textContent = 'Wallet Info';
+                updateWalletInfoVisibility();
+    
+                // Fetch and display balances
+                await fetchBalances(walletAddress);
             } else {
                 alert('Phantom Wallet not installed. Please install it from https://phantom.app');
             }
@@ -95,15 +105,63 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    async function fetchBalances(walletAddress) {
+        try {
+            const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
+    
+            // Fetch SOL balance
+            const solBalance = await connection.getBalance(new solanaWeb3.PublicKey(walletAddress));
+            const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
+    
+            // Fetch HEIDRUN token balance
+            const tokenAccounts = await connection.getTokenAccountsByOwner(
+                new solanaWeb3.PublicKey(walletAddress),
+                { mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') }
+            );
+    
+            let heidrunBalance = 0;
+            if (tokenAccounts.value.length > 0) {
+                heidrunBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
+            }
+    
+            // Update UI
+            heidrunBalanceElement.textContent = heidrunBalance.toFixed(4);
+            solBalanceElement.textContent = solFormatted;
+        } catch (error) {
+            console.error('Error fetching balances:', error);
+        }
+    }
+
+    function disconnectWallet() {
+        walletConnected = false;
+    
+        // Reset UI
+        walletInfoModal.style.display = 'none';
+        buyButton.textContent = 'Buy $HEIDRUN';
+        updateWalletInfoVisibility();
+    
+        console.log('Wallet disconnected.');
+    }
+
     if (connectWalletButton) {
         connectWalletButton.addEventListener('click', connectWallet);
     }
-
+    
     if (walletInfoButton) {
         walletInfoButton.addEventListener('click', () => {
-            alert('Wallet Info Clicked!'); // Example: Replace with desired functionality
+            walletInfoModal.style.display = 'flex';
         });
     }
+    
+    if (disconnectWalletButton) {
+        disconnectWalletButton.addEventListener('click', disconnectWallet);
+    }
+
+    window.addEventListener('click', (e) => {
+        if (e.target === walletInfoModal) {
+            walletInfoModal.style.display = 'none';
+        }
+    });
 
     // ========================
     // 4. Play Alpha Button
