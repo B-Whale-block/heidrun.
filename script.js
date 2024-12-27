@@ -103,26 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Tooltip for pay options
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    payOptions.forEach(option => {
-        if (isMobile) {
-            let clickedOnce = false;
-            option.addEventListener('click', (e) => {
-                if (!clickedOnce) {
-                    e.preventDefault();
-                    option.classList.add('clicked');
-                    clickedOnce = true;
-                    setTimeout(() => {
-                        option.classList.remove('clicked');
-                        clickedOnce = false;
-                    }, 2000);
-                } else {
-                    window.location.href = option.getAttribute('href');
-                }
-            });
-        }
-    });
+    
 
     // Open/Close Modal
     if (buyButton && modal) {
