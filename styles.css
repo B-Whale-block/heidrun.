@@ -1016,8 +1016,6 @@ footer a:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7), 0 0 20px rgba(50, 205, 50, 0.2);
     max-width: 400px;
     width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
     box-sizing: border-box;
 }
 
@@ -1155,7 +1153,6 @@ footer a:hover {
 @media (max-width: 768px) {
     #walletInfoModal .modal-content {
         padding: 10px;
-        max-height: 85vh;
     }
 
     .swap-section input,
@@ -1180,6 +1177,7 @@ footer a:hover {
         right: 10px;
     }
 }
+
 
 @media (max-width: 768px) {
     .sticky-wallet-info {
