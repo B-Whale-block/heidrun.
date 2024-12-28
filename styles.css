@@ -1002,14 +1002,14 @@ footer a:hover {
 }
 
 /* Wallet Info Modal */
-.wallet-modal {
+#walletInfoModal {
     display: none; 
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.85); 
+    background: rgba(0, 0, 0, 0.8); 
     z-index: 10000; 
     justify-content: center;
     align-items: center;
@@ -1018,50 +1018,85 @@ footer a:hover {
     overflow-y: auto;
 }
 
-.wallet-modal-content {
-    background: rgba(34, 34, 51, 0.95); 
+#walletInfoModal .modal-content {
+    background: rgba(34, 34, 51, 0.9); 
     color: #ffffff;
     padding: 30px;
-    border-radius: 12px; 
+    border-radius: 10px;
     text-align: center;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     max-width: 400px;
     width: 90%;
-    animation: fadeIn 0.2s ease-in-out; 
 }
 
-.wallet-modal-content h2 {
+#walletInfoModal .modal-content h2 {
     font-size: 1.8rem;
     margin-bottom: 20px;
     color: #ffd700; 
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); 
 }
 
-.wallet-modal-content p {
+#walletInfoModal .modal-content p {
     font-size: 1.2rem;
     margin-bottom: 20px;
     color: #dcdcdc;
 }
 
-.wallet-modal .cta-button {
-    margin-top: 20px;
-    padding: 12px 24px; 
+#confirmSwapButton {
+    background: linear-gradient(135deg, #32cd32, #228b22);
+    color: #fff;
+    padding: 10px 20px;
     font-size: 1rem;
-    font-weight: bold;
     border-radius: 20px;
-    background: linear-gradient(135deg, #ffd700, #d48806); 
-    color: #000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-weight: bold;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.wallet-modal .cta-button:hover {
-    transform: scale(1.05); 
-    box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
+#confirmSwapButton:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #32cd32, 0 0 20px #228b22;
 }
 
-.wallet-modal.hidden {
-    display: none; /* Keep hidden until triggered */
+#disconnectWalletButton {
+    background: linear-gradient(135deg, #ff0000, #cc0000);
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#disconnectWalletButton:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #ff0000, 0 0 15px #cc0000;
+}
+
+/* Hidden Class */
+.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #walletInfoModal .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    #walletInfoModal .modal-content h2 {
+        font-size: 1.5rem;
+    }
+
+    #walletInfoModal .modal-content p {
+        font-size: 1rem;
+    }
+
+    #confirmSwapButton,
+    #disconnectWalletButton {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1299,25 +1334,6 @@ footer a:hover {
         transform: translateX(-50%);
         height: auto; 
     }
-
-    .wallet-modal-content {
-        width: 95%; 
-        padding: 20px; 
-    }
-
-    .wallet-modal-content h2 {
-        font-size: 1.5rem; 
-        
-    }
-
-    .wallet-modal-content p {
-        font-size: 1rem; 
-    }
-
-    .wallet-modal .cta-button {
-        font-size: 0.9rem; 
-        padding: 8px 16px; 
-    }
 }
 
 @keyframes gradientMove {
@@ -1343,16 +1359,5 @@ footer a:hover {
     }
     50% {
         transform: scale(1.05);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
     }
 }
