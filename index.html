@@ -297,9 +297,8 @@
 
     <!-- Wallet Info Modal -->
     <div id="walletInfoModal" class="modal hidden">
-        <div id="walletStatus" style="color: #FF4500; font-weight: bold; margin-top: 10px;"></div>
         <div class="modal-content">
-            <button class="close-modal" id="walletCloseModal" aria-label="Close Wallet Info Modal">X</button>
+            <button class="close-modal" id="walletCloseModal">X</button>
             <h2>Wallet Balance</h2>
     
             <!-- Wallet Balances -->
@@ -310,11 +309,9 @@
                 </div>
                 <div class="balance-row">
                     <span class="token-name">$SOLANA:</span>
-                    <span class="token-value" id="solBalance">0.0000</span>
+                    <span class="token-value" id="solBalance">0</span>
                 </div>
-            </div> <!-- End of balance-section -->
-    
-            <div id="loading" style="display: none;">Fetching wallet balances...</div>
+            </div>
     
             <!-- Divider -->
             <hr>
@@ -344,7 +341,7 @@
             <!-- Disconnect Button -->
             <button id="disconnectWalletButton" class="disconnect-button">Disconnect</button>
         </div>
-    </div>    
+    </div>
       
 </body>
 </html>
