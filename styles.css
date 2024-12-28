@@ -1009,22 +1009,25 @@ footer a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8); 
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 40, 0.9)); 
+    backdrop-filter: blur(10px); 
     z-index: 10000; 
     justify-content: center;
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
+    animation: fadeIn 0.3s ease-out;
 }
 
 #walletInfoModal .modal-content {
-    background: rgba(34, 34, 51, 0.9); 
+    background: rgba(34, 34, 51, 0.95); 
     color: #ffffff;
     padding: 30px;
-    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    border-radius: 15px; 
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7), 0 0 20px rgba(50, 205, 50, 0.2); 
     max-width: 400px;
     width: 90%;
 }
@@ -1033,63 +1036,70 @@ footer a:hover {
     font-size: 1.8rem;
     margin-bottom: 20px;
     color: #ffd700; 
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
 }
+
 
 #walletInfoModal .modal-content p {
     font-size: 1.2rem;
     margin-bottom: 20px;
     color: #dcdcdc;
+    line-height: 1.5;
 }
 
 #confirmSwapButton {
     background: linear-gradient(135deg, #32cd32, #228b22);
     color: #fff;
-    padding: 10px 20px;
+    padding: 12px 20px;
     font-size: 1rem;
     border-radius: 20px;
     font-weight: bold;
     text-decoration: none;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    border: none;
 }
 
 #confirmSwapButton:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px #32cd32, 0 0 20px #228b22;
+    background: linear-gradient(135deg, #3cb371, #006400);
+    transform: scale(1.1); 
+    box-shadow: 0 10px 30px rgba(50, 205, 50, 0.5);
 }
 
 #disconnectWalletButton {
     background: linear-gradient(135deg, #ff0000, #cc0000);
     color: #fff;
-    padding: 10px 20px;
+    padding: 12px 20px;
     font-size: 1rem;
     border-radius: 20px;
     font-weight: bold;
     text-decoration: none;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    border: none;
 }
 
 #disconnectWalletButton:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px #ff0000, 0 0 15px #cc0000;
+    background: linear-gradient(135deg, #ff6347, #8b0000);
+    transform: scale(1.1);
+    box-shadow: 0 10px 30px rgba(255, 69, 0, 0.6); 
 }
 
 #walletCloseModal {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px; 
+    right: 15px;
     background: none;
     border: none;
     font-size: 1.5rem;
     color: #ff0000; 
+    font-weight: bold;
     cursor: pointer;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
+    transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
     z-index: 1; 
 }
 
 #walletCloseModal:hover {
-    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff4500;
-    transform: scale(1.2); 
-    color: #ff4500; 
+    text-shadow: 0 0 15px #ff4500, 0 0 25px #ff6347; 
+    transform: rotate(90deg) scale(1.2); 
 }
 
 /* Hidden Class */
@@ -1097,10 +1107,22 @@ footer a:hover {
     display: none;
 }
 
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 @media (max-width: 768px) {
     #walletInfoModal .modal-content {
-        width: 95%;
-        padding: 20px;
+        width: 95%; 
+        padding: 20px; 
+        border-radius: 10px; 
     }
 
     #walletInfoModal .modal-content h2 {
@@ -1108,15 +1130,19 @@ footer a:hover {
     }
 
     #walletInfoModal .modal-content p {
-        font-size: 1rem;
+        font-size: 1rem; 
     }
 
-    #confirmSwapButton,
-    #disconnectWalletButton {
+    #confirmSwapButton, #disconnectWalletButton {
         font-size: 0.9rem;
         padding: 8px 16px;
     }
+
+    #walletCloseModal {
+        font-size: 1.2rem; 
+    }
 }
+
 
 @media (max-width: 768px) {
     .sticky-wallet-info {
