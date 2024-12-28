@@ -297,20 +297,22 @@
 
     <!-- Wallet Info Modal -->
     <div id="walletInfoModal" class="modal hidden">
-        <div class="modal-content">
-            <button class="close-modal" id="walletCloseModal">X</button>
-            <h2>Wallet Balance</h2>
+        <div id="walletStatus" style="color: red; font-weight: bold; margin-top: 10px;"></div>
+            <div class="modal-content">
+                <button class="close-modal" id="walletCloseModal">X</button>
+                <h2>Wallet Balance</h2>
     
-            <!-- Wallet Balances -->
-            <div class="balance-section">
-                <div class="balance-row">
-                    <span class="token-name">$HEIDRUN:</span>
-                    <span class="token-value" id="heidrunBalance">0</span>
-                </div>
-                <div class="balance-row">
-                    <span class="token-name">$SOLANA:</span>
-                    <span class="token-value" id="solBalance">0</span>
-                </div>
+                <!-- Wallet Balances -->
+                <div class="balance-section">
+                    <div class="balance-row">
+                        <span class="token-name">$HEIDRUN:</span>
+                        <span class="token-value" id="heidrunBalance">0</span>
+                    </div>
+                    <div class="balance-row">
+                        <span class="token-name">$SOLANA:</span>
+                        <span class="token-value" id="solBalance">0</span>
+                    </div>
+                <div id="loading" style="display: none;">Fetching wallet balances...</div>
             </div>
     
             <!-- Divider -->
