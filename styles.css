@@ -1021,30 +1021,20 @@ footer a:hover {
 }
 
 #walletInfoModal .modal-content {
-    background: rgba(34, 34, 51, 0.95); 
-    color: #ffffff;
-    padding: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.2); 
-    border-radius: 15px; 
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7), 0 0 20px rgba(50, 205, 50, 0.2); 
-    max-width: 400px;
-    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 20px; 
 }
 
 #walletInfoModal .modal-content h2 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: #ffd700; 
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
+    margin-bottom: 15px;
+    font-size: 2rem; 
 }
 
-
 #walletInfoModal .modal-content p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: #dcdcdc;
-    line-height: 1.5;
+    margin-bottom: 10px; 
 }
 
 #confirmSwapButton {
@@ -1085,21 +1075,31 @@ footer a:hover {
 
 #walletCloseModal {
     position: absolute;
-    top: 15px; 
-    right: 15px;
+    top: 20px; 
+    right: 20px; 
     background: none;
     border: none;
-    font-size: 1.5rem;
-    color: #ff0000; 
+    font-size: 2.5rem; 
     font-weight: bold;
+    color: #ff0000; 
     cursor: pointer;
-    transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
-    z-index: 1; 
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+    z-index: 2; 
 }
 
 #walletCloseModal:hover {
-    text-shadow: 0 0 15px #ff4500, 0 0 25px #ff6347; 
-    transform: rotate(90deg) scale(1.2); 
+    text-shadow: 0 0 20px #ff4500, 0 0 40px #ff6347; 
+    transform: scale(1.3);
+}
+
+#confirmSwapButton,
+#disconnectWalletButton {
+    width: 90%; 
+    max-width: 300px; 
+    margin-top: 10px; 
+    padding: 15px 20px; 
+    font-size: 1.2rem; 
+    text-align: center;
 }
 
 /* Hidden Class */
@@ -1121,8 +1121,7 @@ footer a:hover {
 @media (max-width: 768px) {
     #walletInfoModal .modal-content {
         width: 95%; 
-        padding: 20px; 
-        border-radius: 10px; 
+        padding: 15px;
     }
 
     #walletInfoModal .modal-content h2 {
@@ -1139,7 +1138,14 @@ footer a:hover {
     }
 
     #walletCloseModal {
-        font-size: 1.2rem; 
+        font-size: 2rem; 
+        top: 15px;
+        right: 15px;
+    }
+
+    #confirmSwapButton,
+    #disconnectWalletButton {
+        width: 100%; /* Full-width on smaller screens */
     }
 }
 
