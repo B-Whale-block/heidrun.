@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const walletCloseModal = document.querySelector('.wallet-modal .close-modal'); // Close button for Wallet Info Modal
     const buyOptions = document.querySelectorAll('.pay-option'); // All Buy options
     const walletInfoButton = document.getElementById('walletInfoButton'); // Sticky Wallet Info button
-    
     let walletConnected = false; // Tracks wallet connection state
 
     // Function to close all modals
