@@ -294,15 +294,24 @@
             <button class="close-modal">Close</button>
         </div>
     </div>
-    
+
     <!-- Wallet Info Modal -->
     <div id="walletInfoModal" class="modal hidden">
         <div class="modal-content">
             <button class="close-modal" id="walletCloseModal">X</button>
-            <h2>Wallet Information</h2>
+            <h2>Wallet Balance</h2>
+    
             <!-- Wallet Balances -->
-            <p><strong>$HEIDRUN Balance:</strong> <span id="heidrunBalance">0</span></p>
-            <p><strong>SOL Balance:</strong> <span id="solBalance">0</span></p>
+            <div class="balance-section">
+                <div class="balance-row">
+                    <span class="token-name">$HEIDRUN:</span>
+                    <span class="token-value" id="heidrunBalance">0</span>
+                </div>
+                <div class="balance-row">
+                    <span class="token-name">$SOLANA:</span>
+                    <span class="token-value" id="solBalance">0</span>
+                </div>
+            </div>
     
             <!-- Divider -->
             <hr>
@@ -333,6 +342,6 @@
             <button id="disconnectWalletButton" class="disconnect-button">Disconnect</button>
         </div>
     </div>
-    
+      
 </body>
 </html>

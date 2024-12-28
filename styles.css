@@ -971,7 +971,6 @@ footer a:hover {
     color: #ffd700;
 }
 
-/*Sticky button on smaller screens*/
 .sticky-wallet-info {
     position: fixed;
     top: 70px; 
@@ -1000,8 +999,7 @@ footer a:hover {
     transform: translateY(0);
     pointer-events: auto;
 }
-
-/* Wallet Info Modal */
+/* Wallet Info*/
 #walletInfoModal .modal-content {
     display: flex;
     flex-direction: column;
@@ -1026,15 +1024,35 @@ footer a:hover {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-#walletInfoModal .modal-content p {
-    margin-bottom: 2px; 
-    font-size: 1rem;
-    line-height: 1.4;
+#walletInfoModal .balance-section {
+    width: 100%;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#walletInfoModal .balance-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: #dcdcdc;
+    align-items: center;
+}
+
+#walletInfoModal .balance-row .token-name {
+    text-align: left;
+    flex: 1;
+    font-weight: normal;
     color: #dcdcdc;
 }
 
-#walletInfoModal .modal-content h2 + p + p {
-    margin-bottom: 0; 
+#walletInfoModal .balance-row .token-value {
+    text-align: center;
+    flex: 1;
+    font-weight: bold;
+    color: #ffffff;
 }
 
 .swap-section {
@@ -1177,7 +1195,6 @@ footer a:hover {
         right: 10px;
     }
 }
-
 
 @media (max-width: 768px) {
     .sticky-wallet-info {
