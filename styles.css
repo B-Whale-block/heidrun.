@@ -1080,13 +1080,16 @@ footer a:hover {
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: #ffd700;
+    color: #ff0000; 
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    z-index: 1; 
 }
 
 #walletCloseModal:hover {
-    color: #ff0000;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff4500;
+    transform: scale(1.2); 
+    color: #ff4500; 
 }
 
 /* Hidden Class */
