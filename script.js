@@ -42,24 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const walletCloseModal = document.querySelector('.wallet-modal .close-modal'); // Close button for Wallet Info Modal
     const buyOptions = document.querySelectorAll('.pay-option'); // All Buy options
     const walletInfoButton = document.getElementById('walletInfoButton'); 
-    const closeButton = document.createElement('button');
-    closeButton.textContent = '×'; // Unicode for the "X" symbol
-    closeButton.className = 'close-modal'; // Reuse the existing class
-    closeButton.style.position = 'absolute';
-    closeButton.style.top = '10px';
-    closeButton.style.right = '10px';
-    closeButton.style.background = 'none';
-    closeButton.style.border = 'none';
-    closeButton.style.fontSize = '1.5rem';
-    closeButton.style.fontWeight = 'bold';
-    closeButton.style.color = '#ffd700';
-    closeButton.style.cursor = 'pointer';
-    walletInfoModal.querySelector('.wallet-modal-content').appendChild(closeButton); // Add button to modal content
-
-    // Add event listener for the "X" button to close the modal
-    closeButton.addEventListener('click', () => {
-        walletInfoModal.style.display = 'none'; // Hide the Wallet Info Modal
-    });
     
     let walletConnected = false; // Tracks wallet connection state
 
