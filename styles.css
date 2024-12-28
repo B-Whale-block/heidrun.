@@ -1029,18 +1029,22 @@ footer a:hover {
 }
 
 #walletInfoModal .modal-content p {
-    margin-bottom: 5px;
+    margin-bottom: 2px; 
     font-size: 1rem;
     line-height: 1.4;
     color: #dcdcdc;
 }
 
+#walletInfoModal .modal-content h2 + p + p {
+    margin-bottom: 10px; 
+}
+
 .swap-section {
+    margin-top: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    margin-top: 10px;
     width: 100%;
 }
 
