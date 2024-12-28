@@ -41,18 +41,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const buyOptions = document.querySelectorAll('.pay-option'); // Select all buy options
 
     if (buyButton && modal) {
+        // Open the Buy modal
         buyButton.addEventListener('click', () => {
-            if (buyButton.textContent === 'Wallet Info') {
-                // Open Wallet Info Modal
-                closeAllModals(); // Close other modals if open
-                walletInfoModal.style.display = 'flex';
-                console.log('Opening Wallet Info Modal');
-            } else if (buyButton.textContent === 'Buy $HEIDRUN') {
-                // Open Buy Options Modal
-                closeAllModals(); // Close other modals if open
-                modal.style.display = 'flex';
-                console.log('Opening Buy Options Modal');
-            }
+            modal.style.display = 'flex';
+        });
+    
+        // Close the modal
+        closeModal?.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) modal.style.display = 'none';
+        });
+    
+        // Add event listeners to all buy options
+        buyOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                modal.style.display = 'none'; // Close the modal when an option is clicked
+            });
         });
     }
 
