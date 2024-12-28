@@ -152,26 +152,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchBalances(walletAddress) {
         try {
+            console.log('Fetching balances for wallet:', walletAddress);
+    
             const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
+    
+            // Fetch SOL balance
             const solBalance = await connection.getBalance(new solanaWeb3.PublicKey(walletAddress));
             const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
-
+            console.log(`Fetched SOL Balance: ${solFormatted}`);
+    
+            // Update SOL balance in the UI
+            document.getElementById('solBalance').textContent = solFormatted;
+    
+            // HEIDRUN Token Logic (Unchanged)
             const tokenAccounts = await connection.getTokenAccountsByOwner(
                 new solanaWeb3.PublicKey(walletAddress),
                 { mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') }
             );
-
+    
             let heidrunBalance = 0;
-            if (tokenAccounts.value.length > 0) {
-                heidrunBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
+            if (tokenAccounts.value && tokenAccounts.value.length > 0) {
+                heidrunBalance = tokenAccounts.value[0]?.account?.data?.parsed?.info?.tokenAmount?.uiAmount || 0;
+                console.log(`Fetched HEIDRUN Balance: ${heidrunBalance}`);
+            } else {
+                console.warn('No HEIDRUN tokens found.');
             }
-
+    
+            // Update HEIDRUN balance in the UI
             document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
-            document.getElementById('solBalance').textContent = solFormatted;
-
-            console.log(`SOL Balance: ${solFormatted}, HEIDRUN Balance: ${heidrunBalance}`);
         } catch (error) {
-            console.error('Error fetching balances:', error);
+            console.error('Error fetching balances:', error.message);
         }
     }
 
