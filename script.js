@@ -166,9 +166,10 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             console.log('Fetching balances for wallet:', walletAddress);
     
-            // Establish a connection to Solana cluster
-            const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
-            console.log('Solana connection established.');
+            // Use a dedicated RPC endpoint
+            const RPC_URL = 'https://YOUR_RPC_ENDPOINT'; // Replace this with your endpoint
+            const connection = new solanaWeb3.Connection(RPC_URL);
+            console.log('Using RPC endpoint:', RPC_URL);
     
             // Fetch SOL balance
             const solBalance = await connection.getBalance(new solanaWeb3.PublicKey(walletAddress));
@@ -180,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 new solanaWeb3.PublicKey(walletAddress),
                 { mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') }
             );
-            console.log('Token accounts:', tokenAccounts);
+            console.log('Token accounts response:', tokenAccounts);
     
             let heidrunBalance = 0;
             if (tokenAccounts.value.length > 0) {
@@ -194,8 +195,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
         } catch (error) {
             console.error('Error fetching balances:', error);
+            console.error('Ensure the RPC endpoint is valid and the mint address is correct.');
         }
-    }
+    }    
 
     function disconnectWallet() {
         walletConnected = false;
