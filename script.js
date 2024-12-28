@@ -44,144 +44,150 @@ document.addEventListener('DOMContentLoaded', () => {
     const walletCloseModal = document.querySelector('.wallet-modal .close-modal'); // Close button for Wallet Info Modal
     const buyOptions = document.querySelectorAll('.pay-option'); // All Buy options
     const walletInfoButton = document.getElementById('walletInfoButton'); // Sticky Wallet Info button
+    const walletCloseModalButton = document.getElementById('walletCloseModal');
+
+    walletCloseModalButton?.addEventListener('click', () => {
+        walletInfoModal.style.display = 'none';
+    });
+    
     let walletConnected = false; // Tracks wallet connection state
 
-    // Function to close all modals
-    function closeAllModals() {
-        modal.style.display = 'none';
-        walletInfoModal.style.display = 'none';
-    }
+        // Function to close all modals
+        function closeAllModals() {
+            modal.style.display = 'none';
+            walletInfoModal.style.display = 'none';
+        }
 
-    // Function to update Buy Button behavior
-    function updateBuyButton() {
-    if (walletConnected) {
-        buyButton.textContent = 'Wallet Info'; // Change button text
-    } else {
-        buyButton.textContent = 'Buy $HEIDRUN'; // Reset button text
-    }
-}
-
-// Function to toggle Sticky Wallet Info Button visibility
-function updateStickyWalletButton() {
-    const isSmallScreen = window.innerWidth <= 768;
-    if (walletConnected && isSmallScreen) {
-        walletInfoButton.classList.add('visible');
-        walletInfoButton.classList.remove('hidden');
-    } else {
-        walletInfoButton.classList.add('hidden');
-        walletInfoButton.classList.remove('visible');
-    }
-}
-
-// Buy Button Click Behavior
-if (buyButton) {
-    buyButton.addEventListener('click', () => {
+        // Function to update Buy Button behavior
+        function updateBuyButton() {
         if (walletConnected) {
-            closeAllModals();
-            walletInfoModal.style.display = 'flex';
+            buyButton.textContent = 'Wallet Info'; // Change button text
         } else {
-            closeAllModals();
-            modal.style.display = 'flex';
+            buyButton.textContent = 'Buy $HEIDRUN'; // Reset button text
         }
-    });
-}
+    }
 
-// Close Buy Modal
-closeModal?.addEventListener('click', () => {
-    modal.style.display = 'none';
-});
+    // Function to toggle Sticky Wallet Info Button visibility
+    function updateStickyWalletButton() {
+        const isSmallScreen = window.innerWidth <= 768;
+        if (walletConnected && isSmallScreen) {
+            walletInfoButton.classList.add('visible');
+            walletInfoButton.classList.remove('hidden');
+        } else {
+            walletInfoButton.classList.add('hidden');
+            walletInfoButton.classList.remove('visible');
+        }
+    }
 
-// Close Wallet Info Modal
-walletCloseModal?.addEventListener('click', () => {
-    walletInfoModal.style.display = 'none';
-});
+    // Buy Button Click Behavior
+    if (buyButton) {
+        buyButton.addEventListener('click', () => {
+            if (walletConnected) {
+                closeAllModals();
+                walletInfoModal.style.display = 'flex';
+            } else {
+                closeAllModals();
+                modal.style.display = 'flex';
+            }
+        });
+    }
 
-// Close modals when clicking outside
-window.addEventListener('click', (e) => {
-    if (e.target === modal) modal.style.display = 'none';
-    if (e.target === walletInfoModal) walletInfoModal.style.display = 'none';
-});
-
-// Close Buy Modal when a buy option is clicked
-buyOptions.forEach(option => {
-    option.addEventListener('click', () => {
+    // Close Buy Modal
+    closeModal?.addEventListener('click', () => {
         modal.style.display = 'none';
     });
-});
 
-// Wallet Info Button Click Behavior (Sticky Button)
-walletInfoButton?.addEventListener('click', () => {
-    if (walletConnected) {
-        walletInfoModal.style.display = 'flex';
-    }
-});
+    // Close Wallet Info Modal
+    walletCloseModal?.addEventListener('click', () => {
+        walletInfoModal.style.display = 'none';
+    });
 
-// Update Sticky Wallet Info Button on Resize
-window.addEventListener('resize', updateStickyWalletButton);
+    // Close modals when clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) modal.style.display = 'none';
+        if (e.target === walletInfoModal) walletInfoModal.style.display = 'none';
+    });
 
-// Call Sticky Button Update on Load
-updateStickyWalletButton();
+    // Close Buy Modal when a buy option is clicked
+    buyOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    });
 
-// ========================
-// 3. Wallet Connection
-// ========================
-const connectWalletButton = document.querySelector('.connect-wallet'); // Wallet connect option
-const disconnectWalletButton = document.getElementById('disconnectWalletButton'); // Disconnect button
-
-async function connectWallet() {
-    try {
-        if (window.solana && window.solana.isPhantom) {
-            const response = await window.solana.connect();
-            const walletAddress = response.publicKey.toString();
-
-            walletConnected = true;
-            updateBuyButton();
-            updateStickyWalletButton();
-            await fetchBalances(walletAddress);
+    // Wallet Info Button Click Behavior (Sticky Button)
+    walletInfoButton?.addEventListener('click', () => {
+        if (walletConnected) {
+            walletInfoModal.style.display = 'flex';
         }
-    } catch (error) {
-        console.error('Error connecting wallet:', error);
-    }
-}
+    });
 
-async function fetchBalances(walletAddress) {
-    try {
-        const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
-        const solBalance = await connection.getBalance(new solanaWeb3.PublicKey(walletAddress));
-        const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
+    // Update Sticky Wallet Info Button on Resize
+    window.addEventListener('resize', updateStickyWalletButton);
 
-        const tokenAccounts = await connection.getTokenAccountsByOwner(
-            new solanaWeb3.PublicKey(walletAddress),
-            { mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') }
-        );
-
-        let heidrunBalance = 0;
-        if (tokenAccounts.value.length > 0) {
-            heidrunBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
-        }
-
-        document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
-        document.getElementById('solBalance').textContent = solFormatted;
-
-        console.log(`SOL Balance: ${solFormatted}, HEIDRUN Balance: ${heidrunBalance}`);
-    } catch (error) {
-        console.error('Error fetching balances:', error);
-    }
-}
-
-function disconnectWallet() {
-    walletConnected = false;
-
-    // Reset UI
-    buyButton.textContent = 'Buy $HEIDRUN';
-    closeAllModals();
+    // Call Sticky Button Update on Load
     updateStickyWalletButton();
-    console.log('Wallet disconnected.');
-}
 
-// Event Listeners
-connectWalletButton?.addEventListener('click', connectWallet);
-disconnectWalletButton?.addEventListener('click', disconnectWallet);
+    // ========================
+    // 3. Wallet Connection
+    // ========================
+    const connectWalletButton = document.querySelector('.connect-wallet'); // Wallet connect option
+    const disconnectWalletButton = document.getElementById('disconnectWalletButton'); // Disconnect button
+
+    async function connectWallet() {
+        try {
+            if (window.solana && window.solana.isPhantom) {
+                const response = await window.solana.connect();
+                const walletAddress = response.publicKey.toString();
+
+                walletConnected = true;
+                updateBuyButton();
+                updateStickyWalletButton();
+                await fetchBalances(walletAddress);
+            }
+        } catch (error) {
+            console.error('Error connecting wallet:', error);
+        }
+    }
+
+    async function fetchBalances(walletAddress) {
+        try {
+            const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
+            const solBalance = await connection.getBalance(new solanaWeb3.PublicKey(walletAddress));
+            const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
+
+            const tokenAccounts = await connection.getTokenAccountsByOwner(
+                new solanaWeb3.PublicKey(walletAddress),
+                { mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') }
+            );
+
+            let heidrunBalance = 0;
+            if (tokenAccounts.value.length > 0) {
+                heidrunBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
+            }
+
+            document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
+            document.getElementById('solBalance').textContent = solFormatted;
+
+            console.log(`SOL Balance: ${solFormatted}, HEIDRUN Balance: ${heidrunBalance}`);
+        } catch (error) {
+            console.error('Error fetching balances:', error);
+        }
+    }
+
+    function disconnectWallet() {
+        walletConnected = false;
+
+        // Reset UI
+        buyButton.textContent = 'Buy $HEIDRUN';
+        closeAllModals();
+        updateStickyWalletButton();
+        console.log('Wallet disconnected.');
+    }
+
+    // Event Listeners
+    connectWalletButton?.addEventListener('click', connectWallet);
+    disconnectWalletButton?.addEventListener('click', disconnectWallet);
 
     // ========================
     // 4. Play Alpha Button
