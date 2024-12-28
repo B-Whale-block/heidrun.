@@ -164,14 +164,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function fetchBalances(walletAddress) {
         try {
-            document.getElementById('loading').style.display = 'block'; // Show loading spinner
+            console.log('Fetching balances for wallet:', walletAddress);
     
-            const RPC_URL = 'https://rpc.ankr.com/solana';
+            const RPC_URL = 'https://rpc.ankr.com/solana'; // Public RPC endpoint
             const connection = new solanaWeb3.Connection(RPC_URL);
     
             // Fetch SOL balance
             const solBalance = await connection.getBalance(new solanaWeb3.PublicKey(walletAddress));
             const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
+            console.log('SOL Balance:', solFormatted);
+            document.getElementById('solBalance').textContent = solFormatted;
     
             // Fetch HEIDRUN token balance
             let heidrunBalance = 0;
@@ -180,27 +182,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 { mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') }
             );
     
-            if (tokenAccounts.value.length > 0) {
+            // Check if tokenAccounts.value is empty
+            if (tokenAccounts.value && tokenAccounts.value.length > 0) {
                 heidrunBalance = tokenAccounts.value[0]?.account?.data?.parsed?.info?.tokenAmount?.uiAmount || 0;
-            }
-    
-            // Update UI
-            document.getElementById('solBalance').textContent = solFormatted;
-            document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
-    
-            // Show status for empty wallets
-            const walletStatus = document.getElementById('walletStatus');
-            if (solFormatted === '0.0000' && heidrunBalance === 0) {
-                walletStatus.textContent = 'No SOL or $HEIDRUN tokens found in the wallet.';
+                console.log('HEIDRUN Balance:', heidrunBalance);
             } else {
-                walletStatus.textContent = ''; // Clear previous messages
+                console.warn('No HEIDRUN tokens found for this wallet.');
             }
+    
+            document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
         } catch (error) {
             console.error('Error fetching balances:', error.message);
-        } finally {
-            document.getElementById('loading').style.display = 'none'; // Hide loading spinner
+    
+            // Additional handling for StructError
+            if (error.message.includes('StructError')) {
+                console.warn('The wallet has no associated token accounts or the response structure is invalid.');
+            }
         }
-    }                    
+    }                        
             
     function disconnectWallet() {
         walletConnected = false;
