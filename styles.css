@@ -1085,6 +1085,19 @@ footer a:hover {
     background: rgba(255, 255, 255, 0.1);
     color: #ffffff;
     box-sizing: border-box;
+    appearance: none;
+}
+
+.swap-section select {
+    background: rgba(34, 34, 51, 0.9); 
+    cursor: pointer; 
+}
+
+.swap-section select option {
+    background: rgba(34, 34, 51, 1); 
+    color: #ffffff; 
+    padding: 5px; 
+    text-align: left; 
 }
 
 .swap-section input:focus,
@@ -1093,6 +1106,11 @@ footer a:hover {
     border: 1px solid #ffd700;
     box-shadow: 0 0 8px #ffd700;
 }
+
+.swap-section select:hover {
+    background: rgba(255, 255, 255, 0.2); 
+}
+
 
 #confirmSwapButton,
 #disconnectWalletButton {
