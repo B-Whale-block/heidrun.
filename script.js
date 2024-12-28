@@ -169,9 +169,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const RPC_URL = 'https://rpc.ankr.com/solana';
             const connection = new solanaWeb3.Connection(RPC_URL);
     
+            // Fetch SOL balance
             const solBalance = await connection.getBalance(new solanaWeb3.PublicKey(walletAddress));
             const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
     
+            // Fetch HEIDRUN token balance
             let heidrunBalance = 0;
             const tokenAccounts = await connection.getTokenAccountsByOwner(
                 new solanaWeb3.PublicKey(walletAddress),
@@ -182,21 +184,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 heidrunBalance = tokenAccounts.value[0]?.account?.data?.parsed?.info?.tokenAmount?.uiAmount || 0;
             }
     
+            // Update UI
             document.getElementById('solBalance').textContent = solFormatted;
             document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
     
-            // Status message for empty wallets
+            // Show status for empty wallets
+            const walletStatus = document.getElementById('walletStatus');
             if (solFormatted === '0.0000' && heidrunBalance === 0) {
-                document.getElementById('walletStatus').textContent = 'No SOL or $HEIDRUN tokens found in the wallet.';
+                walletStatus.textContent = 'No SOL or $HEIDRUN tokens found in the wallet.';
             } else {
-                document.getElementById('walletStatus').textContent = '';
+                walletStatus.textContent = ''; // Clear previous messages
             }
         } catch (error) {
             console.error('Error fetching balances:', error.message);
         } finally {
             document.getElementById('loading').style.display = 'none'; // Hide loading spinner
         }
-    }                
+    }                    
             
     function disconnectWallet() {
         walletConnected = false;
