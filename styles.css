@@ -1002,15 +1002,15 @@ footer a:hover {
 }
 
 /* Wallet Info Modal */
-#walletInfoModal {
-    display: none; 
+.wallet-modal {
+    display: none; /* Hidden by default */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8); 
-    z-index: 10000; 
+    background: rgba(0, 0, 0, 0.85); /* Slightly darker for better contrast */
+    z-index: 10000; /* Ensure it’s above other content */
     justify-content: center;
     align-items: center;
     padding: 20px;
@@ -1018,86 +1018,52 @@ footer a:hover {
     overflow-y: auto;
 }
 
-#walletInfoModal .modal-content {
-    background: rgba(34, 34, 51, 0.9); 
+.wallet-modal-content {
+    background: rgba(34, 34, 51, 0.95); /* Slightly darker for more depth */
     color: #ffffff;
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 12px; /* Slightly smoother corners */
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6); /* Enhanced shadow depth */
     max-width: 400px;
     width: 90%;
+    animation: fadeIn 0.2s ease-in-out; /* Subtle animation for appearance */
 }
 
-#walletInfoModal .modal-content h2 {
+.wallet-modal-content h2 {
     font-size: 1.8rem;
     margin-bottom: 20px;
-    color: #ffd700; 
+    color: #ffd700; /* Gold text for title */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Subtle text glow */
 }
 
-#walletInfoModal .modal-content p {
+.wallet-modal-content p {
     font-size: 1.2rem;
     margin-bottom: 20px;
     color: #dcdcdc;
 }
 
-#confirmSwapButton {
-    background: linear-gradient(135deg, #32cd32, #228b22);
-    color: #fff;
-    padding: 10px 20px;
+.wallet-modal .cta-button {
+    margin-top: 20px;
+    padding: 12px 24px; /* Increased padding for better clickability */
     font-size: 1rem;
-    border-radius: 20px;
     font-weight: bold;
-    text-decoration: none;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-#confirmSwapButton:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px #32cd32, 0 0 20px #228b22;
-}
-
-#disconnectWalletButton {
-    background: linear-gradient(135deg, #ff0000, #cc0000);
-    color: #fff;
-    padding: 10px 20px;
-    font-size: 1rem;
     border-radius: 20px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: transform 0.3s, box-shadow 0.3s;
+    background: linear-gradient(135deg, #ffd700, #d48806); /* Gold gradient */
+    color: #000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-#disconnectWalletButton:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px #ff0000, 0 0 15px #cc0000;
+.wallet-modal .cta-button:hover {
+    transform: scale(1.05); /* Subtle scaling effect */
+    box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700; /* Glow effect */
 }
 
-/* Hidden Class */
-.hidden {
-    display: none;
+.wallet-modal.hidden {
+    display: none; /* Keep hidden until triggered */
 }
 
-@media (max-width: 768px) {
-    #walletInfoModal .modal-content {
-        width: 95%;
-        padding: 20px;
-    }
-
-    #walletInfoModal .modal-content h2 {
-        font-size: 1.5rem;
-    }
-
-    #walletInfoModal .modal-content p {
-        font-size: 1rem;
-    }
-
-    #confirmSwapButton,
-    #disconnectWalletButton {
-        font-size: 0.9rem;
-        padding: 8px 16px;
-    }
-}
 
 @media (max-width: 768px) {
     .sticky-wallet-info {
@@ -1334,6 +1300,24 @@ footer a:hover {
         transform: translateX(-50%);
         height: auto; 
     }
+
+    .wallet-modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .wallet-modal-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .wallet-modal-content p {
+        font-size: 1rem;
+    }
+
+    .wallet-modal .cta-button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
 }
 
 @keyframes gradientMove {
@@ -1359,5 +1343,16 @@ footer a:hover {
     }
     50% {
         transform: scale(1.05);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
     }
 }
