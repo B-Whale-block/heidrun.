@@ -41,26 +41,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const buyOptions = document.querySelectorAll('.pay-option'); // Select all buy options
 
     if (buyButton && modal) {
-        // Open the Buy modal
-        buyButton.addEventListener('click', () => {
+        function openBuyModal() {
             modal.style.display = 'flex';
+        }
+    
+        function openWalletInfoModal() {
+            walletInfoModal.style.display = 'flex';
+        }
+    
+        function updateBuyButton() {
+            if (walletConnected) {
+                // Switch to Wallet Info functionality
+                buyButton.textContent = 'Wallet Info';
+                buyButton.removeEventListener('click', openBuyModal);
+                buyButton.addEventListener('click', openWalletInfoModal);
+            } else {
+                // Switch back to Buy $HEIDRUN functionality
+                buyButton.textContent = 'Buy $HEIDRUN';
+                buyButton.removeEventListener('click', openWalletInfoModal);
+                buyButton.addEventListener('click', openBuyModal);
+            }
+        }
+    
+        // Initially set up Buy $HEIDRUN functionality
+        buyButton.addEventListener('click', openBuyModal);
+    
+        // Update button on wallet connection/disconnection
+        connectWalletButton?.addEventListener('click', async () => {
+            await connectWallet();
+            updateBuyButton();
         });
     
-        // Close the modal
-        closeModal?.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-    
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) modal.style.display = 'none';
-        });
-    
-        // Add event listeners to all buy options
-        buyOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                modal.style.display = 'none'; // Close the modal when an option is clicked
-            });
+        disconnectWalletButton?.addEventListener('click', () => {
+            disconnectWallet();
+            updateBuyButton();
         });
     }
 
