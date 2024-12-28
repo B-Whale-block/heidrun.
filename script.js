@@ -136,35 +136,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function connectWallet() {
         try {
-            console.log('Attempting to connect wallet...');
-            
-            // Check if Phantom Wallet is available
+            console.log('Connecting to wallet...');
             if (window.solana && window.solana.isPhantom) {
-                console.log('Phantom wallet detected.');
-                
-                // Connect to Phantom Wallet
                 const response = await window.solana.connect();
                 const walletAddress = response.publicKey.toString();
-                console.log('Connected wallet address:', walletAddress);
-                
-                // Update UI state
-                walletConnected = true;
-                updateBuyButton();
-                updateStickyWalletButton();
+                console.log('Wallet Address:', walletAddress);
     
-                // Fetch wallet balances
-                await fetchBalances(walletAddress);
+                // Fetch SOL balance after connecting
+                await fetchSOLBalance(walletAddress);
             } else {
-                console.error('Phantom wallet not found. Ensure it is installed.');
+                console.error('Phantom wallet not found. Please install it.');
             }
         } catch (error) {
-            console.error('Error during wallet connection:', error);
+            console.error('Error during wallet connection:', error.message);
         }
-    }
+    }    
     
-    async function fetchBalances(walletAddress) {
+    async function fetchSOLBalance(walletAddress) {
         try {
-            console.log('Fetching balances for wallet:', walletAddress);
+            console.log('Fetching SOL balance for wallet:', walletAddress);
     
             const RPC_URL = 'https://rpc.ankr.com/solana'; // Public RPC endpoint
             const connection = new solanaWeb3.Connection(RPC_URL);
@@ -173,34 +163,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const solBalance = await connection.getBalance(new solanaWeb3.PublicKey(walletAddress));
             const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
             console.log('SOL Balance:', solFormatted);
+    
+            // Update the UI
             document.getElementById('solBalance').textContent = solFormatted;
-    
-            // Fetch HEIDRUN token balance
-            let heidrunBalance = 0;
-            const tokenAccounts = await connection.getTokenAccountsByOwner(
-                new solanaWeb3.PublicKey(walletAddress),
-                { mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') }
-            );
-    
-            // Check if tokenAccounts.value is empty
-            if (tokenAccounts.value && tokenAccounts.value.length > 0) {
-                heidrunBalance = tokenAccounts.value[0]?.account?.data?.parsed?.info?.tokenAmount?.uiAmount || 0;
-                console.log('HEIDRUN Balance:', heidrunBalance);
-            } else {
-                console.warn('No HEIDRUN tokens found for this wallet.');
-            }
-    
-            document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
         } catch (error) {
-            console.error('Error fetching balances:', error.message);
-    
-            // Additional handling for StructError
-            if (error.message.includes('StructError')) {
-                console.warn('The wallet has no associated token accounts or the response structure is invalid.');
-            }
+            console.error('Error fetching SOL balance:', error.message);
         }
-    }                        
-            
+    }
+                            
+        
     function disconnectWallet() {
         walletConnected = false;
 
