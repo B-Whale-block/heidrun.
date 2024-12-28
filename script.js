@@ -175,22 +175,23 @@ document.addEventListener('DOMContentLoaded', () => {
             const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
             console.log('SOL Balance:', solFormatted);
     
-            // If SOL balance is zero, warn the user
+            // Handle zero SOL balance
             if (solFormatted === '0.0000') {
                 console.warn('Wallet has zero SOL balance.');
             }
     
             // Fetch HEIDRUN token balance
+            let heidrunBalance = 0; // Default balance
             const tokenAccounts = await connection.getTokenAccountsByOwner(
                 new solanaWeb3.PublicKey(walletAddress),
                 { mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') }
             );
-            console.log('Token Accounts:', tokenAccounts);
     
-            let heidrunBalance = 0;
-            if (tokenAccounts.value && tokenAccounts.value.length > 0) {
-                // Extract balance if token accounts exist
-                heidrunBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
+            console.log('Token Accounts Response:', tokenAccounts);
+    
+            if (tokenAccounts?.value?.length > 0) {
+                // Safely access the token balance
+                heidrunBalance = tokenAccounts.value[0]?.account?.data?.parsed?.info?.tokenAmount?.uiAmount || 0;
                 console.log('HEIDRUN Balance:', heidrunBalance);
             } else {
                 console.warn('No HEIDRUN tokens found in the wallet.');
@@ -201,12 +202,13 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('solBalance').textContent = solFormatted;
     
         } catch (error) {
-            // Handle errors, including empty accounts or connection issues
             console.error('Error fetching balances:', error.message);
+            if (error.message.includes('StructError')) {
+                console.warn('It seems the wallet has no associated token accounts or tokens.');
+            }
         }
-    }
+    }    
             
-
     function disconnectWallet() {
         walletConnected = false;
 
