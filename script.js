@@ -136,42 +136,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function connectWallet() {
         try {
+            console.log('Connecting to wallet...');
             if (window.solana && window.solana.isPhantom) {
                 const response = await window.solana.connect();
                 const walletAddress = response.publicKey.toString();
-
-                walletConnected = true;
-                updateBuyButton();
-                updateStickyWalletButton();
+                console.log('Wallet Address:', walletAddress);
+    
+                // Fetch balances after connecting the wallet
                 await fetchBalances(walletAddress);
+            } else {
+                console.error('Phantom wallet not found. Please install it.');
             }
         } catch (error) {
-            console.error('Error connecting wallet:', error);
+            console.error('Error during wallet connection:', error.message);
         }
     }
 
     async function fetchBalances(walletAddress) {
         try {
-            const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
+            console.log('Fetching balances for wallet:', walletAddress);
+    
+            const RPC_URL = 'https://rpc.ankr.com/solana'; // Existing RPC endpoint
+            const connection = new solanaWeb3.Connection(RPC_URL);
+    
+            // Fetch SOL balance
             const solBalance = await connection.getBalance(new solanaWeb3.PublicKey(walletAddress));
             const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
-
-            const tokenAccounts = await connection.getTokenAccountsByOwner(
-                new solanaWeb3.PublicKey(walletAddress),
-                { mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') }
-            );
-
-            let heidrunBalance = 0;
-            if (tokenAccounts.value.length > 0) {
-                heidrunBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
-            }
-
-            document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
+            console.log('Fetched SOL Balance:', solFormatted);
+    
+            // Update SOL balance in the UI
             document.getElementById('solBalance').textContent = solFormatted;
-
-            console.log(`SOL Balance: ${solFormatted}, HEIDRUN Balance: ${heidrunBalance}`);
         } catch (error) {
-            console.error('Error fetching balances:', error);
+            console.error('Error fetching SOL balance:', error.message);
+            document.getElementById('solBalance').textContent = 'Error'; // Display error in the modal
         }
     }
 
