@@ -175,13 +175,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
             console.log('SOL Balance:', solFormatted);
     
-            // Handle zero SOL balance
-            if (solFormatted === '0.0000') {
-                console.warn('Wallet has zero SOL balance.');
-            }
+            // Update SOL balance in UI
+            document.getElementById('solBalance').textContent = solFormatted;
     
             // Fetch HEIDRUN token balance
-            let heidrunBalance = 0; // Default balance
             const tokenAccounts = await connection.getTokenAccountsByOwner(
                 new solanaWeb3.PublicKey(walletAddress),
                 { mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') }
@@ -189,17 +186,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
             console.log('Token Accounts Response:', tokenAccounts);
     
+            let heidrunBalance = 0; // Default balance
             if (tokenAccounts?.value?.length > 0) {
-                // Safely access the token balance
                 heidrunBalance = tokenAccounts.value[0]?.account?.data?.parsed?.info?.tokenAmount?.uiAmount || 0;
                 console.log('HEIDRUN Balance:', heidrunBalance);
             } else {
                 console.warn('No HEIDRUN tokens found in the wallet.');
             }
     
-            // Update UI
+            // Update HEIDRUN balance in UI
             document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
-            document.getElementById('solBalance').textContent = solFormatted;
     
         } catch (error) {
             console.error('Error fetching balances:', error.message);
@@ -207,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.warn('It seems the wallet has no associated token accounts or tokens.');
             }
         }
-    }    
+    }        
             
     function disconnectWallet() {
         walletConnected = false;
