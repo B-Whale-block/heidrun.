@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             console.log('Fetching balances for wallet:', walletAddress);
     
-            const RPC_URL = 'https://rpc.ankr.com/solana';
+            const RPC_URL = 'https://rpc.ankr.com/solana'; // Public RPC endpoint
             const connection = new solanaWeb3.Connection(RPC_URL);
             console.log('Using RPC endpoint:', RPC_URL);
     
@@ -188,21 +188,24 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Token Accounts:', tokenAccounts);
     
             let heidrunBalance = 0;
-            if (tokenAccounts.value.length > 0) {
+            if (tokenAccounts.value && tokenAccounts.value.length > 0) {
+                // Extract balance if token accounts exist
                 heidrunBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
+                console.log('HEIDRUN Balance:', heidrunBalance);
             } else {
-                console.warn('No $HEIDRUN tokens found in the wallet.');
+                console.warn('No HEIDRUN tokens found in the wallet.');
             }
-            console.log('HEIDRUN Balance:', heidrunBalance);
     
             // Update UI
             document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
             document.getElementById('solBalance').textContent = solFormatted;
     
         } catch (error) {
-            console.error('Error fetching balances:', error);
+            // Handle errors, including empty accounts or connection issues
+            console.error('Error fetching balances:', error.message);
         }
-    }        
+    }
+            
 
     function disconnectWallet() {
         walletConnected = false;
