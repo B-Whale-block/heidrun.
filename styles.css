@@ -1002,70 +1002,84 @@ footer a:hover {
 }
 
 /* Wallet Info Modal */
-#walletInfoModal {
-    display: none; 
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8); 
-    z-index: 10000; 
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
-}
-
-#walletInfoModal .modal-content {
-    background: rgba(34, 34, 51, 0.9); 
+.wallet-modal-content {
+    display: flex;
+    flex-direction: column; /* Align items in a vertical column */
+    align-items: center; /* Center align all content */
+    background: rgba(34, 34, 51, 0.95);
     color: #ffffff;
     padding: 30px;
     border-radius: 10px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
     max-width: 400px;
     width: 90%;
 }
 
-#walletInfoModal .modal-content h2 {
+.wallet-modal-content h2 {
     font-size: 1.8rem;
     margin-bottom: 20px;
-    color: #ffd700; 
+    color: #ffd700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-#walletInfoModal .modal-content p {
+.wallet-modal-content p {
     font-size: 1.2rem;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: #dcdcdc;
+}
+
+.wallet-modal-content hr {
+    width: 100%; /* Full-width divider */
+    margin: 20px 0; /* Proper spacing */
+    border: none;
+    border-top: 1px solid #444; /* Thin divider */
+}
+
+label {
+    font-size: 1rem;
+    margin-right: 10px;
+    display: inline-block; /* Ensure proper spacing for labels */
+    text-align: left;
+    width: 100%;
+}
+
+select, input {
+    width: calc(100% - 10px); /* Full width with slight padding adjustment */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background: #2e2e40;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+button {
+    margin: 10px 0;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 #confirmSwapButton {
     background: linear-gradient(135deg, #32cd32, #228b22);
     color: #fff;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 20px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #confirmSwapButton:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 15px #32cd32, 0 0 20px #228b22;
+    box-shadow: 0 0 10px #32cd32, 0 0 15px #228b22;
 }
 
 #disconnectWalletButton {
     background: linear-gradient(135deg, #ff0000, #cc0000);
     color: #fff;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 20px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #disconnectWalletButton:hover {
