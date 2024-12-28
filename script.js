@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Website loaded and interactive!');
     console.log(typeof solanaWeb3 !== 'undefined' ? 'Solana Web3 is loaded' : 'Solana Web3 is not loaded');
-
+    
 
     // ========================
     // 1. Navigation Controls
