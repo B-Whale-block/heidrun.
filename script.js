@@ -163,26 +163,31 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("Public Key:", publicKey.toBase58());
     
             // Fetch SOL balance
-            const solBalance = await connection.getBalance(publicKey);
-            const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
-            console.log("SOL Balance:", solFormatted);
-            document.getElementById('solBalance').textContent = solFormatted;
+            try {
+                const solBalance = await connection.getBalance(publicKey);
+                console.log("Fetched SOL Balance (lamports):", solBalance);
+                const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
+                console.log("Formatted SOL Balance:", solFormatted);
+                document.getElementById('solBalance').textContent = solFormatted;
+            } catch (error) {
+                console.error("SOL Balance Fetch Error:", error);
+                document.getElementById('solBalance').textContent = 'Error';
+            }            
     
             // Fetch $HEIDRUN token balance
             const tokenAccounts = await connection.getTokenAccountsByOwner(publicKey, {
-                mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') // Heidrun mint address
+                mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM')
             }, 'jsonParsed');
-    
+            console.log("Fetched Token Accounts:", tokenAccounts);
+        
             let heidrunBalance = 0;
             if (tokenAccounts.value.length > 0) {
                 heidrunBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
             }
-            console.log("$HEIDRUN Balance:", heidrunBalance);
+            console.log("Parsed $HEIDRUN Balance:", heidrunBalance);
             document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
-    
         } catch (error) {
-            console.error("Error fetching balances:", error);
-            document.getElementById('solBalance').textContent = 'Error';
+            console.error("$HEIDRUN Balance Fetch Error:", error);
             document.getElementById('heidrunBalance').textContent = 'Error';
         }
     }            
