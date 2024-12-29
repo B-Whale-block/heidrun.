@@ -154,13 +154,16 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchBalances(walletAddress) {
         try {
             console.log("Fetching balances...");
-            const connection = new solanaWeb3.Connection("https://mainnet.helius-rpc.com/?api-key=fbe4fef4-c4f0-4fc7-ae16-3e04c2bf94a9", 'confirmed');
+            const connection = new solanaWeb3.Connection(
+                "https://mainnet.helius-rpc.com/?api-key=fbe4fef4-c4f0-4fc7-ae16-3e04c2bf94a9",
+                'confirmed'
+            );
             console.log("Connected to RPC:", connection.rpcEndpoint);
-
+    
             // Convert wallet address to PublicKey
             const publicKey = new solanaWeb3.PublicKey(walletAddress);
             console.log("Public Key:", publicKey.toBase58());
-
+    
             // Fetch SOL balance
             try {
                 const solBalance = await connection.getBalance(publicKey);
@@ -172,24 +175,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error("SOL Balance Fetch Error:", error);
                 document.getElementById('solBalance').textContent = 'Error';
             }
-
+    
             // Fetch $HEIDRUN token balance
-            const tokenAccounts = await connection.getTokenAccountsByOwner(publicKey, {
-                mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM')
-            }, 'jsonParsed');
-            console.log("Fetched Token Accounts:", tokenAccounts);
-
-            let heidrunBalance = 0;
-            if (tokenAccounts.value.length > 0) {
-                heidrunBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
+            try {
+                const tokenAccounts = await connection.getTokenAccountsByOwner(publicKey, {
+                    mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM'),
+                });
+                console.log("Fetched Token Accounts:", tokenAccounts);
+    
+                let heidrunBalance = 0;
+                if (tokenAccounts.value && tokenAccounts.value.length > 0) {
+                    const accountData = tokenAccounts.value[0].account.data.parsed?.info?.tokenAmount?.uiAmount;
+                    heidrunBalance = accountData || 0;
+                }
+                console.log("Parsed $HEIDRUN Balance:", heidrunBalance);
+                document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
+            } catch (error) {
+                console.error("$HEIDRUN Balance Fetch Error:", error);
+                document.getElementById('heidrunBalance').textContent = 'Error';
             }
-            console.log("Parsed $HEIDRUN Balance:", heidrunBalance);
-            document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
         } catch (error) {
-            console.error("$HEIDRUN Balance Fetch Error:", error);
+            console.error("Error in fetchBalances function:", error);
+            document.getElementById('solBalance').textContent = 'Error';
             document.getElementById('heidrunBalance').textContent = 'Error';
         }
-    }
+    }    
 
     function disconnectWallet() {
         walletConnected = false;
