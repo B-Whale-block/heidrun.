@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchBalances(walletAddress) {
         try {
             console.log("Fetching balances...");
-            const connection = new solanaWeb3.Connection("https://api.mainnet-beta.solana.com", 'confirmed');
+            const connection = new solanaWeb3.Connection("https://mainnet.helius-rpc.com/?api-key=fbe4fef4-c4f0-4fc7-ae16-3e04c2bf94a9", 'confirmed');
             console.log("Connected to RPC:", connection.rpcEndpoint);
 
             // Convert wallet address to PublicKey
