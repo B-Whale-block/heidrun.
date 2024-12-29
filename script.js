@@ -2,7 +2,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Website loaded and interactive!');
     console.log(typeof solanaWeb3 !== 'undefined' ? 'Solana Web3 is loaded' : 'Solana Web3 is not loaded');
-    
 
     // ========================
     // 1. Navigation Controls
@@ -33,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-    
+
     // ========================
     // 2. Modal Controls + Sticky Wallet Info Button
     // ========================
@@ -49,17 +48,17 @@ document.addEventListener('DOMContentLoaded', () => {
     walletCloseModalButton?.addEventListener('click', () => {
         walletInfoModal.style.display = 'none';
     });
-    
+
     let walletConnected = false; // Tracks wallet connection state
 
-        // Function to close all modals
-        function closeAllModals() {
-            modal.style.display = 'none';
-            walletInfoModal.style.display = 'none';
-        }
+    // Function to close all modals
+    function closeAllModals() {
+        modal.style.display = 'none';
+        walletInfoModal.style.display = 'none';
+    }
 
-        // Function to update Buy Button behavior
-        function updateBuyButton() {
+    // Function to update Buy Button behavior
+    function updateBuyButton() {
         if (walletConnected) {
             buyButton.textContent = 'Wallet Info'; // Change button text
         } else {
@@ -139,11 +138,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.solana && window.solana.isPhantom) {
                 const response = await window.solana.connect();
                 const walletAddress = response.publicKey.toString();
-    
+
                 walletConnected = true;
                 updateBuyButton();
                 updateStickyWalletButton();
-    
+
                 // Fetch balances after successfully connecting the wallet
                 await fetchBalances(walletAddress);
             }
@@ -155,13 +154,13 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchBalances(walletAddress) {
         try {
             console.log("Fetching balances...");
-            const connection = new solanaWeb3.Connection("https://rpc.ankr.com/solana", 'confirmed');
+            const connection = new solanaWeb3.Connection("https://api.mainnet-beta.solana.com", 'confirmed');
             console.log("Connected to RPC:", connection.rpcEndpoint);
-    
+
             // Convert wallet address to PublicKey
             const publicKey = new solanaWeb3.PublicKey(walletAddress);
             console.log("Public Key:", publicKey.toBase58());
-    
+
             // Fetch SOL balance
             try {
                 const solBalance = await connection.getBalance(publicKey);
@@ -172,14 +171,14 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 console.error("SOL Balance Fetch Error:", error);
                 document.getElementById('solBalance').textContent = 'Error';
-            }            
-    
+            }
+
             // Fetch $HEIDRUN token balance
             const tokenAccounts = await connection.getTokenAccountsByOwner(publicKey, {
                 mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM')
             }, 'jsonParsed');
             console.log("Fetched Token Accounts:", tokenAccounts);
-        
+
             let heidrunBalance = 0;
             if (tokenAccounts.value.length > 0) {
                 heidrunBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
@@ -190,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("$HEIDRUN Balance Fetch Error:", error);
             document.getElementById('heidrunBalance').textContent = 'Error';
         }
-    }            
+    }
 
     function disconnectWallet() {
         walletConnected = false;
