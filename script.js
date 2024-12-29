@@ -152,36 +152,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchBalances(walletAddress) {
         try {
-            console.log('Fetching balances for wallet:', walletAddress);
+            console.log('Starting fetchBalances...');
+            console.log('Wallet Address:', walletAddress);
     
-            const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
+            // Connect to Solana RPC
+            const RPC_URL = 'https://rpc.ankr.com/solana'; // Public endpoint
+            const connection = new solanaWeb3.Connection(RPC_URL);
+            console.log('Connected to RPC:', RPC_URL);
     
             // Fetch SOL balance
             const solBalance = await connection.getBalance(new solanaWeb3.PublicKey(walletAddress));
-            const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
-            console.log(`Fetched SOL Balance: ${solFormatted}`);
+            console.log('Raw SOL Balance:', solBalance);
     
-            // Update SOL balance in the UI
+            // Format SOL balance
+            const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
+            console.log('Formatted SOL Balance:', solFormatted);
+    
+            // Update SOL balance in UI
             document.getElementById('solBalance').textContent = solFormatted;
     
-            // HEIDRUN Token Logic (Unchanged)
-            const tokenAccounts = await connection.getTokenAccountsByOwner(
-                new solanaWeb3.PublicKey(walletAddress),
-                { mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') }
-            );
-    
-            let heidrunBalance = 0;
-            if (tokenAccounts.value && tokenAccounts.value.length > 0) {
-                heidrunBalance = tokenAccounts.value[0]?.account?.data?.parsed?.info?.tokenAmount?.uiAmount || 0;
-                console.log(`Fetched HEIDRUN Balance: ${heidrunBalance}`);
-            } else {
-                console.warn('No HEIDRUN tokens found.');
-            }
-    
-            // Update HEIDRUN balance in the UI
-            document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
+            // Additional token logic can remain here
         } catch (error) {
-            console.error('Error fetching balances:', error.message);
+            console.error('Error in fetchBalances:', error.message);
+            document.getElementById('solBalance').textContent = 'Error';
         }
     }
 
