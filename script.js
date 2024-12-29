@@ -154,39 +154,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchBalances(walletAddress) {
         try {
-            console.log("Starting fetchBalances...");
-            console.log("Wallet Address:", walletAddress);
-    
-            // Use Ankr's free Solana RPC endpoint for a reliable connection
+            console.log("Fetching balances...");
             const connection = new solanaWeb3.Connection("https://rpc.ankr.com/solana", 'confirmed');
             console.log("Connected to RPC:", connection.rpcEndpoint);
     
-            // Fetch SOL balance
+            // Convert wallet address to PublicKey
             const publicKey = new solanaWeb3.PublicKey(walletAddress);
+            console.log("Public Key:", publicKey.toBase58());
+    
+            // Fetch SOL balance
             const solBalance = await connection.getBalance(publicKey);
             const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
             console.log("SOL Balance:", solFormatted);
+            document.getElementById('solBalance').textContent = solFormatted;
     
             // Fetch $HEIDRUN token balance
             const tokenAccounts = await connection.getTokenAccountsByOwner(publicKey, {
-                mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') // Heidrun token mint address
-            });
+                mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') // Heidrun mint address
+            }, 'jsonParsed');
     
             let heidrunBalance = 0;
             if (tokenAccounts.value.length > 0) {
                 heidrunBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
             }
             console.log("$HEIDRUN Balance:", heidrunBalance);
-    
-            // Update UI elements
-            document.getElementById('solBalance').textContent = solFormatted;
             document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
+    
         } catch (error) {
             console.error("Error fetching balances:", error);
             document.getElementById('solBalance').textContent = 'Error';
             document.getElementById('heidrunBalance').textContent = 'Error';
         }
-    }        
+    }            
 
     function disconnectWallet() {
         walletConnected = false;
