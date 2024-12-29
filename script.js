@@ -157,8 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("Starting fetchBalances...");
             console.log("Wallet Address:", walletAddress);
     
-            // Establish a connection to the Solana blockchain
-            const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'), 'confirmed');
+            // Use Ankr's free Solana RPC endpoint for a reliable connection
+            const connection = new solanaWeb3.Connection("https://rpc.ankr.com/solana", 'confirmed');
             console.log("Connected to RPC:", connection.rpcEndpoint);
     
             // Fetch SOL balance
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             console.log("$HEIDRUN Balance:", heidrunBalance);
     
-            // Update UI elements (IDs must match your HTML structure)
+            // Update UI elements
             document.getElementById('solBalance').textContent = solFormatted;
             document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
         } catch (error) {
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('solBalance').textContent = 'Error';
             document.getElementById('heidrunBalance').textContent = 'Error';
         }
-    }    
+    }        
 
     function disconnectWallet() {
         walletConnected = false;
