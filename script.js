@@ -139,10 +139,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.solana && window.solana.isPhantom) {
                 const response = await window.solana.connect();
                 const walletAddress = response.publicKey.toString();
-
+    
                 walletConnected = true;
                 updateBuyButton();
                 updateStickyWalletButton();
+    
+                // Fetch balances after successfully connecting the wallet
                 await fetchBalances(walletAddress);
             }
         } catch (error) {
@@ -152,31 +154,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchBalances(walletAddress) {
         try {
-            console.log('Starting fetchBalances...');
-            console.log('Wallet Address:', walletAddress);
+            console.log("Starting fetchBalances...");
+            console.log("Wallet Address:", walletAddress);
     
-            // Connect to Solana RPC
-            const RPC_URL = 'https://rpc.ankr.com/solana'; // Public endpoint
-            const connection = new solanaWeb3.Connection(RPC_URL);
-            console.log('Connected to RPC:', RPC_URL);
+            // Establish a connection to the Solana blockchain
+            const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'), 'confirmed');
+            console.log("Connected to RPC:", connection.rpcEndpoint);
     
             // Fetch SOL balance
-            const solBalance = await connection.getBalance(new solanaWeb3.PublicKey(walletAddress));
-            console.log('Raw SOL Balance:', solBalance);
-    
-            // Format SOL balance
+            const publicKey = new solanaWeb3.PublicKey(walletAddress);
+            const solBalance = await connection.getBalance(publicKey);
             const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
-            console.log('Formatted SOL Balance:', solFormatted);
+            console.log("SOL Balance:", solFormatted);
     
-            // Update SOL balance in UI
+            // Fetch $HEIDRUN token balance
+            const tokenAccounts = await connection.getTokenAccountsByOwner(publicKey, {
+                mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM') // Heidrun token mint address
+            });
+    
+            let heidrunBalance = 0;
+            if (tokenAccounts.value.length > 0) {
+                heidrunBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
+            }
+            console.log("$HEIDRUN Balance:", heidrunBalance);
+    
+            // Update UI elements (IDs must match your HTML structure)
             document.getElementById('solBalance').textContent = solFormatted;
-    
-            // Additional token logic can remain here
+            document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
         } catch (error) {
-            console.error('Error in fetchBalances:', error.message);
+            console.error("Error fetching balances:", error);
             document.getElementById('solBalance').textContent = 'Error';
+            document.getElementById('heidrunBalance').textContent = 'Error';
         }
-    }
+    }    
 
     function disconnectWallet() {
         walletConnected = false;
