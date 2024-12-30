@@ -142,7 +142,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 walletConnected = true;
                 updateBuyButton();
                 updateStickyWalletButton();
-                if (!isAutoReconnect) showToast(`Wallet connected: ${walletAddress}`, 'success'); // Use toast for manual connect
+    
+                // Show toast message
+                if (!isAutoReconnect) {
+                    showToast("Your wallet is ready! Dive into the world of $HEIDRUN.", "success");
+                }
     
                 // Save connection status to localStorage
                 localStorage.setItem('walletConnected', 'true');
@@ -150,10 +154,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Fetch balances after successfully connecting the wallet
                 await fetchBalances(walletAddress);
             } else {
-                showToast('Phantom Wallet is not installed.', 'error'); // Notify using toast
+                showToast("Phantom Wallet is not installed. Please install to continue.", "error");
             }
         } catch (error) {
-            console.error('Error connecting wallet:', error);
+            console.error("Error connecting wallet:", error);
+            showToast("Failed to connect wallet. Please try again.", "error");
         }
     }
     
@@ -230,12 +235,15 @@ document.addEventListener('DOMContentLoaded', () => {
         buyButton.textContent = 'Buy $HEIDRUN';
         closeAllModals();
         updateStickyWalletButton();
-        showToast('Wallet disconnected.', 'error'); // Use styled toast
-    
+        
+        // Show a more engaging styled toast message
+        showToast('Disconnected! See you later!', 'error');
+        
         // Remove connection status from localStorage
         localStorage.removeItem('walletConnected');
         console.log('Wallet disconnected.');
     }
+    
     
     function checkWalletConnection() {
         const wasConnected = localStorage.getItem('walletConnected') === 'true';
@@ -259,8 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showToast(message, type = 'success') {
         const existingToast = document.querySelector('.toast');
         if (existingToast) {
-            existingToast.remove(); // Remove existing toast immediately
-            clearTimeout(activeToastTimeout); // Clear existing timeout
+            existingToast.remove(); // Remove any existing toast immediately
         }
     
         const toastContainer = document.querySelector('.toast-container') || createToastContainer();
@@ -277,11 +284,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
         toastContainer.appendChild(toast);
     
-        // Automatically Remove Toast After Duration
-        activeToastTimeout = setTimeout(() => {
-            toast.style.opacity = '0'; // Smooth fade out
-            setTimeout(() => toast.remove(), 500); // Remove after fade-out
-        }, 5000); // 5 seconds duration
+        // Automatically Remove Toast After 5 Seconds
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.style.opacity = '0'; // Smooth fade-out
+                setTimeout(() => toast.remove(), 500); // Remove after fade-out
+            }
+        }, 5000); // Duration is now 5 seconds
     }
     
     function createToastContainer() {
@@ -289,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
         container.className = 'toast-container';
         document.body.appendChild(container);
         return container;
-    }
+    }    
 
     // ========================
     // 4. Play Alpha Button
