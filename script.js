@@ -60,9 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to update Buy Button behavior
     function updateBuyButton() {
         if (walletConnected) {
-            buyButton.textContent = 'Wallet Info'; // Change button text
+            buyButton.textContent = 'Wallet Info'; 
         } else {
-            buyButton.textContent = 'Buy $HEIDRUN'; // Reset button text
+            buyButton.textContent = 'Buy $HEIDRUN';
         }
     }
 
@@ -130,8 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================
     // 3. Wallet Connection
     // ========================
-    const connectWalletButton = document.querySelector('.connect-wallet'); // Wallet connect option
-    const disconnectWalletButton = document.getElementById('disconnectWalletButton'); // Disconnect button
+    const connectWalletButton = document.querySelector('.connect-wallet'); 
+    const disconnectWalletButton = document.getElementById('disconnectWalletButton'); 
 
     async function connectWallet(isAutoReconnect = false) {
         try {
@@ -236,7 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
         closeAllModals();
         updateStickyWalletButton();
         
-        // Show a more engaging styled toast message
         showToast('Disconnected! See you later!', 'error');
         
         // Remove connection status from localStorage
@@ -259,6 +258,67 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check wallet connection on page load
     checkWalletConnection();
 
+    // ========================
+    // 7. Swap Logic
+    // ========================
+    const SOL_MINT_PUBLIC_KEY = "So11111111111111111111111111111111111111112"; 
+    const HEIDRUN_MINT_PUBLIC_KEY = "DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM";
+    
+    async function fetchEstimatedOutput(inputAmount, direction) {
+        try {
+            // Replace with actual API call or estimation logic for swap
+            const outputAmount = direction === "sol-to-heidrun" 
+                ? inputAmount * 10000 // Example exchange rate
+                : inputAmount / 10000; // Example inverse rate
+    
+            document.getElementById('estimatedOutput').textContent = `Estimated: ${outputAmount.toFixed(2)}`;
+        } catch (error) {
+            console.error("Error fetching estimated output:", error);
+            document.getElementById('estimatedOutput').textContent = "Error fetching estimate.";
+        }
+    }
+    
+    async function performSwap() {
+        try {
+            const swapAmount = parseFloat(document.getElementById('swapAmount').value);
+            const swapDirection = document.getElementById('swapDirection').value;
+            const slippageTolerance = parseFloat(document.getElementById('slippage').value);
+    
+            if (isNaN(swapAmount) || swapAmount <= 0) {
+                showToast("Enter a valid amount.", "error");
+                return;
+            }
+    
+            if (isNaN(slippageTolerance) || slippageTolerance < 0) {
+                showToast("Enter a valid slippage tolerance.", "error");
+                return;
+            }
+    
+            // Placeholder for actual swap execution logic
+            showToast("Swap functionality is under development.", "success");
+        } catch (error) {
+            console.error("Error performing swap:", error);
+            showToast("An error occurred during the swap. Please try again.", "error");
+        }
+    }
+
+    // ========================
+    // Event Listeners Swap
+    // ========================
+    const swapAmountInput = document.getElementById('swapAmount');
+    const swapDirectionSelect = document.getElementById('swapDirection');
+
+    swapAmountInput.addEventListener('input', () => {
+        const amount = parseFloat(swapAmountInput.value);
+        const direction = swapDirectionSelect.value;
+    
+        if (!isNaN(amount) && amount > 0) {
+            fetchEstimatedOutput(amount, direction);
+        } else {
+            document.getElementById('estimatedOutput').textContent = "Estimated: --";
+        }
+    });
+
     //==========================================
     // Wallet Connection/Disconnection animation
     //==========================================
@@ -267,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showToast(message, type = 'success') {
         const existingToast = document.querySelector('.toast');
         if (existingToast) {
-            existingToast.remove(); // Remove any existing toast immediately
+            existingToast.remove(); 
         }
     
         const toastContainer = document.querySelector('.toast-container') || createToastContainer();
@@ -284,7 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
         toastContainer.appendChild(toast);
     
-        // Automatically Remove Toast After 5 Seconds
+        // Automatically Remove Toast After 2.5 Seconds
         setTimeout(() => {
             if (toast.parentNode) {
                 toast.style.opacity = '0'; // Smooth fade-out

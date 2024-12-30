@@ -1288,9 +1288,25 @@ footer a:hover {
     color: #ffd700;
 }
 
+.swap-estimate {
+    display: block;
+    font-size: 0.85rem;
+    color: #d1d1d1;
+    margin-top: 5px;
+    text-align: left;
+}
+
 @media (max-width: 768px) {
     .sticky-wallet-info {
         display: block; /* Ensure button appears */
+    }
+
+    .swap-section label, .swap-section input, .swap-section select {
+        font-size: 0.9rem;
+    }
+
+    .swap-estimate {
+        font-size: 0.8rem;
     }
 
     .hero {
