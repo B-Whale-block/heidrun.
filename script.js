@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 walletConnected = true;
                 updateBuyButton();
                 updateStickyWalletButton();
-                if (!isAutoReconnect) alert(`Wallet connected: ${walletAddress}`); // Show alert only for manual connect
+                if (!isAutoReconnect) showToast(`Wallet connected: ${walletAddress}`, 'success'); // Use toast for manual connect
     
                 // Save connection status to localStorage
                 localStorage.setItem('walletConnected', 'true');
@@ -150,11 +150,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Fetch balances after successfully connecting the wallet
                 await fetchBalances(walletAddress);
             } else {
-                alert('Phantom Wallet is not installed.'); // Notify if Phantom is not found
+                showToast('Phantom Wallet is not installed.', 'error'); // Notify using toast
             }
         } catch (error) {
             console.error('Error connecting wallet:', error);
         }
+    }
+    
+    // Auto-reconnect on page load
+    if (localStorage.getItem('walletConnected') === 'true') {
+        connectWallet(true);
     }
     
     async function fetchBalances(walletAddress) {
@@ -246,6 +251,48 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check wallet connection on page load
     checkWalletConnection();
 
+    //==========================================
+    // Wallet Connection/Disconnection animation
+    //==========================================
+    function showToast(message, type = 'success') {
+        const toastContainer = document.querySelector('.toast-container') || createToastContainer();
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.textContent = message;
+    
+        // Add Close Button
+        const closeButton = document.createElement('button');
+        closeButton.className = 'toast-close';
+        closeButton.innerHTML = '&times;';
+        closeButton.addEventListener('click', () => toast.remove());
+        toast.appendChild(closeButton);
+    
+        toastContainer.appendChild(toast);
+    
+        // Automatically Remove Toast After 5 Seconds
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.remove();
+            }
+        }, 5000);
+    }
+    
+    // Create Toast Container if it Doesn't Exist
+    function createToastContainer() {
+        const container = document.createElement('div');
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+        return container;
+    }
+    
+    // Usage Examples
+    function walletConnectedToast() {
+        showToast('Wallet connected successfully!', 'success');
+    }
+    
+    function walletDisconnectedToast() {
+        showToast('Wallet disconnected.', 'error');
+    }
 
     // ========================
     // 4. Play Alpha Button
