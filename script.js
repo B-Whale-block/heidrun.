@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
         buyButton.textContent = 'Buy $HEIDRUN';
         closeAllModals();
         updateStickyWalletButton();
-        alert('Wallet disconnected.'); // Confirmation message
+        showToast('Wallet disconnected.', 'error'); // Use styled toast
     
         // Remove connection status from localStorage
         localStorage.removeItem('walletConnected');
@@ -254,53 +254,42 @@ document.addEventListener('DOMContentLoaded', () => {
     //==========================================
     // Wallet Connection/Disconnection animation
     //==========================================
-    let toastTimeout; // Reference to manage overlapping toasts
+    let activeToastTimeout;
 
-function showToast(message, type = 'success') {
-    const existingToast = document.querySelector('.toast');
-    if (existingToast) {
-        clearTimeout(toastTimeout); // Clear existing timeout
-        existingToast.remove(); // Remove the current toast
-    }
-
-    const toastContainer = document.querySelector('.toast-container') || createToastContainer();
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
-    toast.textContent = message;
-
-    // Add Close Button
-    const closeButton = document.createElement('button');
-    closeButton.className = 'toast-close';
-    closeButton.innerHTML = '&times;';
-    closeButton.addEventListener('click', () => toast.remove());
-    toast.appendChild(closeButton);
-
-    toastContainer.appendChild(toast);
-
-    // Automatically Remove Toast After 8 Seconds
-    toastTimeout = setTimeout(() => {
-        if (toast.parentNode) {
+    function showToast(message, type = 'success') {
+        const existingToast = document.querySelector('.toast');
+        if (existingToast) {
+            existingToast.remove(); // Remove existing toast immediately
+            clearTimeout(activeToastTimeout); // Clear existing timeout
+        }
+    
+        const toastContainer = document.querySelector('.toast-container') || createToastContainer();
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.textContent = message;
+    
+        // Add Close Button
+        const closeButton = document.createElement('button');
+        closeButton.className = 'toast-close';
+        closeButton.innerHTML = '&times;';
+        closeButton.addEventListener('click', () => toast.remove());
+        toast.appendChild(closeButton);
+    
+        toastContainer.appendChild(toast);
+    
+        // Automatically Remove Toast After Duration
+        activeToastTimeout = setTimeout(() => {
             toast.style.opacity = '0'; // Smooth fade out
             setTimeout(() => toast.remove(), 500); // Remove after fade-out
-        }
-    }, 8000); // 8 seconds duration
-}
-
-function createToastContainer() {
-    const container = document.createElement('div');
-    container.className = 'toast-container';
-    document.body.appendChild(container);
-    return container;
-}
-
-// Usage Example
-function walletConnectedToast() {
-    showToast('Wallet connected successfully!', 'success');
-}
-
-function walletDisconnectedToast() {
-    showToast('Wallet disconnected.', 'error');
-}
+        }, 5000); // 5 seconds duration
+    }
+    
+    function createToastContainer() {
+        const container = document.createElement('div');
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+        return container;
+    }
 
     // ========================
     // 4. Play Alpha Button

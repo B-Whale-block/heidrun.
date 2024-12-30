@@ -1238,12 +1238,12 @@ footer a:hover {
     font-size: 1rem;
     font-weight: bold;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 215, 0, 0.3);
-    animation: toastFadeIn 0.5s ease, toastFadeOut 0.5s ease 7.5s forwards;
     opacity: 0;
-    pointer-events: auto;
+    transform: translateY(-20px);
+    animation: fadeIn 0.5s forwards, fadeOut 0.5s 4.5s forwards;
 }
 
-@keyframes toastFadeIn {
+@keyframes fadeIn {
     from {
         opacity: 0;
         transform: translateY(-20px);
@@ -1254,7 +1254,7 @@ footer a:hover {
     }
 }
 
-@keyframes toastFadeOut {
+@keyframes fadeOut {
     from {
         opacity: 1;
         transform: translateY(0);
@@ -1282,7 +1282,6 @@ footer a:hover {
     font-size: 1.2rem;
     cursor: pointer;
     margin-left: 10px;
-    pointer-events: auto;
 }
 
 .toast-close:hover {
