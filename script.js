@@ -266,17 +266,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function fetchEstimatedOutput(inputAmount, direction) {
         try {
-            // Call to Jupiter API to get the real exchange rate
             const inputMint = direction === "sol-to-heidrun" ? SOL_MINT_PUBLIC_KEY : HEIDRUN_MINT_PUBLIC_KEY;
             const outputMint = direction === "sol-to-heidrun" ? HEIDRUN_MINT_PUBLIC_KEY : SOL_MINT_PUBLIC_KEY;
-    
+            
+            const amountInLamports = Math.floor(inputAmount * 1e9); // Convert to lamports
             const response = await fetch(
-                `https://quote-api.jup.ag/v1/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${inputAmount * 1e9}`
+                `https://quote-api.jup.ag/v1/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amountInLamports}`
             );
             const data = await response.json();
     
             if (data && data.data && data.data[0]) {
-                const outputAmount = data.data[0].outAmount / 1e9; // Convert from lamports
+                const outputAmount = data.data[0].outAmount / 1e9; // Convert from lamports to SOL/Token
                 document.getElementById('estimatedOutput').textContent = `Estimated: ${outputAmount.toFixed(4)}`;
             } else {
                 throw new Error("Invalid response from Jupiter API");
@@ -305,19 +305,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
             showToast("Executing swap... Please wait.", "success");
     
-            // Real swap logic with Jupiter API
             const inputMint = swapDirection === "sol-to-heidrun" ? SOL_MINT_PUBLIC_KEY : HEIDRUN_MINT_PUBLIC_KEY;
             const outputMint = swapDirection === "sol-to-heidrun" ? HEIDRUN_MINT_PUBLIC_KEY : SOL_MINT_PUBLIC_KEY;
-            const connection = new solanaWeb3.Connection("https://api.mainnet-beta.solana.com", "confirmed");
-            const walletPublicKey = window.solana.publicKey;
+            const amountInLamports = Math.floor(swapAmount * 1e9); // Convert to lamports
     
             const response = await fetch(
-                `https://quote-api.jup.ag/v1/swap?inputMint=${inputMint}&outputMint=${outputMint}&amount=${swapAmount * 1e9}&slippage=${slippageTolerance}`,
+                `https://quote-api.jup.ag/v1/swap?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amountInLamports}&slippage=${slippageTolerance}`,
                 { method: "POST" }
             );
             const swapData = await response.json();
     
             if (swapData && swapData.tx) {
+                const connection = new solanaWeb3.Connection("https://api.mainnet-beta.solana.com", "confirmed");
                 const transaction = solanaWeb3.Transaction.from(Buffer.from(swapData.tx, "base64"));
                 const signedTransaction = await window.solana.signTransaction(transaction);
                 const txId = await connection.sendRawTransaction(signedTransaction.serialize());
@@ -325,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
                 showToast("Swap completed successfully!", "success");
                 // Update balances
-                fetchBalances(walletPublicKey.toString());
+                fetchBalances(window.solana.publicKey.toString());
             } else {
                 throw new Error("Swap execution failed.");
             }
@@ -333,24 +332,27 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Error performing swap:", error);
             showToast("An error occurred during the swap. Please try again.", "error");
         }
-    }
+    }    
 
     // ========================
     // Event Listeners Swap
     // ========================
     const swapAmountInput = document.getElementById('swapAmount');
     const swapDirectionSelect = document.getElementById('swapDirection');
+    const confirmSwapButton = document.getElementById('confirmSwapButton');
 
     swapAmountInput.addEventListener('input', () => {
         const amount = parseFloat(swapAmountInput.value);
         const direction = swapDirectionSelect.value;
-    
+
         if (!isNaN(amount) && amount > 0) {
             fetchEstimatedOutput(amount, direction);
         } else {
             document.getElementById('estimatedOutput').textContent = "Estimated: --";
         }
     });
+
+    confirmSwapButton.addEventListener('click', performSwap);
 
     //==========================================
     // Wallet Connection/Disconnection animation
