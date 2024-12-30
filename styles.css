@@ -1074,8 +1074,8 @@ footer a:hover {
 }
 
 .input-container {
-    display: flex;
-    justify-content: space-between; 
+    display: grid;
+    grid-template-columns: 20% 20%; 
     align-items: center; 
     width: 100%; 
     gap: 10px; 
