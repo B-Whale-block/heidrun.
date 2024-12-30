@@ -269,12 +269,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
         toastContainer.appendChild(toast);
     
-        // Automatically Remove Toast After 5 Seconds
+        // Automatically Remove Toast After 8 Seconds (Increased Duration)
         setTimeout(() => {
             if (toast.parentNode) {
-                toast.remove();
+                toast.style.opacity = '0'; // Smooth fade out
+                setTimeout(() => toast.remove(), 500); // Remove after fade out
             }
-        }, 5000);
+        }, 8000); // 8 seconds before fading out
     }
     
     // Create Toast Container if it Doesn't Exist
