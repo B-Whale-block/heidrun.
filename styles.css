@@ -1074,15 +1074,15 @@ footer a:hover {
 }
 
 .input-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    align-items: center; 
+    width: 100%; 
     gap: 10px; 
 }
 
 .input-container input[type="text"] {
-    width: 45%; 
+    justify-self: start; 
     text-align: left; 
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1094,7 +1094,7 @@ footer a:hover {
 }
 
 .input-container input[type="number"] {
-    width: 45%; 
+    justify-self: end; 
     text-align: right; 
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
