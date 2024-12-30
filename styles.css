@@ -1214,6 +1214,80 @@ footer a:hover {
     }
 }
 
+/* Wallet Connection/Disconnection confirmation*/
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(34, 34, 51, 1), rgba(50, 50, 75, 1));
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 215, 0, 0.3);
+    animation: toastFadeIn 0.5s ease, toastFadeOut 0.5s ease 4.5s forwards;
+    opacity: 0;
+    pointer-events: auto;
+}
+
+@keyframes toastFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes toastFadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+.toast-success {
+    background: linear-gradient(135deg, #28a745, #218838);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.5), 0 0 10px rgba(40, 167, 69, 0.3);
+}
+
+.toast-error {
+    background: linear-gradient(135deg, #dc3545, #bd2130);
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.5), 0 0 10px rgba(220, 53, 69, 0.3);
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 10px;
+    pointer-events: auto;
+}
+
+.toast-close:hover {
+    color: #ffd700;
+}
+
 @media (max-width: 768px) {
     .sticky-wallet-info {
         display: block; /* Ensure button appears */
