@@ -297,52 +297,49 @@
     </div>
 
     <!-- Wallet Info Modal -->
-    <div id="walletInfoModal" class="modal hidden">
+    <div id="walletInfoModal" class="modal">
         <div class="modal-content">
-            <button class="close-modal" id="walletCloseModal">X</button>
-            <h2>Wallet Balance</h2>
-    
-            <!-- Wallet Balances -->
-            <div class="balance-section">
-                <div class="balance-row">
-                    <span class="token-name">$HEIDRUN:</span>
-                    <span class="token-value" id="heidrunBalance">0</span>
-                </div>
-                <div class="balance-row">
-                    <span class="token-name">$SOLANA:</span>
-                    <span class="token-value" id="solBalance">0</span>
-                </div>
+          <h2>Wallet Balance</h2>
+          <div class="balance-section">
+            <div class="balance-row">
+              <span class="token-name">$HEIDRUN:</span>
+              <span class="token-value" id="heidrunBalance">0.00</span>
             </div>
-    
-            <!-- Divider -->
-            <hr>
-    
-            <!-- Swap Section -->
-            <h3>Swap $HEIDRUN</h3>
-            <div class="swap-section">
-                <label for="swapDirection">Swap Direction:</label>
-                <select id="swapDirection">
-                    <option value="heidrun-to-sol">SOL → $HEIDRUN</option>
-                    <option value="sol-to-heidrun">$HEIDRUN → SOL</option>
-                </select>
-    
-                <label for="swapAmount">Amount:</label>
-                <input type="number" id="swapAmount" placeholder="Enter amount" />
-    
-                <label for="slippage">Slippage Tolerance (%):</label>
-                <input type="number" id="slippage" value="1" />
+            <div class="balance-row">
+              <span class="token-name">$SOLANA:</span>
+              <span class="token-value" id="solBalance">1.0600</span>
             </div>
-    
-            <!-- Swap Button -->
-            <button id="confirmSwapButton" class="swap-button">Confirm Swap</button>
-    
-            <!-- Divider -->
-            <hr>
-    
-            <!-- Disconnect Button -->
-            <button id="disconnectWalletButton" class="disconnect-button">Disconnect</button>
+          </div>
+      
+          <h3>Swap $HEIDRUN</h3>
+          <div class="swap-section">
+            <!-- From Section -->
+            <div class="balance-row">
+              <label for="fromToken">From:</label>
+              <input type="text" id="fromToken" value="SOL" readonly>
+            </div>
+      
+            <!-- Swap Icon/Button -->
+            <button id="swapButton" class="swap-icon">
+              <img src="images/swap-icon.png" alt="Swap" />
+            </button>
+      
+            <!-- To Section -->
+            <div class="balance-row">
+              <label for="toToken">To:</label>
+              <input type="text" id="toToken" value="HEIDRUN" readonly>
+            </div>
+          </div>
+      
+          <!-- Slippage Tolerance -->
+          <label for="slippageTolerance">Slippage Tolerance (%):</label>
+          <input type="number" id="slippageTolerance" value="1" min="0" max="100">
+      
+          <!-- Action Buttons -->
+          <button id="confirmSwapButton" class="btn btn-success">Confirm Swap</button>
+          <button id="disconnectWalletButton" class="btn btn-danger">Disconnect</button>
         </div>
-    </div>
+      </div>
       
 </body>
 </html>
