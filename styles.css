@@ -1056,12 +1056,18 @@ footer a:hover {
 }
 
 .swap-section {
-    margin-top: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
+    padding: 15px; 
+    background: rgba(34, 34, 51, 0.95); 
+    border-radius: 12px; 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); 
+}
+
+.swap-estimate {
+    font-size: 0.9rem;
+    color: #ffd700; 
+    margin-top: 5px;
+    font-weight: bold;
+    text-align: center;
 }
 
 .swap-section label {
@@ -1123,19 +1129,25 @@ footer a:hover {
 }
 
 #confirmSwapButton {
-    background: linear-gradient(135deg, #32cd32, #228b22);
-    color: #fff;
-    border-radius: 20px;
+    margin-top: 15px; 
+    padding: 10px 20px; 
+    font-size: 1.1rem; 
     font-weight: bold;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    color: #ffffff;
+    background: linear-gradient(135deg, #32cd32, #228b22);
     border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); 
+    transition: all 0.3s ease;
 }
 
 #confirmSwapButton:hover {
     background: linear-gradient(135deg, #3cb371, #006400);
-    transform: scale(1.1); 
-    box-shadow: 0 10px 30px rgba(50, 205, 50, 0.5);
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(50, 205, 50, 0.7);
 }
+
 
 #disconnectWalletButton {
     background: linear-gradient(135deg, #ff0000, #cc0000);
