@@ -297,7 +297,7 @@
     </div>
 
     <!-- Wallet Info Modal -->
-    <div id="walletInfoModal" class="modal">
+    <div id="walletInfoModal" class="modal" aria-hidden="true">
         <div class="modal-content">
           <h2>Wallet Balance</h2>
           <div class="balance-section">
@@ -317,35 +317,39 @@
             <div class="balance-row">
               <label for="fromToken">From:</label>
               <div class="input-container">
-                <input type="text" id="fromToken" value="SOL" readonly>
-                <input type="number" id="fromAmount" placeholder="0" min="0">
+                <input type="text" id="fromToken" value="HEIDRUN" readonly class="token-input">
+                <input type="number" id="fromAmount" placeholder="0" min="0" class="amount-input">
               </div>
             </div>
-          
+      
             <!-- Swap Icon/Button -->
             <button id="swapButton" class="swap-icon">
               <img src="images/swap-icon.png" alt="Swap">
             </button>
-          
+      
             <!-- To Section -->
             <div class="balance-row">
               <label for="toToken">To:</label>
               <div class="input-container">
-                <input type="text" id="toToken" value="HEIDRUN" readonly>
-                <input type="number" id="toAmount" placeholder="0" min="0">
+                <input type="text" id="toToken" value="SOL" readonly class="token-input">
+                <input type="number" id="toAmount" placeholder="0" min="0" class="amount-input">
               </div>
             </div>
-          
+      
             <!-- Slippage Tolerance -->
             <div class="balance-row">
               <label for="slippageTolerance">Slippage Tolerance (%):</label>
-              <input type="number" id="slippageTolerance" value="1" min="0" max="100">
+              <div class="input-container">
+                <input type="number" id="slippageTolerance" value="1" min="0" max="100" class="amount-input">
+              </div>
             </div>
-          
+      
             <!-- Action Buttons -->
             <button id="confirmSwapButton" class="btn btn-success">Confirm Swap</button>
             <button id="disconnectWalletButton" class="btn btn-danger">Disconnect</button>
           </div>
+        </div>
+      </div>    
       
 </body>
 </html>
