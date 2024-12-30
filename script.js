@@ -160,17 +160,14 @@ document.addEventListener('DOMContentLoaded', () => {
             );
             console.log("Connected to RPC:", connection.rpcEndpoint);
     
-            // Convert wallet address to PublicKey
             const publicKey = new solanaWeb3.PublicKey(walletAddress);
-            console.log("Public Key:", publicKey.toBase58());
     
             // Fetch SOL balance
             try {
                 const solBalance = await connection.getBalance(publicKey);
-                console.log("Fetched SOL Balance (lamports):", solBalance);
                 const solFormatted = (solBalance / solanaWeb3.LAMPORTS_PER_SOL).toFixed(4);
+                document.getElementById('solBalance').textContent = solFormatted.toLocaleString();
                 console.log("Formatted SOL Balance:", solFormatted);
-                document.getElementById('solBalance').textContent = solFormatted;
             } catch (error) {
                 console.error("SOL Balance Fetch Error:", error);
                 document.getElementById('solBalance').textContent = 'Error';
@@ -182,14 +179,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     programId: new solanaWeb3.PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'), // SPL Token Program ID
                 });
     
-                console.log("Fetched Token Accounts:", tokenAccounts);
-    
                 let heidrunBalance = 0;
                 const heidrunMint = 'DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM';
     
-                // Find the associated token account for $HEIDRUN
-                for (const account of tokenAccounts.value) {
-                    const accountInfo = await connection.getParsedAccountInfo(account.pubkey);
+                const tokenAccountInfoPromises = tokenAccounts.value.map(account =>
+                    connection.getParsedAccountInfo(account.pubkey)
+                );
+    
+                const accountInfos = await Promise.all(tokenAccountInfoPromises);
+    
+                for (const accountInfo of accountInfos) {
                     const data = accountInfo.value?.data?.parsed?.info;
                     if (data && data.mint === heidrunMint) {
                         heidrunBalance = data.tokenAmount.uiAmount || 0;
@@ -197,8 +196,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
     
+                document.getElementById('heidrunBalance').textContent = heidrunBalance.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                });
                 console.log("Parsed $HEIDRUN Balance:", heidrunBalance);
-                document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
             } catch (error) {
                 console.error("$HEIDRUN Balance Fetch Error:", error);
                 document.getElementById('heidrunBalance').textContent = 'Error';
@@ -208,7 +210,8 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('solBalance').textContent = 'Error';
             document.getElementById('heidrunBalance').textContent = 'Error';
         }
-    }        
+    }
+            
 
     function disconnectWallet() {
         walletConnected = false;
