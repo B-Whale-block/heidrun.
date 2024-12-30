@@ -1075,14 +1075,14 @@ footer a:hover {
 
 .input-container {
     display: grid; 
-    grid-template-columns: 1fr 1fr; 
+    grid-template-columns: 40% 60%; 
     align-items: center; 
-    width: 100%; 
     gap: 10px; 
+    width: 100%;
 }
 
 .input-container input[type="text"] {
-    justify-self: start; 
+    justify-self: start;
     text-align: left; 
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
