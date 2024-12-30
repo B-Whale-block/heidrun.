@@ -1074,17 +1074,16 @@ footer a:hover {
 }
 
 .input-container {
-    display: grid;
-    grid-template-columns: 20% 20%; 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
     align-items: center; 
     width: 100%; 
     gap: 10px; 
 }
 
 .input-container input[type="text"] {
-    justify-self: start;
-    width: 40%; 
-    text-align: center; 
+    justify-self: start; 
+    text-align: left; 
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
@@ -1095,9 +1094,8 @@ footer a:hover {
 }
 
 .input-container input[type="number"] {
-    justify-self: end;
-    width: 40%; 
-    text-align: center; 
+    justify-self: end; 
+    text-align: right; 
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
@@ -1106,6 +1104,7 @@ footer a:hover {
     font-size: 1rem;
     box-sizing: border-box;
 }
+
 
 .input-container input:focus {
     outline: none;
