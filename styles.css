@@ -1058,9 +1058,11 @@ footer a:hover {
 }
 
 .swap-section {
+    margin-top: 0;
     display: flex;
     flex-direction: column;
-    gap: 15px; 
+    align-items: center;
+    gap: 15px;
     width: 100%;
 }
 
@@ -1073,32 +1075,35 @@ footer a:hover {
 
 .input-container {
     display: flex;
-    justify-content: space-between; 
-    align-items: center; 
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     gap: 10px; 
-    width: 100%; 
 }
 
 .input-container input[type="text"] {
-    width: 40%;
-    text-align: left; 
+    width: 45%;
+    text-align: left;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     color: #ffffff;
     padding: 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
 }
 
 .input-container input[type="number"] {
-    width: 40%; 
+    width: 45%;
     text-align: right; 
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     color: #ffffff;
     padding: 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
 }
-
 
 .input-container input:focus {
     outline: none;
