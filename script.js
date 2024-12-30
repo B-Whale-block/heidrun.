@@ -307,14 +307,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const toTokenInput = document.getElementById('toToken'); 
 
     swapButton?.addEventListener('click', () => {
-        // Swap values
+        // Swap token types
         const fromValue = fromTokenInput.value;
         const toValue = toTokenInput.value;
     
         fromTokenInput.value = toValue;
         toTokenInput.value = fromValue;
     
-        console.log(`Swapped: From ${fromValue} to ${toValue}`);
+        // Swap amounts
+        const fromAmount = document.getElementById('fromAmount');
+        const toAmount = document.getElementById('toAmount');
+        const tempAmount = fromAmount.value;
+    
+        fromAmount.value = toAmount.value;
+        toAmount.value = tempAmount;
+    
+        console.log(`Swapped: From ${fromValue} to ${toValue} | Amounts: ${fromAmount.value} to ${toAmount.value}`);
     });
 
     // ========================

@@ -316,18 +316,24 @@
             <!-- From Section -->
             <div class="balance-row">
               <label for="fromToken">From:</label>
-              <input type="text" id="fromToken" value="SOL" readonly>
+              <div class="input-container">
+                <input type="text" id="fromToken" value="SOL" readonly>
+                <input type="number" id="fromAmount" placeholder="0" min="0">
+              </div>
             </div>
-      
+          
             <!-- Swap Icon/Button -->
             <button id="swapButton" class="swap-icon">
-              <img src="images/swap-icon.png" alt="Swap" />
+              <img src="swap-icon.png" alt="Swap">
             </button>
-      
+          
             <!-- To Section -->
             <div class="balance-row">
               <label for="toToken">To:</label>
-              <input type="text" id="toToken" value="HEIDRUN" readonly>
+              <div class="input-container">
+                <input type="text" id="toToken" value="HEIDRUN" readonly>
+                <input type="number" id="toAmount" placeholder="0" min="0">
+              </div>
             </div>
           </div>
       
