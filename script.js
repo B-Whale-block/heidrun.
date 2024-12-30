@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 toast.style.opacity = '0'; // Smooth fade-out
                 setTimeout(() => toast.remove(), 500); // Remove after fade-out
             }
-        }, 5000); // Duration is now 5 seconds
+        }, 2500); // Duration is now 5 seconds
     }
     
     function createToastContainer() {
