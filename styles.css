@@ -1105,6 +1105,20 @@ footer a:hover {
     box-sizing: border-box;
 }
 
+.input-container input[type="text"],
+.input-container input[type="number"] {
+    width: 30%; 
+    max-width: 100px; 
+    text-align: center; 
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
 .input-container input:focus {
     outline: none;
     border: 1px solid #ffd700;
