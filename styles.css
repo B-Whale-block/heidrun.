@@ -1082,8 +1082,8 @@ footer a:hover {
 }
 
 .input-container input[type="text"] {
-    width: 40%; 
-    text-align: center;
+    width: 40%;
+    text-align: left; 
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
@@ -1095,8 +1095,8 @@ footer a:hover {
 
 .input-container input[type="number"] {
     width: 60%; 
-    text-align: right;
-    background: rgba(255, 255, 255, 0.1);
+    text-align: right; 
+    background: rgba(255, 255, 255, 0.1); 
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     color: #ffffff;
