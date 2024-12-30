@@ -1001,30 +1001,26 @@ footer a:hover {
 }
 
 /* Wallet Info*/
+/* Updated styles for Wallet Info Modal */
+
+/* General Modal Content */
 #walletInfoModal .modal-content {
+    max-width: 450px; /* Increased max width */
+    width: 90%; /* Ensures responsiveness */
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    gap: 10px;
     background: rgba(34, 34, 51, 0.9);
     color: #ffffff;
-    padding: 15px;
     border-radius: 15px;
     text-align: center;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7), 0 0 20px rgba(50, 205, 50, 0.2);
-    max-width: 400px;
-    width: 90%;
+    gap: 20px;
     box-sizing: border-box;
 }
 
-#walletInfoModal .modal-content h2 {
-    margin-bottom: 5px;
-    font-size: 1.6rem;
-    color: #ffd700;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-}
-
+/* Balance Section Alignment */
 #walletInfoModal .balance-section {
     width: 100%;
     padding: 0 10px;
@@ -1035,28 +1031,86 @@ footer a:hover {
 
 #walletInfoModal .balance-row {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Ensures alignment */
+    align-items: center;
     font-size: 1.2rem;
     line-height: 1.5;
     color: #dcdcdc;
-    align-items: center;
     width: 100%;
 }
 
 #walletInfoModal .balance-row .token-name {
+    flex: 0 0 auto; /* Prevent resizing */
     text-align: left;
-    flex: 1;
     font-weight: normal;
     color: #dcdcdc;
 }
 
 #walletInfoModal .balance-row .token-value {
-    text-align: center;
-    flex: 1;
+    flex: 0 0 auto; /* Prevent resizing */
+    text-align: right;
     font-weight: bold;
     color: #ffffff;
 }
 
+/* Input Container Adjustments */
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    width: 100%; /* Set to full width */
+}
+
+.input-container input[type="text"],
+.input-container input[type="number"] {
+    flex: none; /* Prevent automatic resizing */
+    width: calc(50% - 10px); /* Set equal widths for inputs */
+    text-align: center;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.input-container input:focus {
+    outline: none;
+    border: 1px solid #ffd700;
+    box-shadow: 0 0 8px #ffd700;
+}
+
+/* Slippage Container Alignment */
+.slippage-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 5px 0;
+}
+
+.slippage-container label {
+    flex: 1;
+    text-align: left;
+    font-size: 1rem;
+    color: #dcdcdc;
+}
+
+.slippage-container input[type="number"] {
+    flex: 1;
+    width: auto;
+    text-align: right;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+/* Swap Section Updates */
 .swap-section {
     margin-top: 0;
     display: flex;
@@ -1073,101 +1127,7 @@ footer a:hover {
     width: 100%;
 }
 
-.balance-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px; 
-    width: 100%; 
-    margin: 0 auto;
-}
-
-.input-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    width: 70%; 
-}
-
-.input-container input[type="text"],
-.input-container input[type="number"] {
-    flex: 1; 
-    text-align: center; 
-    padding: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    font-size: 1rem;
-}
-
-.input-container input:focus {
-    outline: none;
-    border: 1px solid #ffd700;
-    box-shadow: 0 0 8px #ffd700;
-}
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-input[type="number"] {
-    -moz-appearance: textfield; 
-}
-
-.swap-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin: 15px 0;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease;
-}
-
-.swap-icon:hover {
-    transform: rotate(180deg);
-}
-
-.swap-icon img {
-    width: 100%;
-    height: 100%;
-}
-
-.slippage-container {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
-    gap: 10px; 
-    width: 100%; 
-    padding: 5px 0; 
-}
-  
-  .slippage-container label {
-    flex: 1; 
-    text-align: left;
-    font-size: 1rem;
-    color: #dcdcdc;
-}
-  
-  .slippage-container input[type="number"] {
-    flex: 1; 
-    text-align: right;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    color: #ffffff;
-    padding: 10px;
-    font-size: 1rem;
-}
-
+/* Confirm and Disconnect Buttons */
 #confirmSwapButton,
 #disconnectWalletButton {
     margin-top: 5px;
