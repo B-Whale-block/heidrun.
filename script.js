@@ -133,16 +133,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const connectWalletButton = document.querySelector('.connect-wallet'); // Wallet connect option
     const disconnectWalletButton = document.getElementById('disconnectWalletButton'); // Disconnect button
 
-    async function connectWallet() {
+    async function connectWallet(isAutoReconnect = false) {
         try {
             if (window.solana && window.solana.isPhantom) {
-                const response = await window.solana.connect();
+                const response = await window.solana.connect({ onlyIfTrusted: isAutoReconnect });
                 const walletAddress = response.publicKey.toString();
     
                 walletConnected = true;
                 updateBuyButton();
                 updateStickyWalletButton();
-                alert(`Wallet connected: ${walletAddress}`); // Confirmation message
+                if (!isAutoReconnect) alert(`Wallet connected: ${walletAddress}`); // Show alert only for manual connect
+    
+                // Save connection status to localStorage
+                localStorage.setItem('walletConnected', 'true');
     
                 // Fetch balances after successfully connecting the wallet
                 await fetchBalances(walletAddress);
@@ -223,30 +226,21 @@ document.addEventListener('DOMContentLoaded', () => {
         closeAllModals();
         updateStickyWalletButton();
         alert('Wallet disconnected.'); // Confirmation message
+    
+        // Remove connection status from localStorage
+        localStorage.removeItem('walletConnected');
         console.log('Wallet disconnected.');
     }
     
-    async function checkWalletConnection() {
-        try {
-            if (window.solana && window.solana.isPhantom) {
-                const isConnected = window.solana.isConnected;
-                if (isConnected) {
-                    const response = await window.solana.connect({ onlyIfTrusted: true });
-                    const walletAddress = response.publicKey.toString();
-                    walletConnected = true;
-                    updateBuyButton();
-                    updateStickyWalletButton();
-                    alert(`Wallet reconnected: ${walletAddress}`); // Confirmation message
-                    await fetchBalances(walletAddress); // Fetch balances after reconnection
-                }
-            }
-        } catch (error) {
-            console.error('Error checking wallet connection:', error);
+    function checkWalletConnection() {
+        const wasConnected = localStorage.getItem('walletConnected') === 'true';
+        if (wasConnected && window.solana?.isPhantom) {
+            connectWallet(true); // Attempt auto-reconnect
         }
     }
     
     // Event Listeners
-    connectWalletButton?.addEventListener('click', connectWallet);
+    connectWalletButton?.addEventListener('click', () => connectWallet(false));
     disconnectWalletButton?.addEventListener('click', disconnectWallet);
     
     // Check wallet connection on page load
