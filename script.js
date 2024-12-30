@@ -261,17 +261,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================
     // 7. Swap Logic
     // ========================
-    const SOL_MINT_PUBLIC_KEY = "So11111111111111111111111111111111111111112"; 
+    const SOL_MINT_PUBLIC_KEY = "So11111111111111111111111111111111111111112";
     const HEIDRUN_MINT_PUBLIC_KEY = "DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM";
     
     async function fetchEstimatedOutput(inputAmount, direction) {
         try {
-            // Replace with actual API call or estimation logic for swap
-            const outputAmount = direction === "sol-to-heidrun" 
-                ? inputAmount * 10000 // Example exchange rate
-                : inputAmount / 10000; // Example inverse rate
+            // Call to Jupiter API to get the real exchange rate
+            const inputMint = direction === "sol-to-heidrun" ? SOL_MINT_PUBLIC_KEY : HEIDRUN_MINT_PUBLIC_KEY;
+            const outputMint = direction === "sol-to-heidrun" ? HEIDRUN_MINT_PUBLIC_KEY : SOL_MINT_PUBLIC_KEY;
     
-            document.getElementById('estimatedOutput').textContent = `Estimated: ${outputAmount.toFixed(2)}`;
+            const response = await fetch(
+                `https://quote-api.jup.ag/v1/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${inputAmount * 1e9}`
+            );
+            const data = await response.json();
+    
+            if (data && data.data && data.data[0]) {
+                const outputAmount = data.data[0].outAmount / 1e9; // Convert from lamports
+                document.getElementById('estimatedOutput').textContent = `Estimated: ${outputAmount.toFixed(4)}`;
+            } else {
+                throw new Error("Invalid response from Jupiter API");
+            }
         } catch (error) {
             console.error("Error fetching estimated output:", error);
             document.getElementById('estimatedOutput').textContent = "Error fetching estimate.";
@@ -294,8 +303,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
     
-            // Placeholder for actual swap execution logic
-            showToast("Swap functionality is under development.", "success");
+            showToast("Executing swap... Please wait.", "success");
+    
+            // Real swap logic with Jupiter API
+            const inputMint = swapDirection === "sol-to-heidrun" ? SOL_MINT_PUBLIC_KEY : HEIDRUN_MINT_PUBLIC_KEY;
+            const outputMint = swapDirection === "sol-to-heidrun" ? HEIDRUN_MINT_PUBLIC_KEY : SOL_MINT_PUBLIC_KEY;
+            const connection = new solanaWeb3.Connection("https://api.mainnet-beta.solana.com", "confirmed");
+            const walletPublicKey = window.solana.publicKey;
+    
+            const response = await fetch(
+                `https://quote-api.jup.ag/v1/swap?inputMint=${inputMint}&outputMint=${outputMint}&amount=${swapAmount * 1e9}&slippage=${slippageTolerance}`,
+                { method: "POST" }
+            );
+            const swapData = await response.json();
+    
+            if (swapData && swapData.tx) {
+                const transaction = solanaWeb3.Transaction.from(Buffer.from(swapData.tx, "base64"));
+                const signedTransaction = await window.solana.signTransaction(transaction);
+                const txId = await connection.sendRawTransaction(signedTransaction.serialize());
+                await connection.confirmTransaction(txId);
+    
+                showToast("Swap completed successfully!", "success");
+                // Update balances
+                fetchBalances(walletPublicKey.toString());
+            } else {
+                throw new Error("Swap execution failed.");
+            }
         } catch (error) {
             console.error("Error performing swap:", error);
             showToast("An error occurred during the swap. Please try again.", "error");
