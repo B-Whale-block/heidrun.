@@ -1076,34 +1076,30 @@ footer a:hover {
 .balance-row {
     display: flex;
     align-items: center;
-    justify-content: space-between; 
-    gap: 10px;
-    width: 90%; 
-    margin: 0 auto; 
+    justify-content: space-between;
+    gap: 20px; 
+    width: 100%; 
+    margin: 0 auto;
 }
 
 .input-container {
     display: flex;
     align-items: center;
-    justify-content: space-between; 
-    width: 100%; 
+    justify-content: space-between;
+    gap: 15px;
+    width: 70%; 
 }
 
 .input-container input[type="text"],
 .input-container input[type="number"] {
     flex: 1; 
-    text-align: left; 
+    text-align: center; 
     padding: 10px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.1);
     color: #ffffff;
     font-size: 1rem;
-    margin: 0 5px; 
-}
-
-.input-container input[type="number"] {
-    text-align: right; 
 }
 
 .input-container input:focus {
