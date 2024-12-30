@@ -270,16 +270,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const outputMint = direction === "sol-to-heidrun" ? HEIDRUN_MINT_PUBLIC_KEY : SOL_MINT_PUBLIC_KEY;
             
             const amountInLamports = Math.floor(inputAmount * 1e9); // Convert to lamports
+            
             const response = await fetch(
                 `https://quote-api.jup.ag/v1/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amountInLamports}`
             );
-            const data = await response.json();
     
-            if (data && data.data && data.data[0]) {
-                const outputAmount = data.data[0].outAmount / 1e9; // Convert from lamports to SOL/Token
+            if (!response.ok) {
+                throw new Error("Failed to fetch quote from Jupiter API");
+            }
+    
+            const data = await response.json();
+            
+            if (data?.data?.[0]?.outAmount) {
+                const outputAmount = data.data[0].outAmount / 1e9; // Convert from lamports
                 document.getElementById('estimatedOutput').textContent = `Estimated: ${outputAmount.toFixed(4)}`;
             } else {
-                throw new Error("Invalid response from Jupiter API");
+                document.getElementById('estimatedOutput').textContent = "No estimate available.";
             }
         } catch (error) {
             console.error("Error fetching estimated output:", error);
@@ -298,8 +304,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
     
-            if (isNaN(slippageTolerance) || slippageTolerance < 0) {
-                showToast("Enter a valid slippage tolerance.", "error");
+            if (isNaN(slippageTolerance) || slippageTolerance < 0 || slippageTolerance > 100) {
+                showToast("Enter a valid slippage tolerance (0-100%).", "error");
                 return;
             }
     
@@ -310,12 +316,28 @@ document.addEventListener('DOMContentLoaded', () => {
             const amountInLamports = Math.floor(swapAmount * 1e9); // Convert to lamports
     
             const response = await fetch(
-                `https://quote-api.jup.ag/v1/swap?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amountInLamports}&slippage=${slippageTolerance}`,
-                { method: "POST" }
+                `https://quote-api.jup.ag/v1/swap`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        inputMint,
+                        outputMint,
+                        amount: amountInLamports,
+                        slippage: slippageTolerance,
+                    }),
+                }
             );
+    
+            if (!response.ok) {
+                throw new Error("Failed to perform swap with Jupiter API");
+            }
+    
             const swapData = await response.json();
     
-            if (swapData && swapData.tx) {
+            if (swapData?.tx) {
                 const connection = new solanaWeb3.Connection("https://api.mainnet-beta.solana.com", "confirmed");
                 const transaction = solanaWeb3.Transaction.from(Buffer.from(swapData.tx, "base64"));
                 const signedTransaction = await window.solana.signTransaction(transaction);
