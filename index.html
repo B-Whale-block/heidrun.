@@ -315,26 +315,28 @@
           <div class="swap-section">
             <!-- From Section -->
             <div class="balance-row">
-              <label for="fromToken">From:</label>
+              <label for="fromInput">From:</label>
               <div class="input-container">
-                <input type="text" id="fromToken" value="SOL" readonly>
-                <input type="number" id="fromAmount" placeholder="0" min="0">
+                <input type="text" id="fromInput" value="SOL 0" readonly>
               </div>
             </div>
           
             <!-- Swap Icon/Button -->
             <button id="swapButton" class="swap-icon">
-              <img src="images/swap-icon.png" alt="Swap">
+              <img src="swap-icon.png" alt="Swap">
             </button>
           
             <!-- To Section -->
             <div class="balance-row">
-              <label for="toToken">To:</label>
+              <label for="toInput">To:</label>
               <div class="input-container">
-                <input type="text" id="toToken" value="HEIDRUN" readonly>
-                <input type="number" id="toAmount" placeholder="0" min="0">
+                <input type="text" id="toInput" value="HEIDRUN 0" readonly>
               </div>
             </div>
+          
+            <!-- Slippage Tolerance -->
+            <label for="slippageTolerance">Slippage Tolerance (%):</label>
+            <input type="number" id="slippageTolerance" value="1" min="0" max="100">
           </div>
       
           <!-- Slippage Tolerance -->

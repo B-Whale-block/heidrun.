@@ -1094,24 +1094,47 @@ footer a:hover {
     box-shadow: 0 0 8px #ffd700;
 }
 
+.input-container input[type="text"],
+#slippageTolerance {
+  width: 100%;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 10px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; 
+}
+
 .swap-icon {
     background: none;
     border: none;
     cursor: pointer;
-    margin: 10px 0;
+    margin: 15px 0;
     width: 50px;
-    height: 40px;
+    height: 50px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: transform 0.3s ease;
 }
-
+  
 .swap-icon:hover {
     transform: rotate(180deg);
 }
-
+  
 .swap-icon img {
     width: 100%;
     height: 100%;
@@ -1123,9 +1146,9 @@ footer a:hover {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-  }
+}
   
-  .input-container input[type="text"] {
+.input-container input[type="text"] {
     width: 40%;
     text-align: center;
     background: rgba(255, 255, 255, 0.1);
@@ -1133,9 +1156,9 @@ footer a:hover {
     border-radius: 8px;
     color: #ffffff;
     padding: 8px;
-  }
+}
   
-  .input-container input[type="number"] {
+.input-container input[type="number"] {
     width: 60%;
     text-align: right;
     background: rgba(255, 255, 255, 0.1);
@@ -1143,7 +1166,7 @@ footer a:hover {
     border-radius: 8px;
     color: #ffffff;
     padding: 8px;
-  }
+}
   
 
 #confirmSwapButton,
