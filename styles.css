@@ -1001,6 +1001,7 @@ footer a:hover {
 }
 
 /* Wallet Info*/
+/* Wallet Modal Container */
 #walletInfoModal .modal-content {
     display: flex;
     flex-direction: column;
@@ -1018,6 +1019,7 @@ footer a:hover {
     box-sizing: border-box;
 }
 
+/* Modal Header */
 #walletInfoModal .modal-content h2 {
     margin-bottom: 5px;
     font-size: 1.6rem;
@@ -1025,6 +1027,7 @@ footer a:hover {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
+/* Balance Section Styling */
 #walletInfoModal .balance-section {
     width: 100%;
     padding: 0 10px;
@@ -1033,6 +1036,7 @@ footer a:hover {
     gap: 10px;
 }
 
+/* Individual Rows for Balance and Input Fields */
 #walletInfoModal .balance-row {
     display: flex;
     justify-content: space-between;
@@ -1042,6 +1046,7 @@ footer a:hover {
     align-items: center;
 }
 
+/* Labels and Values Styling */
 #walletInfoModal .balance-row .token-name {
     text-align: left;
     flex: 1;
@@ -1056,6 +1061,7 @@ footer a:hover {
     color: #ffffff;
 }
 
+/* Swap Section Styling */
 .swap-section {
     margin-top: 0;
     display: flex;
@@ -1074,16 +1080,18 @@ footer a:hover {
     margin-bottom: 3px;
 }
 
-.swap-section input {
-    width: 90%;
-    max-width: 300px;
-    padding: 8px;
-    font-size: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+/* Unified Input Styling */
+.swap-section input,
+.input-container input[type="text"],
+#slippageTolerance {
+    width: 100%;
     text-align: center;
     background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
     color: #ffffff;
+    padding: 10px;
+    font-size: 1rem;
     box-sizing: border-box;
     appearance: none;
 }
@@ -1094,29 +1102,18 @@ footer a:hover {
     box-shadow: 0 0 8px #ffd700;
 }
 
-.input-container input[type="text"],
-#slippageTolerance {
-  width: 100%;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  color: #ffffff;
-  padding: 10px;
-  font-size: 1rem;
-  box-sizing: border-box;
-}
-
+/* Remove Spinner Arrows from Number Inputs */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 input[type="number"] {
-  -moz-appearance: textfield; 
+    -moz-appearance: textfield; /* Firefox */
 }
 
+/* Swap Icon Styling */
 .swap-icon {
     background: none;
     border: none;
@@ -1130,16 +1127,17 @@ input[type="number"] {
     justify-content: center;
     transition: transform 0.3s ease;
 }
-  
+
 .swap-icon:hover {
     transform: rotate(180deg);
 }
-  
+
 .swap-icon img {
     width: 100%;
     height: 100%;
 }
 
+/* Input Container Alignment */
 .input-container {
     display: flex;
     gap: 5px;
@@ -1147,28 +1145,8 @@ input[type="number"] {
     justify-content: space-between;
     width: 100%;
 }
-  
-.input-container input[type="text"] {
-    width: 40%;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    color: #ffffff;
-    padding: 8px;
-}
-  
-.input-container input[type="number"] {
-    width: 60%;
-    text-align: right;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    color: #ffffff;
-    padding: 8px;
-}
-  
 
+/* Unified Button Styling */
 #confirmSwapButton,
 #disconnectWalletButton {
     margin-top: 5px;
@@ -1207,12 +1185,6 @@ input[type="number"] {
     background: linear-gradient(135deg, #ff6347, #8b0000);
     transform: scale(1.1);
     box-shadow: 0 10px 30px rgba(255, 69, 0, 0.6);
-}
-
-#disconnectWalletButton:hover {
-    background: linear-gradient(135deg, #ff6347, #8b0000);
-    transform: scale(1.1);
-    box-shadow: 0 10px 30px rgba(255, 69, 0, 0.6); 
 }
 
 #walletCloseModal {
