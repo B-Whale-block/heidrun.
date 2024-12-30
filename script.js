@@ -297,7 +297,25 @@ document.addEventListener('DOMContentLoaded', () => {
         container.className = 'toast-container';
         document.body.appendChild(container);
         return container;
-    }    
+    }
+    
+    // ========================
+    // Swap icon functionality
+    // ========================
+    const swapButton = document.getElementById('swapButton');
+    const fromTokenInput = document.getElementById('fromToken'); 
+    const toTokenInput = document.getElementById('toToken'); 
+
+    swapButton?.addEventListener('click', () => {
+        // Swap values
+        const fromValue = fromTokenInput.value;
+        const toValue = toTokenInput.value;
+    
+        fromTokenInput.value = toValue;
+        toTokenInput.value = fromValue;
+    
+        console.log(`Swapped: From ${fromValue} to ${toValue}`);
+    });
 
     // ========================
     // 4. Play Alpha Button
