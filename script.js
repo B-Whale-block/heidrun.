@@ -179,15 +179,24 @@ document.addEventListener('DOMContentLoaded', () => {
             // Fetch $HEIDRUN token balance
             try {
                 const tokenAccounts = await connection.getTokenAccountsByOwner(publicKey, {
-                    mint: new solanaWeb3.PublicKey('DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM'),
+                    programId: new solanaWeb3.PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'), // SPL Token Program ID
                 });
+    
                 console.log("Fetched Token Accounts:", tokenAccounts);
     
                 let heidrunBalance = 0;
-                if (tokenAccounts.value && tokenAccounts.value.length > 0) {
-                    const accountData = tokenAccounts.value[0].account.data.parsed?.info?.tokenAmount?.uiAmount;
-                    heidrunBalance = accountData || 0;
+                const heidrunMint = 'DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM';
+    
+                // Find the associated token account for $HEIDRUN
+                for (const account of tokenAccounts.value) {
+                    const accountInfo = await connection.getParsedAccountInfo(account.pubkey);
+                    const data = accountInfo.value?.data?.parsed?.info;
+                    if (data && data.mint === heidrunMint) {
+                        heidrunBalance = data.tokenAmount.uiAmount || 0;
+                        break;
+                    }
                 }
+    
                 console.log("Parsed $HEIDRUN Balance:", heidrunBalance);
                 document.getElementById('heidrunBalance').textContent = heidrunBalance.toFixed(4);
             } catch (error) {
@@ -199,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('solBalance').textContent = 'Error';
             document.getElementById('heidrunBalance').textContent = 'Error';
         }
-    }    
+    }        
 
     function disconnectWallet() {
         walletConnected = false;
