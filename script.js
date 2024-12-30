@@ -138,19 +138,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.solana && window.solana.isPhantom) {
                 const response = await window.solana.connect();
                 const walletAddress = response.publicKey.toString();
-
+    
                 walletConnected = true;
                 updateBuyButton();
                 updateStickyWalletButton();
-
+                alert(`Wallet connected: ${walletAddress}`); // Confirmation message
+    
                 // Fetch balances after successfully connecting the wallet
                 await fetchBalances(walletAddress);
+            } else {
+                alert('Phantom Wallet is not installed.'); // Notify if Phantom is not found
             }
         } catch (error) {
             console.error('Error connecting wallet:', error);
         }
     }
-
+    
     async function fetchBalances(walletAddress) {
         try {
             console.log("Fetching balances...");
@@ -211,91 +214,43 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('heidrunBalance').textContent = 'Error';
         }
     }
-            
-
+    
     function disconnectWallet() {
         walletConnected = false;
-
+    
         // Reset UI
         buyButton.textContent = 'Buy $HEIDRUN';
         closeAllModals();
         updateStickyWalletButton();
+        alert('Wallet disconnected.'); // Confirmation message
         console.log('Wallet disconnected.');
     }
-
+    
+    async function checkWalletConnection() {
+        try {
+            if (window.solana && window.solana.isPhantom) {
+                const isConnected = window.solana.isConnected;
+                if (isConnected) {
+                    const response = await window.solana.connect({ onlyIfTrusted: true });
+                    const walletAddress = response.publicKey.toString();
+                    walletConnected = true;
+                    updateBuyButton();
+                    updateStickyWalletButton();
+                    alert(`Wallet reconnected: ${walletAddress}`); // Confirmation message
+                    await fetchBalances(walletAddress); // Fetch balances after reconnection
+                }
+            }
+        } catch (error) {
+            console.error('Error checking wallet connection:', error);
+        }
+    }
+    
     // Event Listeners
     connectWalletButton?.addEventListener('click', connectWallet);
     disconnectWalletButton?.addEventListener('click', disconnectWallet);
-
-    // ========================
-    // 7. Swap Functionality
-    // ========================
-    const confirmSwapButton = document.getElementById('confirmSwapButton');
-    const swapAmountInput = document.getElementById('swapAmount');
-    const swapDirectionSelect = document.getElementById('swapDirection');
-    const slippageInput = document.getElementById('slippage');
-
-    async function performSwap() {
-        try {
-            const walletAddress = window.solana?.publicKey?.toString();
-            if (!walletAddress) {
-                alert('Please connect your wallet first.');
-                return;
-            }
-
-            const swapAmount = parseFloat(swapAmountInput.value);
-            const slippage = parseFloat(slippageInput.value) / 100; // Convert % to decimal
-            const swapDirection = swapDirectionSelect.value;
-
-            if (isNaN(swapAmount) || swapAmount <= 0) {
-                alert('Please enter a valid swap amount.');
-                return;
-            }
-
-            if (isNaN(slippage) || slippage < 0 || slippage > 1) {
-                alert('Please enter a valid slippage tolerance (0-100%).');
-                return;
-            }
-
-            const connection = new solanaWeb3.Connection(
-                "https://mainnet.helius-rpc.com/?api-key=fbe4fef4-c4f0-4fc7-ae16-3e04c2bf94a9",
-                'confirmed'
-            );
-
-            const publicKey = new solanaWeb3.PublicKey(walletAddress);
-            console.log(`Performing swap: ${swapDirection} | Amount: ${swapAmount} | Slippage: ${slippage}`);
-
-            if (swapDirection === 'heidrun-to-sol') {
-                // Logic for swapping $HEIDRUN to SOL
-                await swapHeidrunToSol(connection, publicKey, swapAmount, slippage);
-            } else if (swapDirection === 'sol-to-heidrun') {
-                // Logic for swapping SOL to $HEIDRUN
-                await swapSolToHeidrun(connection, publicKey, swapAmount, slippage);
-            } else {
-                alert('Invalid swap direction selected.');
-            }
-        } catch (error) {
-            console.error('Error performing swap:', error);
-            alert('An error occurred during the swap. Please try again.');
-        }
-    }
-
-    async function swapHeidrunToSol(connection, publicKey, amount, slippage) {
-        console.log(`Swapping $HEIDRUN to SOL: ${amount} | Slippage: ${slippage}`);
-
-        // TODO: Implement actual swap logic using Solana Token Swap Program or similar
-        alert('Swap functionality for $HEIDRUN to SOL is under development.');
-    }
-
-    async function swapSolToHeidrun(connection, publicKey, amount, slippage) {
-        console.log(`Swapping SOL to $HEIDRUN: ${amount} | Slippage: ${slippage}`);
-
-        // TODO: Implement actual swap logic using Solana Token Swap Program or similar
-        alert('Swap functionality for SOL to $HEIDRUN is under development.');
-    }
-
-    // Attach Event Listener to Swap Button
-    confirmSwapButton?.addEventListener('click', performSwap);
+    
+    // Check wallet connection on page load
+    checkWalletConnection();
 
 
     // ========================
