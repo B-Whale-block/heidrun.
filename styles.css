@@ -999,14 +999,15 @@ footer a:hover {
     transform: translateY(0);
     pointer-events: auto;
 }
+
 /* Wallet Info*/
 #walletInfoModal .modal-content {
     display: flex;
     flex-direction: column;
-    align-items: center; 
-    justify-content: space-between; 
+    align-items: center;
+    justify-content: space-between;
     gap: 10px;
-    background: rgba(34, 34, 51, 0.9); 
+    background: rgba(34, 34, 51, 0.9);
     color: #ffffff;
     padding: 15px;
     border-radius: 15px;
@@ -1020,7 +1021,7 @@ footer a:hover {
 #walletInfoModal .modal-content h2 {
     margin-bottom: 5px;
     font-size: 1.6rem;
-    color: #ffd700; 
+    color: #ffd700;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
@@ -1073,8 +1074,7 @@ footer a:hover {
     margin-bottom: 3px;
 }
 
-.swap-section input,
-.swap-section select {
+.swap-section input {
     width: 90%;
     max-width: 300px;
     padding: 8px;
@@ -1088,29 +1088,34 @@ footer a:hover {
     appearance: none;
 }
 
-.swap-section select {
-    background: rgba(34, 34, 51, 0.9); 
-    cursor: pointer; 
-}
-
-.swap-section select option {
-    background: rgba(34, 34, 51, 1); 
-    color: #ffffff; 
-    padding: 5px; 
-    text-align: left; 
-}
-
-.swap-section input:focus,
-.swap-section select:focus {
+.swap-section input:focus {
     outline: none;
     border: 1px solid #ffd700;
     box-shadow: 0 0 8px #ffd700;
 }
 
-.swap-section select:hover {
-    background: rgba(255, 255, 255, 0.2); 
+.swap-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 10px 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
 }
 
+.swap-icon:hover {
+    transform: rotate(180deg);
+}
+
+.swap-icon img {
+    width: 100%;
+    height: 100%;
+}
 
 #confirmSwapButton,
 #disconnectWalletButton {
@@ -1133,7 +1138,7 @@ footer a:hover {
 
 #confirmSwapButton:hover {
     background: linear-gradient(135deg, #3cb371, #006400);
-    transform: scale(1.1); 
+    transform: scale(1.1);
     box-shadow: 0 10px 30px rgba(50, 205, 50, 0.5);
 }
 
@@ -1144,6 +1149,12 @@ footer a:hover {
     font-weight: bold;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     border: none;
+}
+
+#disconnectWalletButton:hover {
+    background: linear-gradient(135deg, #ff6347, #8b0000);
+    transform: scale(1.1);
+    box-shadow: 0 10px 30px rgba(255, 69, 0, 0.6);
 }
 
 #disconnectWalletButton:hover {
