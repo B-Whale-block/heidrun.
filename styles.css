@@ -1005,42 +1005,57 @@ footer a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
     gap: 10px;
-    background: rgba(34, 34, 51, 0.9);
-    color: #ffffff;
-    padding: 15px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7), 0 0 20px rgba(50, 205, 50, 0.2);
+    padding: 20px;
     max-width: 400px;
     width: 90%;
+    max-height: 90vh;
+    background: linear-gradient(135deg, rgba(34, 34, 51, 1), rgba(50, 50, 75, 1));
+    color: #ffffff;
+    border: 2px solid #ffd700;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+    position: relative; 
     box-sizing: border-box;
 }
 
+#walletInfoModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); 
+    z-index: 9999;
+    padding: 40px 0; 
+}
+
 #walletInfoModal .modal-content h2 {
-    margin-bottom: 5px;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
+    margin: 0;
     color: #ffd700;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 #walletInfoModal .balance-section {
-    width: 100%;
-    padding: 0 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
+    width: 100%;
+    padding: 0 10px;
+    flex-shrink: 0; 
 }
 
 #walletInfoModal .balance-row {
     display: flex;
     justify-content: space-between;
-    font-size: 1.2rem;
-    line-height: 1.5;
-    color: #dcdcdc;
-    align-items: center;
     width: 100%;
+    font-size: 1rem;
 }
 
 #walletInfoModal .balance-row .token-name {
@@ -1051,65 +1066,69 @@ footer a:hover {
 }
 
 #walletInfoModal .balance-row .token-value {
-    text-align: center;
+    text-align: right;
     flex: 1;
     font-weight: bold;
     color: #ffffff;
 }
 
 .swap-section {
-    margin-top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     width: 100%;
 }
 
 .swap-section label {
-    font-size: 1rem;
-    color: #dcdcdc;
-    text-align: left;
+    font-size: 0.9rem;
+    color: #ffd700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.swap-icon {
+    background: none; 
+    border: none; 
+    cursor: pointer;
+    margin: 15px 0;
+    width: 50px; 
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    box-shadow: none; 
+}
+
+.swap-icon img {
     width: 100%;
+    height: 100%; 
+    object-fit: contain; 
+    transition: transform 0.3s ease;
 }
 
-.balance-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px; 
-    width: 100%; 
-    margin: 0 auto;
+.swap-icon:hover {
+    transform: rotate(180deg);
 }
 
-.input-container {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
-    width: 100%; 
-    gap: 15px;
+.swap-icon:hover img {
+    transform: scale(1.1);
 }
 
-.input-container input[type="text"] {
-    flex: 1; 
-    text-align: left; 
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    padding: 10px;
-    color: #ffffff;
-    font-size: 1rem;
-}
-
+.input-container input[type="text"],
 .input-container input[type="number"] {
-    flex: 1; 
-    text-align: right; 
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 100%;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 8px;
-    padding: 10px;
+    background: rgba(34, 34, 51, 0.9);
     color: #ffffff;
     font-size: 1rem;
+    text-align: center;
 }
 
 .input-container input:focus {
@@ -1118,120 +1137,65 @@ footer a:hover {
     box-shadow: 0 0 8px #ffd700;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-input[type="number"] {
-    -moz-appearance: textfield; 
-}
-
-.swap-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin: 15px 0;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease;
-}
-
-.swap-icon:hover {
-    transform: rotate(180deg);
-}
-
-.swap-icon img {
-    width: 100%;
-    height: 100%;
-}
-
-.slippage-container {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
-    gap: 10px; 
-    width: 100%; 
-    padding: 5px 0; 
-}
-  
-  .slippage-container label {
-    flex: 1; 
-    text-align: left;
-    font-size: 1rem;
-    color: #dcdcdc;
-}
-  
-  .slippage-container input[type="number"] {
-    flex: 1; 
-    text-align: right;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    color: #ffffff;
-    padding: 10px;
-    font-size: 1rem;
-}
-
 #confirmSwapButton,
 #disconnectWalletButton {
-    margin-top: 5px;
-    width: 90%;
+    width: 90%; 
     max-width: 300px;
-    padding: 10px 15px;
-    font-size: 1rem;
-    text-align: center;
+    padding: 10px;
     border-radius: 20px;
+    font-size: 0.9rem;
     font-weight: bold;
-    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease;
 }
 
 #confirmSwapButton {
-    background: linear-gradient(135deg, #32cd32, #228b22);
-    color: #fff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-}
-
-#confirmSwapButton:hover {
-    background: linear-gradient(135deg, #3cb371, #006400);
-    transform: scale(1.1);
-    box-shadow: 0 10px 30px rgba(50, 205, 50, 0.5);
+    background: linear-gradient(135deg, #32cd32, #006400);
 }
 
 #disconnectWalletButton {
-    background: linear-gradient(135deg, #ff0000, #cc0000);
-    color: #fff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    background: linear-gradient(135deg, #ff0000, #8b0000);
+}
+
+#confirmSwapButton:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #3cb371, #228b22);
+    box-shadow: 0 6px 15px rgba(50, 205, 50, 0.5);
 }
 
 #disconnectWalletButton:hover {
-    background: linear-gradient(135deg, #ff6347, #8b0000);
-    transform: scale(1.1);
-    box-shadow: 0 10px 30px rgba(255, 69, 0, 0.6);
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #ff6347, #cc0000);
+    box-shadow: 0 6px 15px rgba(255, 69, 0, 0.6);
 }
 
 #walletCloseModal {
-    position: absolute;
-    top: 15px;
-    right: 15px; 
+    position: absolute; 
+    top: -25px; 
+    right: -10px; 
     background: none;
     border: none;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    color: #ff0000; 
+    color: #ff0000;
     cursor: pointer;
     transition: transform 0.3s ease, text-shadow 0.3s ease;
-    z-index: 2; 
+    z-index: 10;
 }
 
 #walletCloseModal:hover {
-    text-shadow: 0 0 20px #ff4500, 0 0 40px #ff6347; 
-    transform: scale(1.3);
+    text-shadow: 0 0 20px #ff4500, 0 0 40px #ff6347;
+    transform: scale(1.2);
+}
+
+#walletInfoModal .modal-content * {
+    flex-shrink: 1; 
+    max-width: 100%; 
+}
+
+#walletInfoModal .modal-content {
+    padding-top: 15px; 
+    padding-bottom: 15px; 
 }
 
 .hidden {
@@ -1251,8 +1215,29 @@ input[type="number"] {
 
 @media (max-width: 768px) {
     #walletInfoModal .modal-content {
-        padding: 10px;
+        justify-content: center;
+        padding: 20px;
+        max-width: 95%;
+        max-height: 80vh;
     }
+
+    #walletInfoModal .modal-content h2 {
+        font-size: 1.3rem; 
+    }
+
+    .swap-section input[type="text"],
+    .swap-section input[type="number"] {
+        padding: 5px;
+        font-size: 0.85rem;
+    }
+
+    #confirmSwapButton,
+    #disconnectWalletButton {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        max-width: 250px;
+    }
+
 
     .swap-section input,
     .swap-section select {
@@ -1264,16 +1249,10 @@ input[type="number"] {
         font-size: 0.8rem;
     }
 
-    #confirmSwapButton,
-    #disconnectWalletButton {
-        font-size: 0.9rem;
-        padding: 8px 12px;
-    }
-
     #walletCloseModal {
-        font-size: 1.8rem; 
-        top: 10px;
-        right: 10px;
+        top: -20px; 
+        right: -10px;
+        font-size: 1.5rem; 
     }
 }
 
@@ -1353,7 +1332,7 @@ input[type="number"] {
 
 @media (max-width: 768px) {
     .sticky-wallet-info {
-        display: block; /* Ensure button appears */
+        display: block; 
     }
 
     .hero {
@@ -1363,7 +1342,11 @@ input[type="number"] {
 
     .hero-content {
         max-width: 100%;
-        margin-bottom: 30px;
+        margin: 0 auto 20px;
+    }
+
+    .hidden {
+        display: none; 
     }
 
     .hero-image {
