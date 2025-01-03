@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Fetch balances after successfully connecting the wallet
                 await fetchBalances(walletAddress);
             } else {
-                showToast("Phantom Wallet is not installed. Please install to continue.", "error");
+                showToast("Phantom Wallet not found! Please install Phantom or use a VPN if you're in a restricted country like the UK. If phantom wallet installed use web browser within the wallet.", "error");
             }
         } catch (error) {
             console.error("Error connecting wallet:", error);
@@ -287,9 +287,51 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             if (toast.parentNode) {
                 toast.style.opacity = '0'; // Smooth fade-out
+                setTimeout(() => toast.remove(), 1500); // Remove after fade-out
+            }
+        }, 5000); // Duration is now 5 seconds
+    }
+    
+    function createToastContainer() {
+        const container = document.createElement('div');
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+        return container;
+    }
+
+    // ========================
+    // 4. Swap Functionality
+    // ========================
+    const confirmSwapButton = document.getElementById('confirmSwapButton');
+
+    confirmSwapButton?.addEventListener('click', async () => {
+        // Show a message that the swap functionality is coming soon
+        showToast("Swap functionality is coming soon! Stay tuned.", "info");
+    });
+    
+    // Show Toast function to display messages
+    function showToast(message, type = 'success') {
+        const toastContainer = document.querySelector('.toast-container') || createToastContainer();
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.textContent = message;
+    
+        // Add Close Button
+        const closeButton = document.createElement('button');
+        closeButton.className = 'toast-close';
+        closeButton.innerHTML = '&times;';
+        closeButton.addEventListener('click', () => toast.remove());
+        toast.appendChild(closeButton);
+    
+        toastContainer.appendChild(toast);
+    
+        // Automatically Remove Toast After 2.5 Seconds
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.style.opacity = '0'; // Smooth fade-out
                 setTimeout(() => toast.remove(), 500); // Remove after fade-out
             }
-        }, 2500); // Duration is now 5 seconds
+        }, 2500); // Duration is now 2.5 seconds
     }
     
     function createToastContainer() {
