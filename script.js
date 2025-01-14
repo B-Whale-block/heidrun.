@@ -15,6 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             menuToggle.textContent = navMenu.classList.contains('active') ? 'X' : '☰';
+        
+            // Manage visibility of social icons
+            const socials = document.querySelector('.header-socials'); // Ensure this selector matches your HTML
+            if (navMenu.classList.contains('active')) {
+                socials.classList.add('hidden');
+            } else {
+                socials.classList.remove('hidden');
+            }
         });
 
         // Close the menu when clicking outside or on a link
