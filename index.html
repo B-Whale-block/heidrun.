@@ -38,11 +38,12 @@
         </div>
         <nav class="navbar">
             <a href="#hero" class="home-link">Home</a>
-            <a href="#game">Game</a>
             <a href="#about">About</a>
+            <a href="#game">Game</a>
             <a href="#chart">Chart</a>
             <a href="#roadmap">Roadmap</a>
             <a href="#staking">Staking</a>
+            <a href="#socials">Socials</a>
             <button class="cta-button">Buy $HEIDRUN</button>
         </nav>
         <button class="hamburger-menu" id="menuToggle">☰</button>
@@ -65,30 +66,8 @@
         <div class="hero-image">
             <img src="images/valhalla-goat.png" alt="Heidrun Viking Goat" class="mascot">
         </div>
-    </section> 
-    
-    <section id="game" class="games-section">
-        <h1>Alpha Heidrun Rush</h1>
-        <h2>🎮 V1.1 Now Live and Playable! 🎮</h2>
-        <div class="game-info">
-            <p>
-                <strong>About the Game:</strong> Alpha V1.0 of Heidrun Rush is a Candy Crush-style game where players can enjoy exciting gameplay while transacting directly in Solana. Purchases in-game go to the dev wallet, and we are exploring whether to <strong>burn Heidrun</strong> or use it for the <strong>staking rewards pool</strong>.
-            </p>
-            <p>
-                <strong>Future Plans:</strong> In Alpha V2.0, we aim to enable transactions directly in Heidrun and integrate feedback from players for an enhanced experience.
-            </p>
-            <p>
-                <strong>Game Hosting:</strong> The game is hosted directly on Heidrun’s servers and uses Solana’s approved Unity SDK for web3 connection. Please choose <strong>Mobile Wallet Adapter → Phantom/Solflare</strong> to connect.
-            </p>
-        </div>
-        <div class="game-actions">
-            <button class="cta-button" onclick="window.open('https://heidrun.xyz/heidrunrush/index.html', '_blank');">
-                Play Alpha V1.1
-            </button>
-        </div>
     </section>
     
-
     <section id="about" class="section">
         <h1>About Heidrun</h1>
         <div class="about-content">
@@ -136,6 +115,27 @@
             <p class="cta">
                 The Heidrun journey has just begun. Stake your claim and join us in reshaping the crypto gaming frontier!
             </p>
+        </div>
+    </section>
+    
+    <section id="game" class="games-section">
+        <h1>Alpha Heidrun Rush</h1>
+        <h2>🎮 V1.1 Now Live and Playable! 🎮</h2>
+        <div class="game-info">
+            <p>
+                <strong>About the Game:</strong> Alpha V1.0 of Heidrun Rush is a Candy Crush-style game where players can enjoy exciting gameplay while transacting directly in Solana. Purchases in-game go to the dev wallet, and we are exploring whether to <strong>burn Heidrun</strong> or use it for the <strong>staking rewards pool</strong>.
+            </p>
+            <p>
+                <strong>Future Plans:</strong> In Alpha V2.0, we aim to enable transactions directly in Heidrun and integrate feedback from players for an enhanced experience.
+            </p>
+            <p>
+                <strong>Game Hosting:</strong> The game is hosted directly on Heidrun’s servers and uses Solana’s approved Unity SDK for web3 connection. Please choose <strong>Mobile Wallet Adapter → Phantom/Solflare</strong> to connect.
+            </p>
+        </div>
+        <div class="game-actions">
+            <button class="cta-button" onclick="window.open('./heidrunrush', '_blank');">
+                Play Alpha V1.1
+            </button>            
         </div>
     </section> 
     
@@ -242,26 +242,37 @@
         <a href="https://stake.smithii.io/heidrun" class="btn btn-game" target="_blank">Stake Now on Smithii.io</a>
     </section>
     
-    <section class="socials-section">
-        <h2>Be Part of the Heidrun Goat Community – Join Us Today!</h2>
-        <p>Stay updated with the latest news, exclusive giveaways, and more. Don’t miss out!</p>
-        <div class="socials-content">
-            <div class="socials-links">
-                <a href="https://t.me/heidrunportal" target="_blank" title="Join us on Telegram">
-                    <img src="images/telegram-logo.png" alt="Telegram" class="social-icon">
+    <section id="socials" class="socials-section">
+        <h2>Join the Heidrun Goat Community</h2>
+        <p>Stay updated with the latest news, exclusive giveaways, and more!</p>
+        <div class="socials-container">
+            <!-- Social Icons -->
+            <div class="socials-grid">
+                <a href="https://t.me/heidrunportal" target="_blank" class="social-icon" title="Telegram">
+                    <img src="images/telegram-logo.png" alt="Telegram">
                 </a>
-                <a href="https://x.com/HeidrunSol" target="_blank" title="Follow us on X">
-                    <img src="images/x-logo.png" alt="X" class="social-icon x-icon">
+                <a href="https://x.com/HeidrunSol" target="_blank" class="social-icon" title="X">
+                    <img src="images/x-logo.png" alt="X">
+                </a>
+                <a href="https://www.tiktok.com/@heidrun_sol" target="_blank" class="social-icon" title="Tiktok">
+                    <img src="images/tiktok-icon.png" alt="Tiktok">
+                </a>
+                <a href="https://www.instagram.com/heidrunsolana" target="_blank" class="social-icon" title="Instagram">
+                    <img src="images/instagram-icon.png" alt="Instagram">
+                </a>
+                <a href="https://www.facebook.com/people/Heidrun-Solana/pfbid0ZySDJT3aKctrqty1wh4HV7fA6XE3jq7s1ubcyKZE1XQiGSg9kYoXFD4Jgf3DA3wyl/" target="_blank" class="social-icon" title="Facebook">
+                    <img src="images/facebook-logo.png" alt="Facebook">
                 </a>
             </div>
-            <div class="socials-gif">
-                <img src="videos/phone-in-hand-unscreen.gif" alt="Socials Promo Video" class="promo-gif">
+        
+            <div class="goat-image">
+                <img src="videos/phone-in-hand-unscreen.gif" alt="Heidrun Goat Character">
             </div>
         </div>
-    </section>
+    </section>            
     
     <footer>
-        <p>&copy; 2024 Heidrun. All Rights Reserved.</p>
+        <p>&copy; 2025 Heidrun. All Rights Reserved.</p>
     </footer> 
 
     <!-- Modal Background -->

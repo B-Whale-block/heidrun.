@@ -1,4 +1,4 @@
-// Wait for DOM to fully load
+// Wait for DOM to fully load 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Website loaded and interactive!');
     console.log(typeof solanaWeb3 !== 'undefined' ? 'Solana Web3 is loaded' : 'Solana Web3 is not loaded');
@@ -374,7 +374,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (playAlphaButton) {
         playAlphaButton.addEventListener('click', () => {
-            window.open('https://heidrun.xyz/heidrunrush/index.html', '_blank');
+            const gameLink = './heidrunrush';
+            const newTab = window.open(gameLink, '_blank');
+            if (newTab) {
+                newTab.focus(); // Ensures the tab is brought to the foreground
+            } else {
+                alert('Please allow pop-ups for this site to play the game.');
+            }
         });
     }
 
