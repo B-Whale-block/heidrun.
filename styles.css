@@ -60,7 +60,9 @@ section {
 
 .header-socials {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
+    padding-right: 10px; 
+    padding-left: 10px;
     gap: 15px;
     flex: 1; 
 }
