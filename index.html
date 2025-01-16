@@ -59,6 +59,7 @@
         <nav class="navbar">
             <a href="#hero" class="home-link">Home</a>
             <a href="#about">About</a>
+            <a href="Merchandise/index.html">Merchandise</a>
             <a href="#game">Game</a>
             <a href="#chart">Chart</a>
             <a href="#roadmap">Roadmap</a>
@@ -73,14 +74,27 @@
             <h1>Welcome to <span class="highlight">$HEIDRUN</span></h1>
             <p>Your Gateway to Valhalla on the Blockchain</p>
             <div class="hero-buttons">
-                <button class="playg-game-button" id="playAlphaButton">
-                    <img src="images/goat-head-logo.png" alt="playg-game-button-logo" class="playg-game-button-logo">
-                    Play Alpha V1.1
-                </button>
-                <a href="https://t.me/heidrunportal" class="btn btn-secondary" target="_blank">
-                    <img src="images/telegram.png" alt="Telegram Icon" class="btn-icon"> Join the Community
-                </a>
-            </div>                    
+                <!-- Row 1 -->
+                <div class="top-buttons">
+                    <button class="playg-game-button" id="playAlphaButton">
+                        <img src="images/goat-head-logo.png" alt="playg-game-button-logo" class="playg-game-button-logo">
+                        Play Alpha V1.1
+                    </button>
+            
+                    <a href="https://t.me/heidrunportal" class="btn btn-secondary" target="_blank">
+                        <img src="images/telegram.png" alt="Telegram Icon" class="btn-icon"> Join the Community
+                    </a>
+                </div>
+            
+                <!-- Row 2 -->
+                <div class="bottom-buttons">
+                    <button class="merch-store-button" id="merchStoreButton" onclick="window.open('Merchandise/index.html', '_blank')">
+                        <img src="images/merch-icon.png" alt="merch-button-logo" class="merch-store-logo">
+                        Merch Store
+                    </button>
+                </div>
+            </div>
+                                
         </div>
         <div class="hero-image">
             <img src="images/valhalla-goat.png" alt="Heidrun Viking Goat" class="mascot">
@@ -123,7 +137,7 @@
                     <img src="images/meme-bot-preview.jpg" alt="Meme Bot Preview" class="utility-image">
                     <h3>Meme Bot</h3>
                     <p>Generate shareable, viral memes in seconds with AI support.</p>
-                    <a href="https://t.me/HeidrunSummarizeBot" target="_blank" class="about-btn">Explore @HeidrunSummarizeBot</a>
+                    <a href="https://t.me/HeidrunAImeme_bot" target="_blank" class="about-btn">Explore @HeidrunAImeme_bot</a>
                 </div>
                 <div class="utility-item">
                     <video autoplay loop muted class="utility-image">
@@ -315,6 +329,14 @@
                     <span>Connect Wallet</span>
                 </button>
     
+                <!-- Buy on Bitget -->
+                <a href="https://web3.bitget.com/en/swap/sol/DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM"
+                    class="pay-option bitget-option"
+                    target="_blank">
+                    <img src="images/bitget-logo.png" alt="Bitget Wallet" class="payment-icon bitget-icon">
+                    <span>Buy on Bitget Wallet</span>
+                </a>
+
                 <!-- Buy on Raydium -->
                 <a href="https://raydium.io/swap/?inputCurrency=SOL&outputCurrency=fuwuqtctdsgtpw4ypxmsvnhw5txno65rohxztak5xkf4&inputMint=sol&outputMint=DdyoGjgQVT8UV8o7DoyVrBt5AfjrdZr32cfBMvbbPNHM"
                    class="pay-option raydium-option"
@@ -333,7 +355,7 @@
             </div>
             <button class="close-modal">Close</button>
         </div>
-    </div>
+    </div>    
 
     <!-- Wallet Info Modal -->
     <div id="walletInfoModal" class="modal" aria-hidden="true">
